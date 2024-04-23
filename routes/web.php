@@ -32,6 +32,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/add_user', [UserController::class,'add_user']);
+Route::post('/store_user', [UserController::class,'store_user']);
 
-Route::get('/show_user', [UserController::class,'show_user']);
+Route::get('/input_user', [UserController::class,'input_user']);
+
+Route::get('/user_delete/{id}', [AdminController::class,'user_delete']);
+
+Route::get('/user_edit/{id}', [AdminController::class,'user_edit']);
