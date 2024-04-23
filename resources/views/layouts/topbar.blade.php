@@ -339,19 +339,20 @@
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="/users/management" class="dropdown-item">
+                                        <a href="{{url('show_user')}}" class="dropdown-item">
                                             <span class="d-flex align-items-center">
                                                 <i class="ph-duotone ph-users"></i>
                                                 <span>Management User</span>
                                             </span>
                                         </a>
-                                        <a href="/users/input_user" class="dropdown-item">
+                                        <a href="{{url('input_user')}}" class="dropdown-item">
                                             <span class="d-flex align-items-center">
                                                 <i class="ph-duotone ph-user-plus"></i>
                                                 <span>Input User</span>
                                             </span>
                                         </a>
-                                     
+                                        
+                                        
                                     </li>
                                     <li class="list-group-item">
                                         <div class="dropdown-item">

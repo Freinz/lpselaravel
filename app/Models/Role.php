@@ -5,15 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inputuser extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    public function role() {
-
-        return $this->belongsTo(Role::class);
-
-    }
-
-    
+    protected $fillable = [
+        'role_user',
+    ];
 }

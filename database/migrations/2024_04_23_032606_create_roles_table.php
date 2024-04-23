@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inputusers', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name')->nullable();
-            $table->string('age_user')->nullable();
-            $table->string('address_user')->nullable();
-            $table->string('phone_user')->nullable();
+            $table->string('role_user');
             $table->timestamps();
-
-            $table->foreignID('role_id')->constrained()->onDelete('cascade');
-
         });
     }
 
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inputusers');
+        Schema::dropIfExists('roles');
     }
 };

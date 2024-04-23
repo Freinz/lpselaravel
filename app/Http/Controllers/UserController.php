@@ -6,13 +6,77 @@ use Illuminate\Http\Request;
 
 use App\Models\Inputuser;
 
+use App\Models\Role;
+
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
      */
+
+     public function role_page () {
+
+        $data = Role::all();
+
+        return view('users.role', compact('data'));
+    }
+
+     public function role_add (Request $request) {
+        
+        $data = new Role;
+
+        $data->role_user = $request->role;
+
+        $data->save();
+
+        return redirect()->back()->with('message','Role Added Successfully');
+       
+    }
+
+    public function role_delete($id) {
+
+        $data = Role::find($id); // Category dari nama models
+
+        $data->delete();
+
+        return redirect()->back()->with('message', 'Role deleted succesfully'); // agar kembali ke page yang sama
+        
+    }
+    
+    public function role_read($id) {
+
+        $data = Role::find($id);
+
+        return view('users.update_role', compact('data'));
+
+    }
+
+    public function role_update(Request $request, $id) {
+
+
+        $data = Role::find($id);
+
+        $data->role_user = $request -> role_user;
+
+        $data->save();
+
+        return redirect('/category_page')->with ('message', 'Role Updated Succesfully'); // untuk kembali ke page awal setelah edit
+
+    }
+
+
+    public function input_user() {
+
+        $inputuser = Inputuser::all();
+
+
+        return view('users.input_user', compact(['inputuser']) );
+
+    }
+
 
     public function store_user(Request $request) {
 
@@ -31,14 +95,15 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function input_user() {
+    public function show_user() {
 
         $inputuser = Inputuser::all();
 
-
-        return view('users.input_user', compact(['inputuser']) );
+        return view('users.show_user', compact('inputuser'));
 
     }
+
+   
 
     public function user_delete($id) {
 
@@ -47,6 +112,16 @@ class UserController extends Controller
         $data->delete();
 
         return redirect()->back()->with('message', 'User Data has Deleted Successfully');
+
+    }
+
+    public function user_read($id) {
+
+        $data = Inputuser::find($id);
+
+        $role = role::all();
+
+        return view('users.update_user', compact('data', 'role'));
 
     }
 
@@ -64,7 +139,7 @@ class UserController extends Controller
 
         $data->save();
 
-        return redirect('/input_user')->with('message', 'Users Update Successfully');
+        return redirect('/show_user')->with('message', 'Users Update Successfully');
 
     }
 
