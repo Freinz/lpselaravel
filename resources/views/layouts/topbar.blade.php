@@ -352,7 +352,12 @@
                                             </span>
                                         </a>
                                         
-                                        
+                                        <a href="{{url('role_page')}}" class="dropdown-item">
+                                            <span class="d-flex align-items-center">
+                                                <i class="ph-duotone ph-user-plus"></i>
+                                                <span>Input Role</span>
+                                            </span>
+                                        </a>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="dropdown-item">
