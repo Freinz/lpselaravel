@@ -1,73 +1,54 @@
 @extends('layouts.main')
 
-<style type="text/css">
-        
-        .div_center {
-            text-align: center;
-            margin: auto;
-        }
+@section('title', 'Form Elements')
+@section('breadcrumb-item', 'Forms')
 
-        .title_desain {
-            color: black;
-            padding: 25px;
-            font-size: 40px;
-            font-weight: bold;
-        }
-
-        label {
-            dipslay: inline-block;
-            width: 200px;
-        }
-
-        .div_pad {
-            padding: 15px;
-        }
-
-    </style>
-
-@section('title', 'User Widgets')
-@section('breadcrumb-item', 'Widget')
-
-@section('breadcrumb-item-active', 'User')
+@section('breadcrumb-item-active', 'Input User')
 
 @section('css')
 @endsection
 
 @section('content')
-        <div class="row">
-          <!-- [ Row 1 ] start -->
-          <h1 class="title_desain">Add User</h1>
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5>User Control</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <form action="{{url('store_user')}}" method="Post" enctype="multipart/form-data">
 
-<form action="{{url('store_user')}}" method="Post" enctype="multipart/form-data">
+                  @csrf
 
-@csrf
-
-<div class="div_pad">
-  <label>User Name</label>
-  <input type="text" name="user_name" id="">
-</div>
-
-<div class="div_pad">
-  <label>Role User</label>
-  <input type="text" name="role_user" id="">
-</div>
-
-
-<div class="div_pad">
-  <label>Address</label>
-  <input type="text" name="address_user" id="">
-</div>
-
-<div class="div_pad">
-  <label>Phone</label>
-  <input type="text" name="phone_user" id="">
-</div>
-
-<div class="div_pad">
-    <input type="submit" value="Add User" class="btn btn-info">
-</div>
-
-
-          <!-- [ Row 1 ] end -->
-        </div>
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputEmail1">User Name</label>
+                      <input type="text" class="form-control" name="user_name"
+                        placeholder="Enter User Name">
+                    
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputPassword1">Role User</label>
+                      <input type="text" class="form-control" name="role_user" placeholder="Role User">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputPassword1">Address</label>
+                      <input type="text" class="form-control" name="address_user" placeholder="Address User">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputPassword1">Phone</label>
+                      <input type="text" class="form-control" name="phone_user" placeholder="Phone">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+                  </form>
+                </div>
+                
+                  </form>
+                
+        <!-- [ form-element ] end -->
+      </div>
 @endsection
+
