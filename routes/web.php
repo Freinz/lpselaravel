@@ -24,13 +24,13 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/role_page', [UserController::class,'role_page']);
     
-    Route::post('/cat_add', [UserController::class,'cat_add']);
+    Route::post('/role_add', [UserController::class,'role_add']);
 
-Route::get('/cat_delete/{id}', [UserController::class,'cat_delete']);
+Route::get('/role_delete/{id}', [UserController::class,'role_delete']);
 
-Route::get('/cat_read/{id}', [UserController::class,'cat_read']);
+Route::get('/role_read/{id}', [UserController::class,'role_read']);
 
-Route::post('/cat_update/{id}', [UserController::class,'cat_update']);
+Route::post('/role_update/{id}', [UserController::class,'role_update']);
 
 Route::get('/input_user', [UserController::class,'input_user']);
 

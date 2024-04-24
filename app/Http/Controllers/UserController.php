@@ -21,7 +21,7 @@ class UserController extends Controller
 
         $data = Role::all();
 
-        return view('users.role', compact('data'));
+        return view('users.input_role', compact('data'));
     }
 
      public function role_add (Request $request) {
@@ -32,7 +32,7 @@ class UserController extends Controller
 
         $data->save();
 
-        return redirect()->back()->with('message','Role Added Successfully');
+        return redirect()->back();
        
     }
 
@@ -59,11 +59,11 @@ class UserController extends Controller
 
         $data = Role::find($id);
 
-        $data->role_user = $request -> role_user;
+        $data->role_user = $request -> role;
 
         $data->save();
 
-        return redirect('/category_page')->with ('message', 'Role Updated Succesfully'); // untuk kembali ke page awal setelah edit
+        return redirect('/role_page')->with ('message', 'Role Updated Succesfully'); // untuk kembali ke page awal setelah edit
 
     }
 
