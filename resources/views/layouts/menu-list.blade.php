@@ -47,13 +47,15 @@
         <span class="pc-mtext">User</span>
     </a>
 </li>
-<li class="pc-item">
-    <a href="/widget/w_data" class="pc-link">
-        <span class="pc-micon">
-            <i class="ph-duotone ph-database"></i>
-        </span>
-        <span class="pc-mtext">Data</span>
-    </a>
+<li class="pc-item pc-hasmenu">
+    <a href="#!" class="pc-link"><span class="pc-micon">
+            <i class="ph-duotone ph-database"></i></span><span class="pc-mtext">Management Data</span><span
+            class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+    <ul class="pc-submenu">
+        <li class="pc-item"><a class="pc-link" href="{{ url('show_data') }}">Show Data</a></li>
+        <li class="pc-item"><a class="pc-link" href="/elements/icon-fontawesome">Input Data</a></li>
+        <li class="pc-item"><a class="pc-link" href="/elements/icon-material">Input City</a></li>
+    </ul>
 </li>
 <li class="pc-item">
     <a href="/widget/w_chart" class="pc-link">

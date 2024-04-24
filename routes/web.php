@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ManagementDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,11 @@ Route::get('/user_read/{id}', [UserController::class,'user_read']);
 
 Route::post('/user_edit/{id}', [UserController::class,'user_edit']);
 
+// Management Databases Route
+Route::get('/show_data', [ManagementDataController::class,'show_data']);
+
+Route::post('/store_data', [ManagementDataController::class,'store_data']);
+
     // Define a GET route for the root URL ('/')
     Route::get('/', function () {
         // Return a view named 'index' when accessing the root URL
@@ -52,7 +58,5 @@ Route::post('/user_edit/{id}', [UserController::class,'user_edit']);
     // Define a GET route with dynamic placeholders for route parameters
     Route::get('{routeName}/{name?}', [HomeController::class, 'pageView']);
 });
-
-
 
 
