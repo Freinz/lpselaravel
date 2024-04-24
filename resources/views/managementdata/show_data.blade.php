@@ -3,7 +3,7 @@
 @section('title', 'Advance Initialization')
 @section('breadcrumb-item', 'DataTable')
 
-@section('breadcrumb-item-active', 'Advance Initialization')
+@section('breadcrumb-item-active', 'Kumpulan Data Provinsi Kalimantan Selatan')
 
 @section('css')
     <!-- [Page specific CSS] start -->
@@ -19,16 +19,22 @@
           <!-- Row Grouping table start -->
           <div class="col-sm-12">
             <div class="card">
-              <div class="card-header">
-                <h5>Row Grouping</h5>
-                <small
-                  >Although DataTables doesn't have row grouping built-in (picking one of the many methods available would overly limit the
-                  DataTables core), it is most certainly possible to give the look and feel of row grouping.</small
-                >
-              </div>
+                
               <div class="card-body">
                 <div class="dt-responsive">
                   <table id="row-grouping" class="table table-striped table-bordered nowrap">
+
+                  <thead>
+                        <tr>
+                            <td>Nama Kota</td>
+                            <td>Jenis Barang</td>
+                            <td>Nama Barang</td>
+                            <td>Nama Barang</td>
+                            <td>Harga Satuan</td>
+                            <td>Kuartal</td>
+                            <td>Tahun</td>
+                          </tr>
+                    </tbody>
                     
                     @foreach ($managementdata as $mgdata )
                     

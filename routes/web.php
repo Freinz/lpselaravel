@@ -45,9 +45,21 @@ Route::get('/user_read/{id}', [UserController::class,'user_read']);
 Route::post('/user_edit/{id}', [UserController::class,'user_edit']);
 
 // Management Databases Route
-Route::get('/show_data', [ManagementDataController::class,'show_data']);
+Route::get('/city_page', [ManagementDataController::class,'city_page']);
+
+Route::post('/city_add', [ManagementDataController::class,'city_add']);
+
+Route::get('/city_delete/{id}', [ManagementDataController::class,'city_delete']);
+
+Route::get('/city_read/{id}', [ManagementDataController::class,'city_read']);
+
+Route::post('/city_update/{id}', [ManagementDataController::class,'city_update']);
+
+Route::get('/input_data', [ManagementDataController::class,'input_data']);
 
 Route::post('/store_data', [ManagementDataController::class,'store_data']);
+
+Route::get('/show_data', [ManagementDataController::class,'show_data']);
 
     // Define a GET route for the root URL ('/')
     Route::get('/', function () {

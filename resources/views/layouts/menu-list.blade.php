@@ -53,8 +53,8 @@
             class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
     <ul class="pc-submenu">
         <li class="pc-item"><a class="pc-link" href="{{ url('show_data') }}">Show Data</a></li>
-        <li class="pc-item"><a class="pc-link" href="/elements/icon-fontawesome">Input Data</a></li>
-        <li class="pc-item"><a class="pc-link" href="/elements/icon-material">Input City</a></li>
+        <li class="pc-item"><a class="pc-link" href="{{url('input_data')}}">Input Data</a></li>
+        <li class="pc-item"><a class="pc-link" href="{{url('city_page')}}">Input City</a></li>
     </ul>
 </li>
 <li class="pc-item">
