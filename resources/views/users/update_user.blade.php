@@ -29,10 +29,20 @@
                         value="{{$data->user_name}}">
                     
                     </div>
+                   
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputPassword1">Role User</label>
-                      <input type="text" class="form-control" name="role_user" value="{{$data->role_user}}">
+                      <label class="form-label">Role User</label>
+<br>
+                      <select class="btn btn-light-secondary" name="role" required>
+                        <option value="{{$data->role_id}}">{{$data->role->role_user}}</option>
+
+                      @foreach($role as $role)
+                      <option  value="{{$role->id}}">{{$role->role_user}}</option>
+                      @endforeach
+                      </select>
+
                     </div>
+
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Address</label>
                       <input type="text" class="form-control" name="address_user" value="{{$data->address_user}}">

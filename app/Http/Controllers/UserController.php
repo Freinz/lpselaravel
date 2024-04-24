@@ -70,10 +70,10 @@ class UserController extends Controller
 
     public function input_user() {
 
-        $inputuser = Inputuser::all();
+        $data = Role::all();
 
 
-        return view('users.input_user', compact(['inputuser']) );
+        return view('users.input_user', compact('data') );
 
     }
 
@@ -84,7 +84,7 @@ class UserController extends Controller
 
         $data->user_name = $request->user_name;
 
-        $data->role_user = $request->role_user;
+        $data->role_id = $request->role;
         
         $data->address_user = $request->address_user;
         
@@ -131,7 +131,7 @@ class UserController extends Controller
 
         $data->user_name = $request->user_name;
 
-        $data->role_user = $request->role_user;
+        $data->role_id = $request->role;
         
         $data->address_user = $request->address_user;
         

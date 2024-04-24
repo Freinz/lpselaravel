@@ -39,7 +39,7 @@
                           </div>
                         </div>
                       </td>
-                      <td>{{$inputuser->role_user}}</td>
+                      <td>{{$inputuser->role->role_user}}</td>
                       <td>{{$inputuser->address_user}}</td>
                       <td>{{$inputuser->phone_user}}</td>
                       <td>
