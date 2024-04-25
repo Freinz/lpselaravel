@@ -9,10 +9,15 @@ class Managementdata extends Model
 {
     use HasFactory;
 
-    public function city() {
+    protected $fillable = [
+        'city_name',
+        'jenis_barang',
+        'nama_barang',
+        'harga_satuan',
+        'kuartal',
+        'tahun',
+    ];
 
-        return $this->belongsTo(City::class);
-
-    }
+      
 
 }

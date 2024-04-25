@@ -8,6 +8,10 @@ use App\Models\Managementdata;
 
 use App\Models\City;
 
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Imports\EmployeeImport;
+
 use Illuminate\Support\Facades\Auth;
 
 class ManagementDataController extends Controller
@@ -51,18 +55,7 @@ class ManagementDataController extends Controller
 
     }
 
-    public function city_update(Request $request, $id) {
-
-
-        $data = City::find($id);
-
-        $data->city_name = $request -> city;
-
-        $data->save();
-
-        return redirect('/city_page')->with ('message', 'City Updated Succesfully'); // untuk kembali ke page awal setelah edit
-
-    }
+    
 
     public function input_data() {
 
@@ -78,7 +71,7 @@ class ManagementDataController extends Controller
 
         $data->jenis_barang = $request->jenis_barang;
 
-        $data->city_id = $request->city;
+        $data->city_name = $request->city_name;
         
         $data->nama_barang = $request->nama_barang;
         
@@ -88,7 +81,7 @@ class ManagementDataController extends Controller
 
         $data->tahun = $request->tahun;
 
-        $data->city_id = $request->city;
+        $data->city_name = $request->city_name;
 
         $data->save();
         
@@ -100,6 +93,20 @@ class ManagementDataController extends Controller
         $managementdata = Managementdata::all();
 
         return view('managementdata.show_data', compact('managementdata'));
+
+    }
+
+    public function importexcel(Request $request) {
+
+        $data = $request->file('file');
+
+        $namafile = $data->getClientOriginalName();
+
+        $data->move('EmployeeData', $namafile);
+
+        Excel::import(new EmployeeImport, \public_path('/EmployeeData/'.$namafile));
+
+        return redirect()-> back();
 
     }
 

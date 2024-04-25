@@ -61,6 +61,10 @@ Route::post('/store_data', [ManagementDataController::class,'store_data']);
 
 Route::get('/show_data', [ManagementDataController::class,'show_data']);
 
+// Penginputan Data Excel
+Route::post('/importexcel', [ManagementDataController::class,'importexcel'])->name('importexcel');
+
+
     // Define a GET route for the root URL ('/')
     Route::get('/', function () {
         // Return a view named 'index' when accessing the root URL
