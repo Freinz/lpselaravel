@@ -21,7 +21,11 @@ class UserController extends Controller
 
         $data = Role::all();
 
+
         return view('users.input_role', compact('data'));
+
+        return view('users.role', compact('data'));
+
     }
 
      public function role_add (Request $request) {
@@ -32,7 +36,11 @@ class UserController extends Controller
 
         $data->save();
 
+
         return redirect()->back();
+
+        return redirect()->back()->with('message','Role Added Successfully');
+
        
     }
 
@@ -59,21 +67,36 @@ class UserController extends Controller
 
         $data = Role::find($id);
 
+
         $data->role_user = $request -> role;
 
         $data->save();
 
         return redirect('/role_page')->with ('message', 'Role Updated Succesfully'); // untuk kembali ke page awal setelah edit
 
+        $data->role_user = $request -> role_user;
+
+        $data->save();
+
+        return redirect('/category_page')->with ('message', 'Role Updated Succesfully'); // untuk kembali ke page awal setelah edit
+
+
     }
 
 
     public function input_user() {
 
+
         $data = Role::all();
 
 
         return view('users.input_user', compact('data') );
+
+        $inputuser = Inputuser::all();
+
+
+        return view('users.input_user', compact(['inputuser']) );
+
 
     }
 
@@ -84,11 +107,25 @@ class UserController extends Controller
 
         $data->user_name = $request->user_name;
 
+
         $data->role_id = $request->role;
         
         $data->address_user = $request->address_user;
         
         $data->phone_user = $request->phone_user;
+
+        
+        $data->email = $request->email;
+
+        $data->nip = $request->nip;
+        
+        $data->no_ktp = $request->no_ktp;
+        
+        $data->tempat_lahir = $request->tempat_lahir;
+        
+        $data->tanggal_lahir = $request->tanggal_lahir;
+
+
 
         $data->save();
         
@@ -131,11 +168,23 @@ class UserController extends Controller
 
         $data->user_name = $request->user_name;
 
+        $data->email = $request->email;
+
         $data->role_id = $request->role;
         
         $data->address_user = $request->address_user;
         
         $data->phone_user = $request->phone_user;
+        
+        $data->nip = $request->nip;
+        
+        $data->no_ktp = $request->no_ktp;
+        
+        $data->tempat_lahir = $request->tempat_lahir;
+        
+        $data->tanggal_lahir = $request->tanggal_lahir;
+
+
 
         $data->save();
 
@@ -197,4 +246,7 @@ class UserController extends Controller
     {
         //
     }
+
 }
+
+

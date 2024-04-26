@@ -24,9 +24,16 @@
                   @csrf
 
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputEmail1">User Name</label>
+
+                      <label class="form-label" for="exampleInputEmail1">Nama</label>
                       <input type="text" class="form-control" name="user_name"
-                        placeholder="Enter User Name">
+                        placeholder="Enter Nama">
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputEmail1">Email</label>
+                      <input type="email" class="form-control" name="email"
+                        placeholder="Enter Email">
                     </div>
 
                     <div class="form-group">
@@ -45,21 +52,49 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputPassword1">Address</label>
-                      <input type="text" class="form-control" name="address_user" placeholder="Address User">
+                      <label class="form-label" for="exampleInputPassword1">Alamat</label>
+                      <input type="text" class="form-control" name="address_user" placeholder="Masukkan Alamat">
                     </div>
+
+                   
+
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputPassword1">Phone</label>
-                      <input type="number" class="form-control" name="phone_user" placeholder="Phone">
+                      <label class="form-label" for="exampleInputPassword1">No Handphone</label>
+                      <input type="number" class="form-control" name="phone_user" placeholder="No Handphone" required>
                     </div>
                     
                     <button type="submit" class="btn btn-primary mb-4">Submit</button>
-                  </form>
+                  
                 </div>
                 
+                <div class="col-md-6">
+            
+
+                  <div class="form-group">
+                    <label class="form-label">NIP</label>
+                    <input type="number" class="form-control" name="nip" placeholder="NIP">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">No KTP</label>
+                    <input type="number" class="form-control" name="no_ktp" placeholder="No KTP">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Tempat Lahir</label>
+                    <input type="text" class="form-control" name="tempat_lahir" placeholder="Tempat Lahir">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Tanggal Lahir</label>
+                    <input type="date" class="form-control" name="tanggal_lahir" placeholder="Tanggal Lahir">
+                  </div>
+                </form>
+                 
+                
                   </form>
+
                 
         <!-- [ form-element ] end -->
       </div>
 @endsection
+
+
 

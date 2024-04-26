@@ -53,9 +53,30 @@
                     </div>
                     
                     <button type="submit" class="btn btn-primary mb-4">Update User</button>
-                  </form>
+                
                 </div>
                 
+                
+<div class="col-md-6">
+                
+                <div class="form-group">
+                  <label class="form-label">NIP</label>
+                  <input type="number" class="form-control" value="{{$data->nip}}" name="nip" placeholder="NIP">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">No KTP</label>
+                  <input type="number" class="form-control" value="{{$data->no_ktp}}" name="no_ktp" placeholder="No KTP">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tempat Lahir</label>
+                  <input type="text" class="form-control" value="{{$data->tempat_lahir}}" name="tempat_lahir" placeholder="Tempat Lahir">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tanggal Lahir</label>
+                  <input type="date" class="form-control" value="{{$data->tanggal_lahir}}" name="tanggal_lahir" placeholder="Tanggal Lahir">
+                </div>
+              </div>
+
                   </form>
                 
         <!-- [ form-element ] end -->

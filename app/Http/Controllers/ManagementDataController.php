@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\EmployeeImport;
 
+
 use Illuminate\Support\Facades\Auth;
 
 class ManagementDataController extends Controller
@@ -96,6 +97,15 @@ class ManagementDataController extends Controller
 
     }
 
+    public function update_data() {
+
+        $managementdata = Managementdata::all();
+
+        return view('managementdata.update_data', compact('managementdata'));
+
+
+    }
+
     public function importexcel(Request $request) {
 
         $data = $request->file('file');
@@ -113,3 +123,5 @@ class ManagementDataController extends Controller
 
 
 }
+
+

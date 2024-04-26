@@ -21,9 +21,18 @@
                   <thead>
                     <tr>
                       <th>Name</th>
+
+                      <th>Email</th>
                       <th>Role</th>
                       <th>Address</th>
                       <th>Phone</th>
+                      <th>NIP</th>
+                      <th>No KTP</th>
+                      <th>Tempat Lahir</th>
+                      <th>Tanggal Lahir</th>
+
+                  
+
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -39,9 +48,18 @@
                           </div>
                         </div>
                       </td>
+
+                      <td>{{$inputuser->email}}</td>
                       <td>{{$inputuser->role->role_user}}</td>
                       <td>{{$inputuser->address_user}}</td>
                       <td>{{$inputuser->phone_user}}</td>
+                      <td>{{$inputuser->nip}}</td>
+                      <td>{{$inputuser->no_ktp}}</td>
+                      <td>{{$inputuser->tempat_lahir}}</td>
+                      <td>{{$inputuser->tanggal_lahir}}</td>
+
+                  
+
                       <td>
                         <span class="badge bg-light-success">Active</span>
                         <div class="overlay-edit">
