@@ -22,8 +22,15 @@ Auth::routes();
 
 // Define a group of routes with 'auth' middleware applied
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', function () {
+        // Redirect to '/home' route
+        return redirect('/home');
+    });
+
+    Route::get('/home', [UserController::class,'index']);
+
     Route::get('/role_page', [UserController::class,'role_page']);
-    
 
     Route::post('/role_add', [UserController::class,'role_add']);
 

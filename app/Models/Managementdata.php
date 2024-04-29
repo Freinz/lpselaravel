@@ -10,12 +10,13 @@ class Managementdata extends Model
     use HasFactory;
 
     protected $fillable = [
-        'city_name',
-        'jenis_barang',
+        'nama_kota',
+        'kategori',
+        'sub_kategori',
         'nama_barang',
-        'harga_satuan',
-        'kuartal',
-        'tahun',
+        'satuan',
+        'merk',
+        'harga',
     ];
 
       

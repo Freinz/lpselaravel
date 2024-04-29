@@ -17,6 +17,30 @@ class UserController extends Controller
      * 
      */
 
+     public function index () {
+
+        $user_type = Auth()->user()->usertype;
+        
+        if($user_type == 'superadmin') {
+
+            return view('managementdata.index', compact('return'));
+        }
+
+        else if ($user_type == 'pimpinan') {
+
+            return view('pimpinan.index');
+        }
+        else if ($user_type == 'operator') {
+
+            return view('operator.index');
+        }
+
+    else {
+        return redirect()->back();
+    }
+
+}
+
      public function role_page () {
 
         $data = Role::all();

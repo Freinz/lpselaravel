@@ -70,19 +70,19 @@ class ManagementDataController extends Controller
 
         $data = new Managementdata;
 
-        $data->jenis_barang = $request->jenis_barang;
-
         $data->nama_kota = $request->nama_kota;
+
+        $data->kategori = $request->kategori;
+
+        $data->sub_kategori = $request->sub_kategori;
         
         $data->nama_barang = $request->nama_barang;
         
-        $data->harga_satuan = $request->harga_satuan;
+        $data->satuan = $request->satuan;
 
-        $data->kuartal = $request->kuartal;
+        $data->merk = $request->merk;
 
-        $data->tahun = $request->tahun;
-
-        $data->nama_kota = $request->nama_kota;
+        $data->harga = $request->harga;
 
         $data->save();
         
@@ -147,15 +147,17 @@ class ManagementDataController extends Controller
 
         $data->nama_kota = $request->nama_kota;
 
-        $data->jenis_barang = $request->jenis_barang;
+        $data->kategori = $request->kategori;
+
+        $data->sub_kategori = $request->sub_kategori;
         
         $data->nama_barang = $request->nama_barang;
         
-        $data->harga_satuan = $request->harga_satuan;
-        
-        $data->kuartal = $request->kuartal;
-        
-        $data->tahun = $request->tahun;
+        $data->satuan = $request->satuan;
+
+        $data->merk = $request->merk;
+
+        $data->harga = $request->harga;
 
         $data->save();
 

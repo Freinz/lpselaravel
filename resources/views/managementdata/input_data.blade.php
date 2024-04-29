@@ -23,42 +23,39 @@
 
                   @csrf
 
-                  <div class="form-group">
-                      <label class="form-label">Input City</label>
-<br>
-                      <select class="btn btn-light-secondary" name="city" required>
-
-                      <option >Select City</option>
-                      @foreach($data as $data)
-
-                      <option  value="{{$data->id}}">{{$data->nama_kota}}</option>
-
-                      @endforeach
-                      </select>
-
-                    </div>
+                </div>
 
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputEmail1">Jenis Barang</label>
-                      <input type="text" class="form-control" name="jenis_barang"
-                        placeholder="Enter Jenis Barang">
+                      <label class="form-label" for="exampleInputEmail1">Nama Kota</label>
+                      <input type="text" class="form-control" name="nama_kota"
+                        value="{{$data->nama_kota}}">
+                    </div>
                     
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputEmail1">Kategori</label>
+                      <input type="text" class="form-control" name="kategori"
+                        value="{{$data->kategori}}">
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputPassword1">Sub-Kategori</label>
+                      <input type="text" class="form-control" name="sub_kategori" value="{{$data->sub_kategori}}">
                     </div>
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Nama Barang</label>
-                      <input type="text" class="form-control" name="nama_barang" placeholder="Nama Barang">
+                      <input type="text" class="form-control" name="nama_barang" value="{{$data->nama_barang}}">
                     </div>
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputPassword1">Harga Satuan</label>
-                      <input type="number" class="form-control" name="harga_satuan" placeholder="Harga Satian">
+                      <label class="form-label" for="exampleInputPassword1">Satuan</label>
+                      <input type="text" class="form-control" name="satuan" value="{{$data->satuan}}">
                     </div>
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputPassword1">Kuartal</label>
-                      <input type="number" class="form-control" name="kuartal" placeholder="Kuartal">
+                      <label class="form-label" for="exampleInputPassword1">Merk</label>
+                      <input type="text" class="form-control" name="merk" value="{{$data->merk}}">
                     </div>
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputPassword1">Tahun</label>
-                      <input type="number" class="form-control" name="tahun" placeholder="Tahun">
+                      <label class="form-label" for="exampleInputPassword1">Harga</label>
+                      <input type="number" class="form-control" name="harga" value="{{$data->harga}}">
                     </div>
                     
                     <button type="submit" class="btn btn-primary mb-4">Submit</button>

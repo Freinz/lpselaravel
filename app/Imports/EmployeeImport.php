@@ -15,12 +15,13 @@ class EmployeeImport implements ToModel
     public function model(array $row)
     {
         return new Managementdata([
-            'city_name' => $row[0],
-            'jenis_barang' => $row[1],
-            'nama_barang' => $row[2],
-            'harga_satuan' => $row[3],
-            'kuartal' => $row[4],
-            'tahun' => $row[5]
+            'nama_kota'=> $row[0],
+            'kategori'=> $row[1],
+            'sub_kategori'=> $row[2],
+            'nama_barang'=> $row[3],
+            'satuan'=> $row[4],
+            'merk'=> $row[5],
+            'harga'=> $row[6]
         ]);
     }
 }
