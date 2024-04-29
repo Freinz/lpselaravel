@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('managementdatas', function (Blueprint $table) {
             $table->id();
-            $table->string('city_name')->nullable();
+            $table->string('nama_kota')->nullable();
             $table->string('jenis_barang')->nullable();
             $table->string('nama_barang')->nullable();
             $table->integer('harga_satuan')->nullable();

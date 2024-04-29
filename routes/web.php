@@ -77,11 +77,12 @@ Route::get('/show_data', [ManagementDataController::class,'show_data']);
 // Penginputan Data Excel
 Route::post('/importexcel', [ManagementDataController::class,'importexcel'])->name('importexcel');
 
+// Delete and Update Data
+Route::get('/data_delete/{id}', [ManagementDataController::class,'data_delete']);
 
-Route::get('/show_data', [ManagementDataController::class,'show_data']);
+Route::get('/data_read/{id}', [ManagementDataController::class,'data_read']);
 
-Route::post('/store_data', [ManagementDataController::class,'store_data']);
-
+Route::post('/data_edit/{id}', [ManagementDataController::class,'data_edit']);
 
     // Define a GET route for the root URL ('/')
     Route::get('/', function () {

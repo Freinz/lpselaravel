@@ -21,8 +21,8 @@
             <div class="card">
                 
               <div class="card-body">
-                <div class="dt-responsive">
-                  <table id="row-grouping" class="table table-striped table-bordered nowrap">
+                <div class="table-responsive dt-responsive">
+                  <table id="multi-table" class="table table-striped table-bordered nowrap">
 
                  <!-- Button trigger modal -->
                  <div class="col-auto">
@@ -63,23 +63,29 @@
                             <td>Nama Kota</td>
                             <td>Jenis Barang</td>
                             <td>Nama Barang</td>
-                            <td>Nama Barang</td>
                             <td>Harga Satuan</td>
                             <td>Kuartal</td>
                             <td>Tahun</td>
+                            <td>Update & Delete</td>
                           </tr>
-                    </tbody>
+                        </thead>
                     
                     @foreach ($managementdata as $mgdata )
                     
-                    <thead>
+                    <tbody>
                         <tr>
-                            <td>{{$mgdata->city_name}}</td>
+                            <td>{{$mgdata->nama_kota}}</td>
                             <td>{{$mgdata->jenis_barang}}</td>
                             <td>{{$mgdata->nama_barang}}</td>
                             <td>{{$mgdata->harga_satuan}}</td>
                             <td>{{$mgdata->kuartal}}</td>
                             <td>{{$mgdata->tahun}}</td>
+                            <td>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-light-primary"><a href="{{ url('data_read', $mgdata->id) }}">Update</a></button>
+                    <button type="button" class="btn btn-light-danger"><a href="{{ url('data_delete', $mgdata->id) }}">Delete</a></button>
+                </div>
+                  </td>
                           </tr>
                     </tbody>
 

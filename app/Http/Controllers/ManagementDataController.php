@@ -21,7 +21,7 @@ class ManagementDataController extends Controller
 
     public function city_page () {
 
-        $data = City::all();
+        $data = Managementdata::all();
 
         return view('managementdata.input_city', compact('data'));
     }
@@ -30,7 +30,7 @@ class ManagementDataController extends Controller
         
         $data = new City;
 
-        $data->city_name = $request->city;
+        $data->nama_kota = $request->city;
 
         $data->save();
 
@@ -40,7 +40,7 @@ class ManagementDataController extends Controller
 
     public function city_delete($id) {
 
-        $data = City::find($id); // Category dari nama models
+        $data = Managementdata::find($id); // Category dari nama models
 
         $data->delete();
 
@@ -50,7 +50,7 @@ class ManagementDataController extends Controller
     
     public function city_read($id) {
 
-        $data = City::find($id);
+        $data = Managementdata::find($id);
 
         return view('managementdata.update_city', compact('data'));
 
@@ -60,7 +60,7 @@ class ManagementDataController extends Controller
 
     public function input_data() {
 
-        $data = City::all();
+        $data = Managementdata::all();
 
         return view('managementdata.input_data', compact('data') );
 
@@ -72,7 +72,7 @@ class ManagementDataController extends Controller
 
         $data->jenis_barang = $request->jenis_barang;
 
-        $data->city_name = $request->city_name;
+        $data->nama_kota = $request->nama_kota;
         
         $data->nama_barang = $request->nama_barang;
         
@@ -82,7 +82,7 @@ class ManagementDataController extends Controller
 
         $data->tahun = $request->tahun;
 
-        $data->city_name = $request->city_name;
+        $data->nama_kota = $request->nama_kota;
 
         $data->save();
         
@@ -120,6 +120,48 @@ class ManagementDataController extends Controller
 
     }
 
+    
+    public function data_delete($id) {
+
+        $data = Managementdata::find($id);
+
+        $data->delete();
+
+        return redirect()->back()->with('message', 'data Data has Deleted Successfully');
+
+    }
+
+    public function data_read($id) {
+
+        $data = Managementdata::find($id);
+
+        $city = Managementdata::all();
+
+        return view('managementdata.update_data', compact('data', 'city'));
+
+    }
+
+    public function data_edit (Request $request, $id) {
+
+        $data = Managementdata::find($id);
+
+        $data->nama_kota = $request->nama_kota;
+
+        $data->jenis_barang = $request->jenis_barang;
+        
+        $data->nama_barang = $request->nama_barang;
+        
+        $data->harga_satuan = $request->harga_satuan;
+        
+        $data->kuartal = $request->kuartal;
+        
+        $data->tahun = $request->tahun;
+
+        $data->save();
+
+        return redirect('/show_data')->with('message', 'Data Update Successfully');
+
+    }
 
 
 }

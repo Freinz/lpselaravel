@@ -31,7 +31,7 @@
                       <option >Select City</option>
                       @foreach($data as $data)
 
-                      <option  value="{{$data->id}}">{{$data->city_name}}</option>
+                      <option  value="{{$data->id}}">{{$data->nama_kota}}</option>
 
                       @endforeach
                       </select>

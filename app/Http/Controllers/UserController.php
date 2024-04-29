@@ -24,8 +24,6 @@ class UserController extends Controller
 
         return view('users.input_role', compact('data'));
 
-        return view('users.role', compact('data'));
-
     }
 
      public function role_add (Request $request) {
@@ -86,9 +84,7 @@ class UserController extends Controller
 
     public function input_user() {
 
-
         $data = Role::all();
-
 
         return view('users.input_user', compact('data') );
 
