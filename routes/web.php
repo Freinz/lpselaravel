@@ -23,10 +23,8 @@ Auth::routes();
 // Define a group of routes with 'auth' middleware applied
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', function () {
-        // Redirect to '/home' route
-        return redirect('/home');
-    });
+        // Redirect to '/home' route    
+    Route::get('redirects',  [UserController::class,'index']);
 
     Route::get('/home', [UserController::class,'index']);
 
@@ -92,10 +90,7 @@ Route::get('/data_read/{id}', [ManagementDataController::class,'data_read']);
 Route::post('/data_edit/{id}', [ManagementDataController::class,'data_edit']);
 
     // Define a GET route for the root URL ('/')
-    Route::get('/', function () {
-        // Return a view named 'index' when accessing the root URL
-        return view('index');
-    });
+    Route::get('/', [HomeController::class, 'index']);
 
 
 

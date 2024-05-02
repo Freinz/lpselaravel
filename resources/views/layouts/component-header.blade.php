@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav ms-auto mt-lg-0 mt-2 mb-2 mb-lg-0 align-items-start">
                 <li class="nav-item px-1">
-                    <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
+                    <a class="nav-link" href="{{ url('redirects') }}">Dashboard</a>
                 </li>
                 <li class="nav-item px-1">
                     <a class="nav-link" href="{{ url('elements/bc_alert') }}">Components</a>
