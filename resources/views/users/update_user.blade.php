@@ -27,7 +27,12 @@
                       <label class="form-label" for="exampleInputEmail1">User Name</label>
                       <input type="text" class="form-control" name="user_name"
                         value="{{$data->user_name}}">
+                    </div>
                     
+                    <div class="form-group">
+                      <label class="form-label" for="exampleInputEmail1">Email</label>
+                      <input type="text" class="form-control" name="email"
+                        value="{{$data->email}}">
                     </div>
                    
                     <div class="form-group">
