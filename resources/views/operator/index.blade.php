@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('operator.main')
 
 @section('title', 'Home')
 @section('breadcrumb-item', 'Dashboard')

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('pimpinan.main')
 
 @section('title', 'Home')
 @section('breadcrumb-item', 'Dashboard')

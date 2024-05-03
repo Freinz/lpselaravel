@@ -12,7 +12,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\EmployeeImport;
 
-
 use Illuminate\Support\Facades\Auth;
 
 class ManagementDataController extends Controller
@@ -55,45 +54,34 @@ class ManagementDataController extends Controller
         return view('managementdata.update_city', compact('data'));
 
     }
-
-    
-
-    public function input_data() {
-
-        $data = Managementdata::all();
-
-        return view('managementdata.input_data', compact('data') );
-
-    }
-
-    public function store_data(Request $request) {
-
-        $data = new Managementdata;
-
-        $data->nama_kota = $request->nama_kota;
-
-        $data->kategori = $request->kategori;
-
-        $data->sub_kategori = $request->sub_kategori;
-        
-        $data->nama_barang = $request->nama_barang;
-        
-        $data->satuan = $request->satuan;
-
-        $data->merk = $request->merk;
-
-        $data->harga = $request->harga;
-
-        $data->save();
-        
-        return redirect()->back();
-    }
+  
 
     public function show_data() {
 
+        $user_type = Auth::user()->usertype;
+        
         $managementdata = Managementdata::all();
+        if($user_type == 'superadmin') {
+
 
         return view('managementdata.show_data', compact('managementdata'));
+        }
+
+        else if ($user_type == 'pimpinan') {
+
+            return view('pimpinan.show_data', compact('managementdata'));
+        }
+        else if ($user_type == 'operator') {
+
+            return view('operator.show_data', compact('managementdata'));
+        }
+
+    else {
+        return redirect()->back();
+    }
+
+
+        
 
     }
 
@@ -167,5 +155,4 @@ class ManagementDataController extends Controller
 
 
 }
-
 

@@ -1,4 +1,4 @@
-@extends('managementdata.main')
+@extends('pimpinan.main')
 
 @section('title', 'Advance Initialization')
 @section('breadcrumb-item', 'DataTable')
@@ -67,7 +67,6 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
-                            <th>Update & Delete</th>
                           </tr>
                         </thead>
                     
@@ -82,12 +81,7 @@
                             <td>{{$mgdata->satuan}}</td>
                             <td>{{$mgdata->merk}}</td>
                             <td>{{$mgdata->harga}}</td>
-                            <td>
-                <div class="d-flex flex-wrap gap-2">
-                    <button type="button" class="btn btn-light-primary"><a href="{{ url('data_read', $mgdata->id) }}">Update</a></button>
-                    <button type="button" class="btn btn-light-danger"><a href="{{ url('data_delete', $mgdata->id) }}">Delete</a></button>
-                </div>
-                  </td>
+                         
                       </tr>
                       @endforeach
                     </tbody>
