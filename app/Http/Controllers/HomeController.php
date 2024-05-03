@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+    public function index() {
+
+        return view('home.index');
+
+    }
+
     public function pageView($routeName, $page = null)
     {
         // Construct the view name based on the provided routeName and optional page parameter

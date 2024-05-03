@@ -6,24 +6,21 @@ use Illuminate\Http\Request;
 
 use App\Models\Inputuser;
 
+use App\Models\User;
+
 use App\Models\Role;
 
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * 
-     */
-
      public function index () {
 
-        $user_type = Auth()->user()->usertype;
+        $user_type = Auth::user()->usertype;
         
         if($user_type == 'superadmin') {
 
-            return view('managementdata.index', compact('return'));
+            return view('managementdata.index');
         }
 
         else if ($user_type == 'pimpinan') {
@@ -212,7 +209,9 @@ class UserController extends Controller
 
     }
 
+ 
 
+    
 
     /**
      * Show the form for creating a new resource.
@@ -263,5 +262,4 @@ class UserController extends Controller
     }
 
 }
-
 

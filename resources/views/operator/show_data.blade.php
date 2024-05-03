@@ -1,4 +1,4 @@
-@extends('managementdata.main')
+@extends('operator.main')
 
 @section('title', 'Advance Initialization')
 @section('breadcrumb-item', 'DataTable')
@@ -40,6 +40,10 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
+                    <div>
+                    <a class="btn btn-primary" href="{{url('importexcel_operator', $data->id)}}">Apply Import Excel</a>
+                  </div>
+
                     <form action="/importexcel" method="post" enctype="multipart/form-data">
                       @csrf
                     <div class="modal-body">
@@ -67,7 +71,6 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
-                            <th>Update & Delete</th>
                           </tr>
                         </thead>
                     
@@ -82,12 +85,7 @@
                             <td>{{$mgdata->satuan}}</td>
                             <td>{{$mgdata->merk}}</td>
                             <td>{{$mgdata->harga}}</td>
-                            <td>
-                <div class="d-flex flex-wrap gap-2">
-                    <button type="button" class="btn btn-light-primary"><a href="{{ url('data_read', $mgdata->id) }}">Update</a></button>
-                    <button type="button" class="btn btn-light-danger"><a href="{{ url('data_delete', $mgdata->id) }}">Delete</a></button>
-                </div>
-                  </td>
+                          
                       </tr>
                       @endforeach
                     </tbody>
