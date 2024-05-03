@@ -28,54 +28,35 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [UserController::class,'index']);
 
-    Route::get('/role_page', [UserController::class,'role_page']);
+    Route::get('/role_page', [UserController::class,'role_page'])->middleware(['auth', 'superadmin']);;
 
-    Route::post('/role_add', [UserController::class,'role_add']);
+    Route::post('/role_add', [UserController::class,'role_add'])->middleware(['auth', 'superadmin']);;
 
-Route::get('/role_delete/{id}', [UserController::class,'role_delete']);
+Route::get('/role_delete/{id}', [UserController::class,'role_delete'])->middleware(['auth', 'superadmin']);;
 
-Route::get('/role_read/{id}', [UserController::class,'role_read']);
+Route::get('/role_read/{id}', [UserController::class,'role_read'])->middleware(['auth', 'superadmin']);;
 
-Route::post('/role_update/{id}', [UserController::class,'role_update']);
+Route::post('/role_update/{id}', [UserController::class,'role_update'])->middleware(['auth', 'superadmin']);;
 
-    Route::post('/cat_add', [UserController::class,'cat_add']);
+Route::get('/input_user', [UserController::class,'input_user'])->middleware(['auth', 'superadmin']);;
 
-Route::get('/cat_delete/{id}', [UserController::class,'cat_delete']);
+Route::post('/store_user', [UserController::class,'store_user'])->middleware(['auth', 'superadmin']);;
 
-Route::get('/cat_read/{id}', [UserController::class,'cat_read']);
+Route::get('/show_user', [UserController::class,'show_user'])->middleware(['auth', 'superadmin']);;
 
-Route::post('/cat_update/{id}', [UserController::class,'cat_update']);
+Route::get('/user_delete/{id}', [UserController::class,'user_delete'])->middleware(['auth', 'superadmin']);;
 
+Route::get('/user_read/{id}', [UserController::class,'user_read'])->middleware(['auth', 'superadmin']);;
 
-Route::get('/input_user', [UserController::class,'input_user']);
-
-Route::post('/store_user', [UserController::class,'store_user']);
-
-Route::get('/show_user', [UserController::class,'show_user']);
-
-Route::get('/user_delete/{id}', [UserController::class,'user_delete']);
-
-Route::get('/user_read/{id}', [UserController::class,'user_read']);
-
-Route::post('/user_edit/{id}', [UserController::class,'user_edit']);
+Route::post('/user_edit/{id}', [UserController::class,'user_edit'])->middleware(['auth', 'superadmin']);;
 
 // Management Databases Route
 
-Route::get('/city_page', [ManagementDataController::class,'city_page']);
+Route::get('/update_data', [ManagementDataController::class,'update_data'])->middleware(['auth', 'superadmin']);;
 
-Route::post('/city_add', [ManagementDataController::class,'city_add']);
+Route::get('/input_data', [ManagementDataController::class,'input_data'])->middleware(['auth', 'superadmin']);;
 
-Route::get('/city_delete/{id}', [ManagementDataController::class,'city_delete']);
-
-Route::get('/city_read/{id}', [ManagementDataController::class,'city_read']);
-
-Route::post('/city_update/{id}', [ManagementDataController::class,'city_update']);
-
-Route::get('/update_data', [ManagementDataController::class,'update_data']);
-
-Route::get('/input_data', [ManagementDataController::class,'input_data']);
-
-Route::post('/store_data', [ManagementDataController::class,'store_data']);
+Route::post('/store_data', [ManagementDataController::class,'store_data'])->middleware(['auth', 'superadmin']);;
 
 Route::get('/show_data', [ManagementDataController::class,'show_data']);
 
@@ -86,11 +67,11 @@ Route::get('/importexcel_operator/{id}', [HomeController::class,'importexcel_ope
 Route::post('/importexcel', [ManagementDataController::class,'importexcel'])->name('importexcel');
 
 // Delete and Update Data
-Route::get('/data_delete/{id}', [ManagementDataController::class,'data_delete']);
+Route::get('/data_delete/{id}', [ManagementDataController::class,'data_delete'])->middleware(['auth', 'superadmin']);;
 
-Route::get('/data_read/{id}', [ManagementDataController::class,'data_read']);
+Route::get('/data_read/{id}', [ManagementDataController::class,'data_read'])->middleware(['auth', 'superadmin']);;
 
-Route::post('/data_edit/{id}', [ManagementDataController::class,'data_edit']);
+Route::post('/data_edit/{id}', [ManagementDataController::class,'data_edit'])->middleware(['auth', 'superadmin']);;
 
     // Define a GET route for the root URL ('/')
     Route::get('/', [HomeController::class, 'index']);

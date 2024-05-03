@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Models\Managementdata;
 
-use App\Models\City;
-
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Imports\EmployeeImport;
@@ -17,44 +15,6 @@ use Illuminate\Support\Facades\Auth;
 class ManagementDataController extends Controller
 {
    
-
-    public function city_page () {
-
-        $data = Managementdata::all();
-
-        return view('managementdata.input_city', compact('data'));
-    }
-
-    public function city_add (Request $request) {
-        
-        $data = new City;
-
-        $data->nama_kota = $request->city;
-
-        $data->save();
-
-        return redirect()->back();
-       
-    }
-
-    public function city_delete($id) {
-
-        $data = Managementdata::find($id); // Category dari nama models
-
-        $data->delete();
-
-        return redirect()->back()->with('message', 'City deleted succesfully'); // agar kembali ke page yang sama
-        
-    }
-    
-    public function city_read($id) {
-
-        $data = Managementdata::find($id);
-
-        return view('managementdata.update_city', compact('data'));
-
-    }
-  
 
     public function show_data() {
 

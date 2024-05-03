@@ -40,9 +40,6 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <div>
-                    <a class="btn btn-primary" href="{{url('importexcel_operator', $data->id)}}">Apply Import Excel</a>
-                  </div>
 
                     <form action="/importexcel" method="post" enctype="multipart/form-data">
                       @csrf

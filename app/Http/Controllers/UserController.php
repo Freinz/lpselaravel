@@ -65,7 +65,7 @@ class UserController extends Controller
 
     public function role_delete($id) {
 
-        $data = Role::find($id); // Category dari nama models
+        $data = Role::find($id); // Role dari nama models
 
         $data->delete();
 
