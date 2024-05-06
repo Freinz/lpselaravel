@@ -68,13 +68,14 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
-                            <th>Update & Delete</th>
+                            <th>Status Permintaan</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                     
                         <tbody>
                     @foreach ($managementdata as $mgdata )
-                      @if ($mgdata->status === 'accepted' )
+                  
                     
                         <tr>
                             <td>{{$mgdata->nama_kota}}</td>
@@ -84,15 +85,23 @@
                             <td>{{$mgdata->satuan}}</td>
                             <td>{{$mgdata->merk}}</td>
                             <td>{{$mgdata->harga}}</td>
+                            <td>{{$mgdata->status}}</td>
                             <td>
-                            <div class="d-flex flex-wrap gap-2">
-                              <button type="button" class="btn btn-light-primary"><a href="{{ url('data_read', $mgdata->id) }}">Update</a></button>
-                              <button type="button" class="btn btn-light-danger"><a href="{{ url('data_delete', $mgdata->id) }}">Delete</a></button>
-                          </div>
+                            <form action="/update_status/{{ $mgdata->id }}" method="POST">
+                                                @csrf
+                                                @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
+                                                
+                                                <select class="btn btn-light-secondary" name="status">
+                                                    <option value="pending" {{ $mgdata->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                    <option value="accepted" {{ $mgdata->status == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                                                    <option value="rejected" {{ $mgdata->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-primary">Update Status</button>
+                                            </form>
                             </td>
-                            
+                          
                       </tr>
-                        @endif
+                      
                       @endforeach
                     </tbody>
 

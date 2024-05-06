@@ -17,6 +17,7 @@ class Managementdata extends Model
         'satuan',
         'merk',
         'harga',
+        'status',
     ];
 
       

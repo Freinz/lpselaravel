@@ -68,6 +68,8 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
+                            <th>Status Permintaan</th>
+                      
                           </tr>
                         </thead>
                     
@@ -82,6 +84,8 @@
                             <td>{{$mgdata->satuan}}</td>
                             <td>{{$mgdata->merk}}</td>
                             <td>{{$mgdata->harga}}</td>
+                            <td>{{$mgdata->status}}</td>
+                           
                           
                       </tr>
                       @endforeach

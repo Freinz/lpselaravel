@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('satuan')->nullable();
             $table->string('merk')->nullable();
             $table->string('harga')->nullable();
+            $table->string('status')->default('pending');
             
             $table->timestamps();
 

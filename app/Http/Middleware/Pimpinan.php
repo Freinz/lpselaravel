@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Illuminate\Support\Facades\Auth;
 
-class Superadmin
+class Pimpinan
 {
     /**
      * Handle an incoming request.
@@ -18,14 +18,15 @@ class Superadmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if(Auth::user()->usertype == 'superadmin') {
+       
+        if(Auth::user()->usertype == 'pimpinan') {
 
             return $next($request);
 
-        } else 
+        }
 
         return redirect('/pages/error-404.blade.php');
 
     }
+
 }

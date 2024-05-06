@@ -4,115 +4,136 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Managementdata;
+use App\Models\Managementdata;  
 
 use Maatwebsite\Excel\Facades\Excel;
+
+use App\Models\ImportedFile;
 
 use App\Imports\EmployeeImport;
 
 use Illuminate\Support\Facades\Auth;
 
-class ManagementDataController extends Controller
-{
-   
-
-    public function show_data() {
-
-        $user_type = Auth::user()->usertype;
-        
-        $managementdata = Managementdata::all();
-        if($user_type == 'superadmin') {
-
-
-        return view('managementdata.show_data', compact('managementdata'));
-        }
-
-        else if ($user_type == 'pimpinan') {
-
-            return view('pimpinan.show_data', compact('managementdata'));
-        }
-        else if ($user_type == 'operator') {
-
-            return view('operator.show_data', compact('managementdata'));
-        }
-
-    else {
-        return redirect()->back();
-    }
-
-
-        
-
-    }
-
-    public function update_data() {
-
-        $managementdata = Managementdata::all();
-
-        return view('managementdata.update_data', compact('managementdata'));
-
-
-    }
-
-    public function importexcel(Request $request) {
-
-        $data = $request->file('file');
-
-        $namafile = $data->getClientOriginalName();
-
-        $data->move('EmployeeData', $namafile);
-
-        Excel::import(new EmployeeImport, \public_path('/EmployeeData/'.$namafile));
-
-        return redirect()-> back();
-
-    }
-
+    class ManagementDataController extends Controller
+    {
     
-    public function data_delete($id) {
 
-        $data = Managementdata::find($id);
+        public function show_data() {
 
-        $data->delete();
+            $user_type = Auth::user()->usertype;
+            
+            $managementdata = Managementdata::all();
+            if($user_type == 'superadmin') {
 
-        return redirect()->back()->with('message', 'data Data has Deleted Successfully');
 
-    }
+            return view('managementdata.show_data', compact('managementdata'));
+            }
 
-    public function data_read($id) {
+            else if ($user_type == 'pimpinan') {
 
-        $data = Managementdata::find($id);
+                return view('pimpinan.show_data', compact('managementdata'));
+            }
+            else if ($user_type == 'operator') {
 
-        $city = Managementdata::all();
+                return view('operator.show_data', compact('managementdata'));
+            }
 
-        return view('managementdata.update_data', compact('data', 'city'));
+        else {
+            return redirect()->back();
+        }
 
-    }
 
-    public function data_edit (Request $request, $id) {
+            
 
-        $data = Managementdata::find($id);
+        }
+        public function approver_data() {
 
-        $data->nama_kota = $request->nama_kota;
+            $user_type = Auth::user()->usertype;
+            
+            $managementdata = Managementdata::all();
 
-        $data->kategori = $request->kategori;
+            return view('pimpinan.approver_data', compact('managementdata'));
+           
+            
 
-        $data->sub_kategori = $request->sub_kategori;
+        }
+      
+       
+
+        public function update_data() {
+
+            $managementdata = Managementdata::all();
+
+            return view('managementdata.update_data', compact('managementdata'));
+
+
+        }
+
+        public function importexcel(Request $request)
+        {
+            $data = $request->file('file');
+            $namafile = $data->getClientOriginalName();
+            
+            // Simpan file ke direktori
+            $data->move('EmployeeData', $namafile);
         
-        $data->nama_barang = $request->nama_barang;
+            Excel::import(new EmployeeImport, \public_path('/EmployeeData/'.$namafile));
+
+            return redirect()->back()->with('message', 'File imported successfully and awaiting approval');
+        }
+
         
-        $data->satuan = $request->satuan;
+        public function data_delete($id) {
 
-        $data->merk = $request->merk;
+            $data = Managementdata::find($id);
 
-        $data->harga = $request->harga;
+            $data->delete();
 
-        $data->save();
+            return redirect()->back()->with('message', 'data Data has Deleted Successfully');
 
-        return redirect('/show_data')->with('message', 'Data Update Successfully');
+        }
+
+        public function data_read($id) {
+
+            $data = Managementdata::find($id);
+
+            $city = Managementdata::all();
+
+            return view('managementdata.update_data', compact('data', 'city'));
+
+        }
+
+        public function data_edit (Request $request, $id) {
+
+            $data = Managementdata::find($id);
+
+            $data->nama_kota = $request->nama_kota;
+
+            $data->kategori = $request->kategori;
+
+            $data->sub_kategori = $request->sub_kategori;
+            
+            $data->nama_barang = $request->nama_barang;
+            
+            $data->satuan = $request->satuan;
+
+            $data->merk = $request->merk;
+
+            $data->harga = $request->harga;
+
+            $data->save();
+
+            return redirect('/show_data');
+
+        }
+
+        public function update_status(Request $request, $id) {
+            $data = Managementdata::find($id);
+            $data->status = $request->status; // Assuming 'status' is the name of the column storing status
+            $data->save();
+            return redirect()->back()->with('message', 'Status updated successfully');
+        }
+
 
     }
-
-
-}
 

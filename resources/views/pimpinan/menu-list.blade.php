@@ -57,6 +57,7 @@
             class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
     <ul class="pc-submenu">
         <li class="pc-item"><a class="pc-link" href="{{ url('show_data') }}">Show Data</a></li>
+        <li class="pc-item"><a class="pc-link" href="{{ url('approver_data') }}">Approve Data</a></li>
 
     </ul>
 </li>
