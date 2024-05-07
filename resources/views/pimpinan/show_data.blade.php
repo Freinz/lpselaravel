@@ -74,7 +74,7 @@
                     
                         <tbody>
                     @foreach ($managementdata as $mgdata )
-                      @if ($mgdata->status === 'accepted' )
+                    
                     
                         <tr>
                             <td>{{$mgdata->nama_kota}}</td>
@@ -87,12 +87,12 @@
                             <td>
                             <div class="d-flex flex-wrap gap-2">
                               <button type="button" class="btn btn-light-primary"><a href="{{ url('data_read', $mgdata->id) }}">Update</a></button>
-                              <button type="button" class="btn btn-light-danger"><a href="{{ url('data_delete', $mgdata->id) }}">Delete</a></button>
+                              <button type="button" class="btn btn-light-danger" ><a href="{{ url('data_delete', $mgdata->id) }}">Delete</a></button>
                           </div>
                             </td>
                             
                       </tr>
-                        @endif
+                   
                       @endforeach
                     </tbody>
 

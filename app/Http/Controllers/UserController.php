@@ -12,6 +12,9 @@ use App\Models\Role;
 
 use Illuminate\Support\Facades\Auth;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
+
 class UserController extends Controller
 {
      public function index () {
@@ -38,6 +41,16 @@ class UserController extends Controller
 
 }
 
+    // Di dalam controller Anda atau dalam file helper terpisah jika Anda lebih suka
+function confirmDelete($title, $text) {
+    // Set configuration options for the confirmation popup and store them in session flash data
+    session()->flash('confirm_delete', [
+        'title' => $title,
+        'text' => $text
+    ]);
+}
+
+
      public function role_page () {
 
         $data = Role::all();
@@ -55,10 +68,9 @@ class UserController extends Controller
 
         $data->save();
 
+        Alert::success('Sukses', 'Role Berhasil Ditambahkan');
 
         return redirect()->back();
-
-        return redirect()->back()->with('message','Role Added Successfully');
 
        
     }
@@ -68,14 +80,18 @@ class UserController extends Controller
         $data = Role::find($id); // Role dari nama models
 
         $data->delete();
-
-        return redirect()->back()->with('message', 'Role deleted succesfully'); // agar kembali ke page yang sama
         
+        $title = 'Menghapus Role!';
+        $text = "Apakah anda yakin untuk menghapus ini?";
+        confirmDelete($title, $text);
+
+        return redirect()->back();
     }
     
     public function role_read($id) {
 
         $data = Role::find($id);
+        
 
         return view('users.update_role', compact('data'));
 
@@ -91,15 +107,9 @@ class UserController extends Controller
 
         $data->save();
 
-        return redirect('/role_page')->with ('message', 'Role Updated Succesfully'); // untuk kembali ke page awal setelah edit
+        Alert::success('Sukses', 'Role Berhasil Diperbarui');
 
-        $data->role_user = $request -> role_user;
-
-        $data->save();
-
-        return redirect('/category_page')->with ('message', 'Role Updated Succesfully'); // untuk kembali ke page awal setelah edit
-
-
+        return redirect('/role_page');
     }
 
 
@@ -110,7 +120,6 @@ class UserController extends Controller
         return view('users.input_user', compact('data') );
 
         $inputuser = Inputuser::all();
-
 
         return view('users.input_user', compact(['inputuser']) );
 
@@ -142,7 +151,7 @@ class UserController extends Controller
         
         $data->tanggal_lahir = $request->tanggal_lahir;
 
-
+        Alert::success('Sukses', 'User berhasil ditambahkan');
 
         $data->save();
         
@@ -202,10 +211,11 @@ class UserController extends Controller
         $data->tanggal_lahir = $request->tanggal_lahir;
 
 
+        Alert::success('Sukses', 'User berhasil diperbarui');
 
         $data->save();
 
-        return redirect('/show_user')->with('message', 'Users Update Successfully');
+        return redirect('/show_user');
 
     }
 

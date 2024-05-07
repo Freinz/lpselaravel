@@ -14,6 +14,8 @@ use App\Imports\EmployeeImport;
 
 use Illuminate\Support\Facades\Auth;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
     class ManagementDataController extends Controller
     {
     
@@ -78,6 +80,8 @@ use Illuminate\Support\Facades\Auth;
             $data->move('EmployeeData', $namafile);
         
             Excel::import(new EmployeeImport, \public_path('/EmployeeData/'.$namafile));
+
+            Alert::success('Sukses', 'Data Excel Berhasil Diimport');
 
             return redirect()->back()->with('message', 'File imported successfully and awaiting approval');
         }

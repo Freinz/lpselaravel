@@ -44,6 +44,7 @@
 
     @include('operator.footerjs')
 
+    @include('sweetalert::alert')
     @yield('scripts')
 
   </body>

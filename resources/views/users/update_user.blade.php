@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('managementdata.main')
 
 @section('title', 'Form Elements')
 @section('breadcrumb-item', 'Forms')

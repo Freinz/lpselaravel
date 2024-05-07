@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('managementdata.main')
 
 @section('title', 'Home')
 @section('breadcrumb-item', 'Dashboard')

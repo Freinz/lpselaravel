@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('managementdata.main')
 
 @section('title', 'User Widgets')
 @section('breadcrumb-item', 'Widget')
@@ -25,8 +25,8 @@
                       <input type="text" class="form-control" name="role"
                         placeholder="Enter Role">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-4">Submit</button>
-                  </form>
+                        <button type="submit" class="btn btn-primary mb-4" data-bs-dismiss="alert" aria-label="Close">Submit</button>
+                      </form>
                 </div>
         </div>
       </div>
@@ -55,12 +55,16 @@
                         <div class="overlay-edit">
                           <ul class="list-inline mb-0">
                             <li class="list-inline-item m-0"><a href="{{url('role_read', $data->id)}}" class="avtar avtar-s btn btn-primary"><i class="ti ti-pencil f-18"></i></a></li>
-                            <li class="list-inline-item m-0"><a href="{{url('role_delete', $data->id)}}" class="avtar avtar-s btn bg-white btn-link-danger"><i class="ti ti-trash f-18"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="{{url('role_delete', $data->id)}}" class="avtar avtar-s btn bg-white btn-link-danger"  data-confirm-delete="true"><i class="ti ti-trash f-18"></i></a></li>
                           </ul>
                         </div>
                       </td>
                     </tr>
+
+                   
+
                     @endforeach
+                   
                     
                    
                   </tbody>
@@ -69,5 +73,7 @@
             </div>
           </div>
         </div>
+
+        
 
 @endsection

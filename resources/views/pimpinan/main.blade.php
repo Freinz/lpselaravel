@@ -44,7 +44,12 @@
 
     @include('pimpinan.footerjs')
 
+    @include('sweetalert::alert')
     @yield('scripts')
+
+    
+
+
 
   </body>
   <!-- [Body] end -->
