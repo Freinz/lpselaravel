@@ -10,16 +10,10 @@
         </div>
         <div class="navbar-content">
             <ul class="pc-navbar">
-                @include('layouts.menu-list')
+                @include('managementdata.menu-list')
             </ul>
             <div class="card nav-action-card bg-brand-color-4">
-                <div class="card-body" style="background-image: url('/build/images/layout/nav-card-bg.svg')">
-                    <h5 class="text-dark">Help Center</h5>
-                    <p class="text-dark text-opacity-75">Please contact us for more questions.</p>
-                    <a href="https://phoenixcoded.support-hub.io/" class="btn btn-primary" target="_blank">Go to help
-                        Center</a>
-                </div>
-            </div>
+                
         </div>
         <div class="card pc-user-card">
             <div class="card-body">
@@ -29,8 +23,8 @@
                             class="user-avtar wid-45 rounded-circle">
                     </div>
                     <div class="flex-grow-1 ms-3 me-2">
-                        <h6 class="mb-0">Jonh Smith</h6>
-                        <small>Administrator</small>
+                        <h6 class="mb-0">Super Admin</h6>
+                        <small>LPSE Provinsi Kalimantan Selatan</small>
                     </div>
                     <div class="dropdown">
                         <a href="#" class="btn btn-icon btn-link-secondary avtar arrow-none dropdown-toggle"

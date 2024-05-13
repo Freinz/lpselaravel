@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('managementdata.main')
 
-@section('title', 'Home')
+@section('title', 'Super Admin Page')
 @section('breadcrumb-item', 'Dashboard')
 
-@section('breadcrumb-item-active', 'Home')
+@section('breadcrumb-item-active', 'Super Admin Page')
 
 @section('css')
     <!-- map-vector css -->

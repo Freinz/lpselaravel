@@ -93,7 +93,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
             $data->delete();
 
-            return redirect()->back()->with('message', 'data Data has Deleted Successfully');
+            return redirect()->back();
 
         }
 
@@ -131,12 +131,21 @@ use RealRashid\SweetAlert\Facades\Alert;
 
         }
 
-        public function update_status(Request $request, $id) {
-            $data = Managementdata::find($id);
-            $data->status = $request->status; // Assuming 'status' is the name of the column storing status
-            $data->save();
-            return redirect()->back()->with('message', 'Status updated successfully');
+        public function update_status(Request $request) {
+            // Ambil semua data
+            $data = Managementdata::all();
+            
+            // Lakukan iterasi untuk setiap data dan update status
+            foreach ($data as $data) {
+                $data->status = $request->status; // Menggunakan status dari request
+                $data->save();
+            }
+        
+            Alert::success('Sukses', 'Status Data Telah Terupdate');
+
+            return redirect()->back();
         }
+        
 
 
     }

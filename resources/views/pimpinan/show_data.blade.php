@@ -74,7 +74,7 @@
                     
                         <tbody>
                     @foreach ($managementdata as $mgdata )
-                    
+                      @if ($mgdata->status == 'accepted')
                     
                         <tr>
                             <td>{{$mgdata->nama_kota}}</td>
@@ -92,7 +92,7 @@
                             </td>
                             
                       </tr>
-                   
+                        @endif
                       @endforeach
                     </tbody>
 

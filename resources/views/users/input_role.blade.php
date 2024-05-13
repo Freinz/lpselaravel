@@ -33,8 +33,8 @@
     </div>
   </div>
 </div>
-                
           
+       
        <div class="col-sm-12">
           <div class="card border-0 table-card user-profile-list">
             <div class="card-body">
@@ -51,19 +51,21 @@
                      
                       <td>{{$data->role_user}}</td>
                       <td>
-                       
+                                        
                         <div class="overlay-edit">
                           <ul class="list-inline mb-0">
                             <li class="list-inline-item m-0"><a href="{{url('role_read', $data->id)}}" class="avtar avtar-s btn btn-primary"><i class="ti ti-pencil f-18"></i></a></li>
-                            <li class="list-inline-item m-0"><a href="{{url('role_delete', $data->id)}}" class="avtar avtar-s btn bg-white btn-link-danger"  data-confirm-delete="true"><i class="ti ti-trash f-18"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="{{url('role_delete', $data->id)}}" class="avtar avtar-s btn bg-white btn-link-danger" onclick="confirmation(event)"><i class="ti ti-trash f-18"></i></a></li>
                           </ul>
                         </div>
                       </td>
                     </tr>
 
-                   
-
+                    
+                    
+                    
                     @endforeach
+                    
                    
                     
                    
@@ -74,6 +76,32 @@
           </div>
         </div>
 
+        <script type="text/javascript">
+        function confirmation(ev) {
+          ev.preventDefault();
+          var urlToRedirect = ev.currentTarget.getAttribute('href');
+          console.log(urlToRedirect);
+
+          swal({
+            title: "Anda yakin menghapus ini?",
+            text: "Data yang dihapus akan permanen!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+
+          .then((willCancel) => {
+            if (willCancel) {
+
+              window.location.href = urlToRedirect;
+
+            }
+          });
+          
+        }
+</script>
+
+        
         
 
 @endsection

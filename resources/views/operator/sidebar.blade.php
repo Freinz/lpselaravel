@@ -12,7 +12,10 @@
             <ul class="pc-navbar">
                 @include('operator.menu-list')
             </ul>
-           
+            <div class="card nav-action-card bg-brand-color-4">
+                    
+            </div>
+        </div>
         <div class="card pc-user-card">
             <div class="card-body">
                 <div class="d-flex align-items-center">

@@ -338,28 +338,6 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="list-group-item">
-                                        <a href="{{url('show_user')}}" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-users"></i>
-                                                <span>Management User</span>
-                                            </span>
-                                        </a>
-                                        <a href="{{url('input_user')}}" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-user-plus"></i>
-                                                <span>Input User</span>
-                                            </span>
-                                        </a>
-                                        
-                                        <a href="{{url('role_page')}}" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-user-plus"></i>
-                                                <span>Input Role</span>
-                                            </span>
-                                        </a>
-
-
                                         
 
                                     </li>

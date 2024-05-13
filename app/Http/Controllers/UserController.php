@@ -80,10 +80,6 @@ function confirmDelete($title, $text) {
         $data = Role::find($id); // Role dari nama models
 
         $data->delete();
-        
-        $title = 'Menghapus Role!';
-        $text = "Apakah anda yakin untuk menghapus ini?";
-        confirmDelete($title, $text);
 
         return redirect()->back();
     }
