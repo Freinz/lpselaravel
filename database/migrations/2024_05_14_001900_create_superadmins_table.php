@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('managementdatas', function (Blueprint $table) {
+        Schema::create('superadmins', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kota')->nullable();
             $table->string('kategori')->nullable();
@@ -24,8 +24,6 @@ return new class extends Migration
             
             $table->timestamps();
 
-
-            
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('managementdatas');
+        Schema::dropIfExists('superadmins');
     }
 };

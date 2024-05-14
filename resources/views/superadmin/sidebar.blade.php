@@ -10,10 +10,11 @@
         </div>
         <div class="navbar-content">
             <ul class="pc-navbar">
-                @include('managementdata.menu-list')
+                @include('superadmin.menu-list')
             </ul>
             <div class="card nav-action-card bg-brand-color-4">
                 
+            </div>
         </div>
         <div class="card pc-user-card">
             <div class="card-body">

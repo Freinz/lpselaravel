@@ -74,34 +74,31 @@
                         </thead>
                     
                         <tbody>
-                    @foreach ($managementdata as $mgdata )
-                  
-                    
+                    @foreach ($superadmin as $spadmin )
+                      @if ($spadmin -> status == 'pending')
                         <tr>
-                            <td>{{$mgdata->nama_kota}}</td>
-                            <td>{{$mgdata->kategori}}</td>
-                            <td>{{$mgdata->sub_kategori}}</td>
-                            <td>{{$mgdata->nama_barang}}</td>
-                            <td>{{$mgdata->satuan}}</td>
-                            <td>{{$mgdata->merk}}</td>
-                            <td>{{$mgdata->harga}}</td>
-                            <td>{{$mgdata->status}}</td>
+                            <td>{{$spadmin->nama_kota}}</td>
+                            <td>{{$spadmin->kategori}}</td>
+                            <td>{{$spadmin->sub_kategori}}</td>
+                            <td>{{$spadmin->nama_barang}}</td>
+                            <td>{{$spadmin->satuan}}</td>
+                            <td>{{$spadmin->merk}}</td>
+                            <td>{{$spadmin->harga}}</td>
+                            <td>{{$spadmin->status}}</td>
                             <td>
-                            <form action="/update_status/{{ $mgdata->id }}" method="POST">
-                                                @csrf
-                                                @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
-                                                
-                                                <select class="btn btn-light-secondary" name="status">
-                                                    <option value="pending" {{ $mgdata->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                    <option value="accepted" {{ $mgdata->status == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                                                    <option value="rejected" {{ $mgdata->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                                </select>
-                                                <button type="submit" class="btn btn-primary">Update Status</button>
-                                            </form>
-                            </td>
-                          
+                            <form action="/update_status/{{ $spadmin->id }}" method="POST">
+                            @csrf
+                            @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->                                     
+                              <select class="btn btn-light-secondary" name="status">
+                                <option value="pending" {{ $spadmin->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="accepted" {{ $spadmin->status == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                                <option value="rejected" {{ $spadmin->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                              </select>
+                                <button type="submit" class="btn btn-primary">Update Status</button>
+                            </form>
+                            </td>      
                       </tr>
-                      
+                        @endif
                       @endforeach
 
                 

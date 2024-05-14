@@ -30,7 +30,7 @@
             <div class="bg-overlay bg-dark"></div>
             <div class="auth-wrapper">
                 <div class="auth-sidecontent">
-                    @include('layouts.authFooter')
+                    
                 </div>
             @else
                 <div class="auth-main v1">
@@ -38,7 +38,7 @@
     @endif
     @yield('content')
     @if (!View::hasSection('auth-v2'))
-        @include('layouts.authFooter')
+        
     @endif
     </div>
     </div>

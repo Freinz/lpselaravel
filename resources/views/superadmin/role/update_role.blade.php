@@ -1,4 +1,4 @@
-@extends('managementdata.main')
+@extends('superadmin.main')
 
 @section('title', 'User Widgets')
 @section('breadcrumb-item', 'Widget')

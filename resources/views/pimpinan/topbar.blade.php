@@ -303,9 +303,9 @@
                                                     alt="user-image" class="wid-50 rounded-circle" />
                                             </div>
                                             <div class="flex-grow-1 mx-3">
-                                                <h5 class="mb-0">Operator</h5>
+                                                <h5 class="mb-0">Pimpinan</h5>
                                                 <a class="link-primary"
-                                                    href="mailto:carson.darrin@company.io">operator@gmail.com</a>
+                                                    href="mailto:carson.darrin@company.io">pimpinan@gmail.com</a>
                                             </div>
                                             <span class="badge bg-primary">PRO</span>
                                         </div>

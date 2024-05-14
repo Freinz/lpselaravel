@@ -1,4 +1,4 @@
-@extends('managementdata.main')
+@extends('superadmin.main')
 
 @section('title', 'Advance Initialization')
 @section('breadcrumb-item', 'DataTable')
@@ -72,16 +72,16 @@
                         </thead>
                     
                         <tbody>
-                    @foreach ($managementdata as $mgdata )
-                      @if ($mgdata->status == 'accepted')
+                    @foreach ($superadmin as $spadmin )
+                      @if ($spadmin->status == 'accepted')
                         <tr>
-                            <td>{{$mgdata->nama_kota}}</td>
-                            <td>{{$mgdata->kategori}}</td>
-                            <td>{{$mgdata->sub_kategori}}</td>
-                            <td>{{$mgdata->nama_barang}}</td>
-                            <td>{{$mgdata->satuan}}</td>
-                            <td>{{$mgdata->merk}}</td>
-                            <td>{{$mgdata->harga}}</td>
+                            <td>{{$spadmin->nama_kota}}</td>
+                            <td>{{$spadmin->kategori}}</td>
+                            <td>{{$spadmin->sub_kategori}}</td>
+                            <td>{{$spadmin->nama_barang}}</td>
+                            <td>{{$spadmin->satuan}}</td>
+                            <td>{{$spadmin->merk}}</td>
+                            <td>{{$spadmin->harga}}</td>
                            
                       </tr>
                         @endif

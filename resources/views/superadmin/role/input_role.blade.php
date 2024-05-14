@@ -1,9 +1,9 @@
-@extends('managementdata.main')
+@extends('superadmin.main')
 
 @section('title', 'User Widgets')
 @section('breadcrumb-item', 'Widget')
 
-@section('breadcrumb-item-active', 'User')
+@section('breadcrumb-item-active', 'Input Role')
 
 @section('css')
 @endsection
@@ -21,7 +21,7 @@
                   @csrf
 
                     <div class="form-group">
-                      <label class="form-label" for="exampleInputEmail1">Input Role</label>
+                      <label class="form-label" for="exampleInputEmail1">Input New Role</label>
                       <input type="text" class="form-control" name="role"
                         placeholder="Enter Role">
                         </div>

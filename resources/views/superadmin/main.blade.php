@@ -18,13 +18,13 @@
 
     @yield('css')
 
-    @include('managementdata.head-css')
+    @include('superadmin.head-css')
 </head>
 
 <body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light" >
-    @include('managementdata.loader')
-    @include('managementdata.sidebar')
-    @include('managementdata.topbar')
+    @include('superadmin.loader')
+    @include('superadmin.sidebar')
+    @include('superadmin.topbar')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <!-- [ Main Content ] start -->
@@ -40,10 +40,10 @@
     </div>
     <!-- [ Main Content ] end -->
 
-    @include('managementdata.footer')
-    @include('managementdata.customizer')
+    @include('superadmin.footer')
+    @include('superadmin.customizer')
 
-    @include('managementdata.footerjs')
+    @include('superadmin.footerjs')
 
     @include('sweetalert::alert')
     @yield('scripts')

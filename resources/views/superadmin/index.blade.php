@@ -1,4 +1,4 @@
-@extends('managementdata.main')
+@extends('superadmin.main')
 
 @section('title', 'Super Admin Page')
 @section('breadcrumb-item', 'Dashboard')
