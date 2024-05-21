@@ -23,7 +23,7 @@
                       <th>Name</th>
 
                       <th>Email</th>
-                      <th>Role</th>
+                      <!-- <th>Role</th> -->
                       <th>Address</th>
                       <th>Phone</th>
                       <th>NIP</th>
@@ -50,7 +50,7 @@
                       </td>
 
                       <td>{{$inputuser->email}}</td>
-                      <td>{{$inputuser->role->role_user}}</td>
+
                       <td>{{$inputuser->address_user}}</td>
                       <td>{{$inputuser->phone_user}}</td>
                       <td>{{$inputuser->nip}}</td>

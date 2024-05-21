@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>@yield('title') | Light Able Laravel 11 Admin & Dashboard Template</title>
+    <title>@yield('title') | LPSE Provinsi Kalimantan Selatan</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -14,7 +14,7 @@
 <meta name="author" content="phoenixcoded" />
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ URL::asset('build/images/favicon.svg') }}" type="image/x-icon">
+  <link rel="icon" href="{{ URL::asset('build/images/lpse/lpsekalsellogo.png') }}" type="image/x-icon">
 
     @yield('css')
 
@@ -23,10 +23,13 @@
 
 <body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light" >
     @include('superadmin.loader')
-    @include('superadmin.sidebar')
-    @include('superadmin.topbar')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
+    @can('store_role')
+        @include('superadmin.sidebar')
+        @include('superadmin.topbar')
+    @endcan
+
+
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">

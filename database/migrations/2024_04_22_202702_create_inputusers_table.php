@@ -21,9 +21,7 @@ return new class extends Migration
             $table->string('no_ktp')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
-   
-            $table->foreignID('role_id')->constrained()->onDelete('cascade');
-   
+
             $table->timestamps();
 
 

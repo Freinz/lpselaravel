@@ -27,47 +27,32 @@ class SuperAdminController extends Controller
      */
     public function index()
     {
-        $user_type = Auth::user()->usertype;
-        
-        if($user_type == 'superadmin') {
-
-            return view('superadmin.index');
+        if(Auth::user()->hasRole('superadmin')) {
+            return redirect()->to('superadmin.index');
+        } else if(Auth::user()->hasRole('pimpinan')) {
+            return redirect()->to('pimpinan.index');
+        }else if(Auth::user()->hasRole('operator')) {
+            return redirect()->to('operator.index');
+        } else {
+            return redirect() -> back();
         }
-
-        else if ($user_type == 'pimpinan') {
-
-            return view('pimpinan.index');
-        }
-        else if ($user_type == 'operator') {
-
-            return view('operator.index');
-        }
-
-    else {
-        return redirect()->back();
-    }
 
  }
 
     public function show()
     {
-        $user_type = Auth::user()->usertype;
         
         $superadmin = Superadmin::all();
-        if($user_type == 'superadmin') {
 
-        return view('superadmin.show_data', compact('superadmin'));
-        }
-
-        else if ($user_type == 'pimpinan') {
-
+        if(Auth::user()->hasRole('superadmin')) {
+            return view('superadmin.show_data', compact('superadmin'));
+        } else if(Auth::user()->hasRole('pimpinan')) {
             return view('pimpinan.show_data', compact('superadmin'));
-        }
-        else if ($user_type == 'operator') {
-
+        }if(Auth::user()->hasRole('operator')) {
             return view('operator.show_data', compact('superadmin'));
         }
 
+        
     else {
         return redirect()->back();
     }   

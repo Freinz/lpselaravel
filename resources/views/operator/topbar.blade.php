@@ -307,7 +307,7 @@
                                                 <a class="link-primary"
                                                     href="mailto:carson.darrin@company.io">operator@gmail.com</a>
                                             </div>
-                                            <span class="badge bg-primary">PRO</span>
+                                    
                                         </div>
                                     </li>
                                     <li class="list-group-item">
@@ -317,37 +317,12 @@
                                                 <span>Change password</span>
                                             </span>
                                         </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-envelope-simple"></i>
-                                                <span>Recently mail</span>
-                                            </span>
-                                            <div class="user-group">
-                                                <img src="{{ URL::asset('build/images/user/avatar-1.jpg') }}"
-                                                    alt="user-image" class="avtar" />
-                                                <img src="{{ URL::asset('build/images/user/avatar-2.jpg') }}"
-                                                    alt="user-image" class="avtar" />
-                                                <img src="{{ URL::asset('build/images/user/avatar-3.jpg') }}"
-                                                    alt="user-image" class="avtar" />
-                                            </div>
-                                        </a>
+                                       
                                     
                                     </li>
                                  
                                     </li>
-                                    <li class="list-group-item">
-                                        
-                                        <div class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-moon"></i>
-                                                <span>Dark mode</span>
-                                            </span>
-                                            <div class="form-check form-switch form-check-reverse m-0">
-                                                <input class="form-check-input f-18" id="dark-mode" type="checkbox"
-                                                    onclick="dark_mode()" role="switch" />
-                                            </div>
-                                        </div>
-                                    </li>
+                                    
                                     <li class="list-group-item">
                                         <a href="#" class="dropdown-item">
                                             <span class="d-flex align-items-center">
@@ -374,6 +349,16 @@
                                                 <span>Logout</span>
                                             </span>
                                         </a>
+                                        <div class="dropdown-item">
+                                            <span class="d-flex align-items-center">
+                                                <i class="ph-duotone ph-moon"></i>
+                                                <span>Dark mode</span>
+                                            </span>
+                                            <div class="form-check form-switch form-check-reverse m-0">
+                                                <input class="form-check-input f-18" id="dark-mode" type="checkbox"
+                                                    onclick="dark_mode()" role="switch" />
+                                            </div>
+                                        </div>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
                                             @csrf

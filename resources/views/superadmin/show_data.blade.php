@@ -59,6 +59,7 @@
               </div>
 
                   <thead>
+                    @if (auth()->user()->hasRole('superadmin') ||auth()->user()->hasRole('pimpinan') )
                         <tr>
                             <th>Nama Kota</th>
                             <th>Kategori</th>
@@ -67,7 +68,7 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
-                     
+                     @endif
                           </tr>
                         </thead>
                     

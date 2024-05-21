@@ -49,7 +49,7 @@
                     @foreach($data as $data)
                     <tr>
                      
-                      <td>{{$data->role_user}}</td>
+                      <td>{{$data->name}}</td>
                       <td>
                                         
                         <div class="overlay-edit">

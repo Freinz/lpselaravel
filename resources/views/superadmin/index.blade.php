@@ -1,6 +1,6 @@
 @extends('superadmin.main')
 
-@section('title', 'Super Admin Page')
+@section('title', 'SuperAdmin')
 @section('breadcrumb-item', 'Dashboard')
 
 @section('breadcrumb-item-active', 'Super Admin Page')

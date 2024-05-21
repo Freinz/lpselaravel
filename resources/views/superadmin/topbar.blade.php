@@ -307,7 +307,7 @@
                                                 <a class="link-primary"
                                                     href="mailto:carson.darrin@company.io">superadmin@gmail.com</a>
                                             </div>
-                                            <span class="badge bg-primary">PRO</span>
+                                           
                                         </div>
                                     </li>
                                     <li class="list-group-item">
@@ -317,49 +317,38 @@
                                                 <span>Change password</span>
                                             </span>
                                         </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-envelope-simple"></i>
-                                                <span>Recently mail</span>
-                                            </span>
-                                            <div class="user-group">
-                                                <img src="{{ URL::asset('build/images/user/avatar-1.jpg') }}"
-                                                    alt="user-image" class="avtar" />
-                                                <img src="{{ URL::asset('build/images/user/avatar-2.jpg') }}"
-                                                    alt="user-image" class="avtar" />
-                                                <img src="{{ URL::asset('build/images/user/avatar-3.jpg') }}"
-                                                    alt="user-image" class="avtar" />
-                                            </div>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-calendar-blank"></i>
-                                                <span>Schedule meetings</span>
-                                            </span>
-                                        </a>
+                        
                                     </li>
                                         
 
                                     </li>
+                                  
+                                       
+                                    </li>
                                     <li class="list-group-item">
-                                        <div class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-globe-hemisphere-west"></i>
-                                                <span>Languages</span>
-                                            </span>
-                                            <span class="flex-shrink-0">
-                                                <select
-                                                    class="form-select bg-transparent form-select-sm border-0 shadow-none">
-                                                    <option value="1">English</option>
-                                                    <option value="2">Spain</option>
-                                                    <option value="3">Arbic</option>
-                                                </select>
-                                            </span>
-                                        </div>
                                         <a href="#" class="dropdown-item">
                                             <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-flag"></i>
-                                                <span>Country</span>
+                                                <i class="ph-duotone ph-user-circle"></i>
+                                                <span>Edit profile</span>
+                                            </span>
+                                        </a>
+                                       
+                                        <a href="#" class="dropdown-item">
+                                            <span class="d-flex align-items-center">
+                                                <i class="ph-duotone ph-gear-six"></i>
+                                                <span>Settings</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                       
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();"
+                                            class="dropdown-item">
+                                            <span class="d-flex align-items-center">
+                                                <i class="ph-duotone ph-power"></i>
+                                                <span>Logout</span>
                                             </span>
                                         </a>
                                         <div class="dropdown-item">
@@ -372,51 +361,6 @@
                                                     onclick="dark_mode()" role="switch" />
                                             </div>
                                         </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-user-circle"></i>
-                                                <span>Edit profile</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-star text-warning"></i>
-                                                <span>Upgrade account</span>
-                                                <span
-                                                    class="badge bg-light-success border border-success ms-2">NEW</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-bell"></i>
-                                                <span>Notifications</span>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-gear-six"></i>
-                                                <span>Settings</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#" class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-plus-circle"></i>
-                                                <span>Add account</span>
-                                            </span>
-                                        </a>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                      document.getElementById('logout-form').submit();"
-                                            class="dropdown-item">
-                                            <span class="d-flex align-items-center">
-                                                <i class="ph-duotone ph-power"></i>
-                                                <span>Logout</span>
-                                            </span>
-                                        </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
                                             @csrf

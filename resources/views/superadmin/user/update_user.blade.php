@@ -35,18 +35,7 @@
                         value="{{$data->email}}">
                     </div>
                    
-                    <div class="form-group">
-                      <label class="form-label">Role User</label>
-<br>
-                      <select class="btn btn-light-secondary" name="role" required>
-                        <option value="{{$data->role_id}}">{{$data->role->role_user}}</option>
-
-                      @foreach($role as $role)
-                      <option  value="{{$role->id}}">{{$role->role_user}}</option>
-                      @endforeach
-                      </select>
-
-                    </div>
+                   
 
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Address</label>

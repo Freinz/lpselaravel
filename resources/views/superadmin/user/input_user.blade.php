@@ -35,8 +35,9 @@
                       <input type="email" class="form-control" name="email"
                         placeholder="Enter Email">
                     </div>
+          
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label class="form-label">Role User</label>
 <br>
                       <select class="btn btn-light-secondary" name="role" required>
@@ -44,12 +45,12 @@
                       <option >Select Role</option>
                       @foreach($data as $data)
 
-                      <option  value="{{$data->id}}">{{$data->role_user}}</option>
+                      <option  value="{{$data->id}}">{{$data->name}}</option>
 
                       @endforeach
                       </select>
 
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Alamat</label>

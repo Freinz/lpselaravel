@@ -46,28 +46,17 @@ class UserController extends Controller
         $data = new Inputuser;
 
         $data->user_name = $request->user_name;
-
-
-        $data->role_id = $request->role;
-        
-        $data->address_user = $request->address_user;
-        
-        $data->phone_user = $request->phone_user;
-
-        
         $data->email = $request->email;
-
+        // $data->name = $request->role;
+        $data->address_user = $request->address_user;
+        $data->phone_user = $request->phone_user;
         $data->nip = $request->nip;
-        
         $data->no_ktp = $request->no_ktp;
-        
         $data->tempat_lahir = $request->tempat_lahir;
-        
         $data->tanggal_lahir = $request->tanggal_lahir;
-
-        Alert::success('Sukses', 'User berhasil ditambahkan');
-
         $data->save();
+
+        Alert::success('Sukses', 'Permintaan pendaftaran berhasil diajukan');
         
         return redirect()->back();
     }
@@ -107,7 +96,7 @@ class UserController extends Controller
 
         $data->email = $request->email;
 
-        $data->role_id = $request->role;
+        // $data->name = $request->role;
         
         $data->address_user = $request->address_user;
         
@@ -141,4 +130,10 @@ class UserController extends Controller
         return redirect()->back()->with('message', 'User Data has Deleted Successfully');
 
     }
+
+    
+
+
 }
+
+

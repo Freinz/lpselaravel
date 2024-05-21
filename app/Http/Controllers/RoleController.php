@@ -38,7 +38,9 @@ class RoleController extends Controller
     {
         $data = new Role;
 
-        $data->role_user = $request->role;
+        $data->name = $request->role;
+
+        $data->guard_name = 'web'; 
 
         $data->save();
 
@@ -66,7 +68,9 @@ class RoleController extends Controller
     {
         $data = Role::find($id);
 
-        $data->role_user = $request -> role;
+        $data->name = $request -> role;
+
+        $data->guard_name = 'web'; 
 
         $data->save();
 

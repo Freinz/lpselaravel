@@ -18,7 +18,7 @@
             <div class="card statistics-card-1 overflow-hidden ">
                 <div class="card-body">
                     <img src="{{ URL::asset('build/images/widget/img-status-4.svg') }}" alt="img" class="img-fluid img-bg">
-                    <h5 class="mb-4">Daily Sales</h5>
+                    <h5 class="mb-4">Daily Seajfnawejales</h5>
                     <div class="d-flex align-items-center mt-3">
                         <h3 class="f-w-300 d-flex align-items-center m-b-0">$249.95</h3>
                         <span class="badge bg-light-success ms-2">36%</span>

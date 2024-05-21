@@ -23,7 +23,7 @@
                     <div class="form-group">
                       <label class="form-label" for="exampleInputEmail1">Input Role</label>
                       <input type="text" class="form-control" name="role"
-                        value="{{$data->role_user}}">
+                        value="{{$data->name}}">
                         </div>
                         <button type="submit" class="btn btn-primary mb-4">Submit</button>
                   </form>
