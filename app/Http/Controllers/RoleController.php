@@ -38,6 +38,10 @@ class RoleController extends Controller
     {
         $data = new Role;
 
+        $request->validate([
+            'role' => 'required|min:2|max:255',
+        ]);
+
         $data->name = $request->role;
 
         $data->guard_name = 'web'; 
@@ -67,6 +71,10 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $data = Role::find($id);
+
+        $request->validate([
+            'role' => 'required|min:2|max:255',
+        ]);
 
         $data->name = $request -> role;
 

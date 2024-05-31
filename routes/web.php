@@ -6,6 +6,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,12 @@ use App\Http\Controllers\Auth\LoginController;
 
 Auth::routes(['register' => false]);
 
+Route::get('/', [SuperAdminController::class, 'dashboard']);
+
 // Define a group of routes with 'auth' middleware applied
 Route::middleware(['auth'])->group(function () {
     // Redirect to '/home' route    
-    Route::get('/', [SuperAdminController::class,'index']);
+    Route::get('/index', [SuperAdminController::class,'index']);
 
     Route::get('/role_page', [RoleController::class,'create'])->middleware(['auth', 'role:superadmin']);
     Route::post('/role_add', [RoleController::class,'store'])->middleware(['auth', 'permission:store_role']);
@@ -46,16 +49,25 @@ Route::middleware(['auth'])->group(function () {
 
     // Management Import and Approve Data
     Route::get('/approver_data', [SuperAdminController::class,'approver_data'])->middleware(['auth', 'role:pimpinan']);
+   
+    // Form Approver
+    Route::get('/show_form', [FormController::class,'show'])->middleware(['auth', 'role:pimpinan']);
+    Route::get('/setuju_form/{id}', [FormController::class,'setuju_form'])->middleware(['auth', 'role:pimpinan']);
+    Route::get('/tidaksetuju_form/{id}', [FormController::class,'tidaksetuju_form'])->middleware(['auth', 'role:pimpinan']);
+
 
     // Operator Route
     Route::get('/importexcel_operator/{id}', [HomeController::class,'importexcel_operator']);
 
+    // Form Sebelum Excel
+    Route::get('/input_form', [FormController::class,'create']);
+    Route::post('/store_form', [FormController::class,'store']);
+    
     // Penginputan Data Excel
     Route::post('/importexcel', [SuperAdminController::class,'importexcel'])->name('importexcel');
     Route::put('/update_status/{id}', [SuperAdminController::class,'update_status'])->middleware(['auth', 'role:pimpinan']);
 
-    // Define a GET route for the root URL ('/')
-    Route::get('/', [SuperAdminController::class, 'index']);
+   
 
     // Define a GET route with dynamic placeholders for route parameters
     Route::get('{routeName}/{name?}', [HomeController::class, 'pageView']);

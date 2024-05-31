@@ -1,4 +1,4 @@
-@extends('superadmin.main')
+@extends('pimpinan.main')
 
 @section('title', 'Form Elements')
 @section('breadcrumb-item', 'Forms')
@@ -25,35 +25,60 @@
 
                     <div class="form-group">
                       <label class="form-label" for="exampleInputEmail1">Nama Kota</label>
-                      <input type="text" class="form-control" name="nama_kota"
+                      <input type="text" class="form-control @error('nama_kota') is-invalid @enderror" name="nama_kota"
                         value="{{$data->nama_kota}}">
+                        @error('nama_kota')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     
                     <div class="form-group">
                       <label class="form-label" for="exampleInputEmail1">Kategori</label>
-                      <input type="text" class="form-control" name="kategori"
+                      <input type="text" class="form-control @error('kategori') is-invalid @enderror" name="kategori"
                         value="{{$data->kategori}}">
-                    </div>
+                      @error('kategori')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                      </div>
                     
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Sub-Kategori</label>
-                      <input type="text" class="form-control" name="sub_kategori" value="{{$data->sub_kategori}}">
+                      <input type="text" class="form-control @error('sub_kategori') is-invalid @enderror" name="sub_kategori" value="{{$data->sub_kategori}}">
+                      @error('sub_kategori')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
                     </div>
+
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Nama Barang</label>
-                      <input type="text" class="form-control" name="nama_barang" value="{{$data->nama_barang}}">
+                      <input type="text" class="form-control @error('nama_barang') is-invalid @enderror" name="nama_barang" value="{{$data->nama_barang}}">
+                      @error('nama_barang')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
                     </div>
+
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Satuan</label>
-                      <input type="text" class="form-control" name="satuan" value="{{$data->satuan}}">
+                      <input type="text" class="form-control @error('satuan') is-invalid @enderror" name="satuan" value="{{$data->satuan}}">
+                      @error('satuan')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
                     </div>
+
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Merk</label>
-                      <input type="text" class="form-control" name="merk" value="{{$data->merk}}">
+                      <input type="text" class="form-control @error('merk') is-invalid @enderror" name="merk" value="{{$data->merk}}">
+                      @error('merk')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
                     </div>
+
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Harga</label>
-                      <input type="number" class="form-control" name="harga" value="{{$data->harga}}">
+                      <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{$data->harga}}">
+                      @error('harga')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
                     </div>
                   
                     

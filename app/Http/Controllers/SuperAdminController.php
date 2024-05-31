@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\ImportedFile;
 
 use App\Imports\EmployeeImport;
-
+use App\Models\Form;
 use Illuminate\Support\Facades\Auth;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -25,6 +25,11 @@ class SuperAdminController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function dashboard() {
+        return view('dashboard');
+    }
+
     public function index()
     {
         if(Auth::user()->hasRole('superadmin')) {
@@ -48,13 +53,13 @@ class SuperAdminController extends Controller
             return view('superadmin.show_data', compact('superadmin'));
         } else if(Auth::user()->hasRole('pimpinan')) {
             return view('pimpinan.show_data', compact('superadmin'));
-        }if(Auth::user()->hasRole('operator')) {
+        }else if(Auth::user()->hasRole('operator')) {
             return view('operator.show_data', compact('superadmin'));
         }
 
         
     else {
-        return redirect()->back();
+        return view ('pimpinan.show_data', compact('superadmin'));
     }   
     }
 
@@ -77,18 +82,22 @@ class SuperAdminController extends Controller
     {
         $data = Superadmin::find($id);
 
+        $request->validate([
+            'nama_kota' => 'required|min:2|max:255',
+            'kategori' => 'required',
+            'sub_kategori' => 'required',
+            'nama_barang' => 'required',
+            'satuan' => 'required',
+            'merk' => 'required',
+            'harga' => 'required',
+        ]);
+
         $data->nama_kota = $request->nama_kota;
-
         $data->kategori = $request->kategori;
-
         $data->sub_kategori = $request->sub_kategori;
-        
         $data->nama_barang = $request->nama_barang;
-        
         $data->satuan = $request->satuan;
-
         $data->merk = $request->merk;
-
         $data->harga = $request->harga;
 
         $data->save();
@@ -119,6 +128,8 @@ class SuperAdminController extends Controller
         
         $superadmin = Superadmin::all();
 
+        $superadmin = Form::all();
+
         return view('pimpinan.approver_data', compact('superadmin'));
        
         
@@ -127,13 +138,29 @@ class SuperAdminController extends Controller
 
     public function importexcel(Request $request)
     {
+        
+        // $request->validate([
+        //     'nama' => 'required|min:2|max:255',
+        //     'tgl_survey' => 'required',
+        //     'periode' => 'required',
+            
+        // ]);
+        // $form_id = $form -> form_id;
+        // $form = Form::find($form_id);
+        // $form->nama = $request->nama;
+        // $form->tgl_survey = $request->tgl_survey;
+        // $form->periode = $request->periode;
+        // $form->save();
+        
         $data = $request->file('file');
         $namafile = $data->getClientOriginalName();
         
         // Simpan file ke direktori
         $data->move('EmployeeData', $namafile);
+
     
         Excel::import(new EmployeeImport, \public_path('/EmployeeData/'.$namafile));
+        
 
         Alert::success('Sukses', 'Data Excel Berhasil Diimport');
 

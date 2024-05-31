@@ -342,7 +342,7 @@
                                     </li>
                                     <li class="list-group-item">
                                        
-                                        <a href="{{ route('logout') }}"
+                                        <a href="{{ url('dashboard') }}"
                                             onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();"
                                             class="dropdown-item">

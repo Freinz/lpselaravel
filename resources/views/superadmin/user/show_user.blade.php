@@ -24,12 +24,12 @@
 
                       <th>Email</th>
                       <!-- <th>Role</th> -->
-                      <th>Address</th>
+                      <!-- <th>Address</th>
                       <th>Phone</th>
                       <th>NIP</th>
                       <th>No KTP</th>
                       <th>Tempat Lahir</th>
-                      <th>Tanggal Lahir</th>
+                      <th>Tanggal Lahir</th> -->
 
                   
 
@@ -37,26 +37,26 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($inputuser as $inputuser)
+                    @foreach($user as $user)
                     <tr>
                       <td>
                         <div class="d-inline-block align-middle">
                           <img src="{{ URL::asset('build/images/user/avatar-1.jpg') }}" alt="user image" class="img-radius align-top m-r-15" style="width:40px;">
                           <div class="d-inline-block">
-                            <h6 class="m-b-0">{{$inputuser->user_name}}</h6>
+                            <h6 class="m-b-0">{{$user->name}}</h6>
                             <p class="m-b-0 text-primary"></p>
                           </div>
                         </div>
                       </td>
 
-                      <td>{{$inputuser->email}}</td>
+                      <td>{{$user->email}}</td>
 
-                      <td>{{$inputuser->address_user}}</td>
-                      <td>{{$inputuser->phone_user}}</td>
-                      <td>{{$inputuser->nip}}</td>
-                      <td>{{$inputuser->no_ktp}}</td>
-                      <td>{{$inputuser->tempat_lahir}}</td>
-                      <td>{{$inputuser->tanggal_lahir}}</td>
+                      <!-- <td>{{$user->address_user}}</td>
+                      <td>{{$user->phone_user}}</td>
+                      <td>{{$user->nip}}</td>
+                      <td>{{$user->no_ktp}}</td>
+                      <td>{{$user->tempat_lahir}}</td>
+                      <td>{{$user->tanggal_lahir}}</td> -->
 
                   
 
@@ -64,8 +64,8 @@
                         <span class="badge bg-light-success">Active</span>
                         <div class="overlay-edit">
                           <ul class="list-inline mb-0">
-                            <li class="list-inline-item m-0"><a href="{{url('user_read', $inputuser->id)}}" class="avtar avtar-s btn btn-primary"><i class="ti ti-pencil f-18"></i></a></li>
-                            <li class="list-inline-item m-0"><a href="{{url('user_delete', $inputuser->id)}}" class="avtar avtar-s btn bg-white btn-link-danger" onclick="confirmation(event)"><i class="ti ti-trash f-18"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="{{url('user_read', $user->id)}}" class="avtar avtar-s btn btn-primary"><i class="ti ti-pencil f-18"></i></a></li>
+                            <li class="list-inline-item m-0"><a href="{{url('user_delete', $user->id)}}" class="avtar avtar-s btn bg-white btn-link-danger" onclick="confirmation(event)"><i class="ti ti-trash f-18"></i></a></li>
                           </ul>
                         </div>
                       </td>

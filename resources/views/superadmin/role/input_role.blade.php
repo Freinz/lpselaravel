@@ -22,8 +22,11 @@
 
                     <div class="form-group">
                       <label class="form-label" for="exampleInputEmail1">Input New Role</label>
-                      <input type="text" class="form-control" name="role"
-                        placeholder="Enter Role">
+                      <input type="text" class="form-control @error('role') is-invalid @enderror" name="role"
+                        placeholder="Enter Role" value="{{ old('role') }}">
+                         @error('role')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mb-4" data-bs-dismiss="alert" aria-label="Close">Submit</button>
                       </form>

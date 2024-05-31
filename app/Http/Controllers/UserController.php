@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Inputuser;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
-use App\Models\Role; 
+use App\Models\User; 
+
+use Spatie\Permission\Models\Role;
+
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -33,9 +38,9 @@ class UserController extends Controller
 
         return view('superadmin.user.input_user', compact('data') );
 
-        $inputuser = Inputuser::all();
+        $user = User::all();
 
-        return view('superadmin.user.input_user', compact(['inputuser']) );
+        return view('superadmin.user.input_user', compact(['user']) );
     }
 
     /**
@@ -43,21 +48,37 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Inputuser;
 
-        $data->user_name = $request->user_name;
+        $data = new User;
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+
+        ]);
+
+        // Membuat instance User baru
+        $data = new User;
+
+        // Menyimpan data yang telah divalidasi
+        $data->name = $request->name;
         $data->email = $request->email;
-        // $data->name = $request->role;
-        $data->address_user = $request->address_user;
-        $data->phone_user = $request->phone_user;
-        $data->nip = $request->nip;
-        $data->no_ktp = $request->no_ktp;
-        $data->tempat_lahir = $request->tempat_lahir;
-        $data->tanggal_lahir = $request->tanggal_lahir;
+        $data->password = Hash::make($request->password);
+
+        // Menyimpan data ke database
         $data->save();
 
+        // Temukan atau buat peran "operator"
+        $role = Role::firstOrCreate(['name' => 'operator']);
+
+        // Berikan peran "operator" kepada pengguna baru
+        $data->assignRole($role);
+
+        // Menampilkan notifikasi sukses
         Alert::success('Sukses', 'Permintaan pendaftaran berhasil diajukan');
-        
+
+        // Mengarahkan kembali ke halaman sebelumnya
         return redirect()->back();
     }
 
@@ -66,9 +87,9 @@ class UserController extends Controller
      */
     public function show()
     {
-        $inputuser = Inputuser::all();
+        $user = User::all();
 
-        return view('superadmin.user.show_user', compact('inputuser'));
+        return view('superadmin.user.show_user', compact('user'));
 
     }
 
@@ -77,7 +98,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $data = Inputuser::find($id);
+        $data = User::find($id);
 
         $role = role::all();
 
@@ -90,25 +111,30 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Inputuser::find($id);
+        $data = User::find($id);
 
-        $data->user_name = $request->user_name;
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+        ]);
+
+        $data->name = $request->name;
 
         $data->email = $request->email;
 
         // $data->name = $request->role;
         
-        $data->address_user = $request->address_user;
+        // $data->address_user = $request->address_user;
         
-        $data->phone_user = $request->phone_user;
+        // $data->phone_user = $request->phone_user;
         
-        $data->nip = $request->nip;
+        // $data->nip = $request->nip;
         
-        $data->no_ktp = $request->no_ktp;
+        // $data->no_ktp = $request->no_ktp;
         
-        $data->tempat_lahir = $request->tempat_lahir;
+        // $data->tempat_lahir = $request->tempat_lahir;
         
-        $data->tanggal_lahir = $request->tanggal_lahir;
+        // $data->tanggal_lahir = $request->tanggal_lahir;
 
 
         Alert::success('Sukses', 'User berhasil diperbarui');
@@ -123,7 +149,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $data = Inputuser::find($id);
+        $data = User::find($id);
 
         $data->delete();
 

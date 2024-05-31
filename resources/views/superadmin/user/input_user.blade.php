@@ -23,18 +23,36 @@
 
                   @csrf
 
-                    <div class="form-group">
-
-                      <label class="form-label" for="exampleInputEmail1">Nama</label>
-                      <input type="text" class="form-control" name="user_name"
-                        placeholder="Enter Nama">
-                    </div>
+      <div class="form-group">
+        <label class="form-label" for="name">Nama</label>
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Enter Nama" value="{{ old('name') }}">
+        @error('name')
+         <div class="invalid-feedback">{{ $message }}</div>
+       @enderror
+    </div>
                     
-                    <div class="form-group">
-                      <label class="form-label" for="exampleInputEmail1">Email</label>
-                      <input type="email" class="form-control" name="email"
-                        placeholder="Enter Email">
-                    </div>
+    <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Enter Email" value="{{ old('email') }}">
+        @error('email')
+         <div class="invalid-feedback">{{ $message }}</div>
+       @enderror
+    </div>
+                    
+    <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter Password">
+        @error('password')
+         <div class="invalid-feedback">{{ $message }}</div>
+       @enderror
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label" for="password_confirmation">Konfirmasi Password</label>
+        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Enter Password Again">
+      </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
           
 
                     <!-- <div class="form-group">
@@ -52,7 +70,7 @@
 
                     </div> -->
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Alamat</label>
                       <input type="text" class="form-control" name="address_user" placeholder="Masukkan Alamat">
                     </div>
@@ -62,13 +80,13 @@
                     <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">No Handphone</label>
                       <input type="number" class="form-control" name="phone_user" placeholder="No Handphone" required>
-                    </div>
+                    </div> -->
                     
-                    <button type="submit" class="btn btn-primary mb-4">Submit</button>
+               
                   
                 </div>
                 
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
             
 
                   <div class="form-group">
@@ -86,7 +104,7 @@
                   <div class="form-group">
                     <label class="form-label">Tanggal Lahir</label>
                     <input type="date" class="form-control" name="tanggal_lahir" placeholder="Tanggal Lahir">
-                  </div>
+                  </div> -->
                 </form>
                  
                 
