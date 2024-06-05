@@ -171,7 +171,7 @@
 
     <!-- [Page Specific JS] start -->
     <!-- datatable Js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0                                                                                            /jquery.min.js"></script>
     <script src="{{ URL::asset('build/js/plugins/dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('build/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
     <script>

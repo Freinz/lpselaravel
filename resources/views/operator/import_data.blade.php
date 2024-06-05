@@ -45,7 +45,7 @@
                     <form action="/importexcel" method="post" enctype="multipart/form-data">
                       @csrf
 
-                      <!-- <div class="form-group">
+                      <div class="form-group">
                       <label class="form-label" for="exampleInputEmail1">Nama</label>
                       <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
                         placeholder="masukan Nama" value="{{ old('nama') }}">  
@@ -74,13 +74,7 @@
                     @enderror
                 </div>  
                     
-                <div class="form-group">
-                    <label class="form-label @error('ket_salah') is-invalid @enderror" for="exampleSelect1" value="{{ old('ket_salah') }}">keterangan salah</label>
-                    <input type="text" class="form-control @error('ket_salah') is-invalid @enderror" placeholder="isi tanggal" name="ket_salah" id="pc-datepicker-1" value="{{ old('ket_salah') }}">
-                    @error('ket_salah')
-                             <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>   -->
+             
 
                     <div class="modal-body">
                       <div class="formgroup">
@@ -107,14 +101,8 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
-                            <th>Status Permintaan</th>
-                            <!-- @foreach ($form as $form)
-                              @if ($form->status == 'pending')
-                              <th>
-                                keterangan salah
-                              </th>
-                              @endif
-                              @endforeach -->
+                            <th>Status</th>
+                            
 
                       
                           </tr>
@@ -122,7 +110,8 @@
                     
                         <tbody>
                     @foreach ($superadmin as $spadmin )
-                      @if ($spadmin->status == 'ditunda')
+                     
+                    
                     
                         <tr>
                             <td>{{$spadmin->nama_kota}}</td>
@@ -133,18 +122,12 @@
                             <td>{{$spadmin->merk}}</td>
                             <td>{{$spadmin->harga}}</td>
                             <td>{{$spadmin->status}}</td>
-                            <!-- @foreach ($form as $form)
-                              @if ($form->status == 'pending')
-                              <td>
-                              {{$form->ket_salah}}
-                              </td>
-                              @endif
-                              @endforeach -->
+                         
 
                            
                 
                       </tr>
-                        @endif
+                  
                       @endforeach
                     </tbody>
 

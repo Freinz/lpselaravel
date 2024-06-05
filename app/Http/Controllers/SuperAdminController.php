@@ -152,18 +152,19 @@ else {
     public function importexcel(Request $request)
     {
         
-        // $request->validate([
-        //     'nama' => 'required|min:2|max:255',
-        //     'tgl_survey' => 'required',
-        //     'periode' => 'required',
+        $request->validate([
+            'nama' => 'required|min:2|max:255',
+            'tgl_survey' => 'required',
+            'periode' => 'required',
             
-        // ]);
-        // $form_id = $form -> form_id;
-        // $form = Form::find($form_id);
-        // $form->nama = $request->nama;
-        // $form->tgl_survey = $request->tgl_survey;
-        // $form->periode = $request->periode;
-        // $form->save();
+        ]);
+
+        $form = new Form();
+        
+        $form->nama = $request->nama;
+        $form->tgl_survey = $request->tgl_survey;
+        $form->periode = $request->periode;
+        $form->save();
         
         $data = $request->file('file');
         $namafile = $data->getClientOriginalName();
@@ -171,8 +172,9 @@ else {
         // Simpan file ke direktori
         $data->move('EmployeeData', $namafile);
 
+        $form_id = $form -> id;
     
-        Excel::import(new EmployeeImport, \public_path('/EmployeeData/'.$namafile));
+        Excel::import(new EmployeeImport($form_id), \public_path('/EmployeeData/'.$namafile));
         
 
         Alert::success('Sukses', 'Data Excel Berhasil Diimport');

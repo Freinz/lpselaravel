@@ -25,5 +25,6 @@ class Superadmin extends Model
         'merk',
         'harga',
         'status',
+        'form_id',
     ];
 }

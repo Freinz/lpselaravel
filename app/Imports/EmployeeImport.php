@@ -12,6 +12,16 @@ class EmployeeImport implements ToModel
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
+    protected $form_id;
+
+    public function __construct($form_id)
+    {
+        
+        $this->form_id = $form_id;
+    }
+
+
     public function model(array $row)
     {
         return new Superadmin([
@@ -21,7 +31,8 @@ class EmployeeImport implements ToModel
             'nama_barang'=> $row[3],
             'satuan'=> $row[4],
             'merk'=> $row[5],
-            'harga'=> $row[6]
+            'harga'=> $row[6],
+            'form_id' => $this->form_id
         ]);
     }
 }

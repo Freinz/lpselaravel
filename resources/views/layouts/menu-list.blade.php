@@ -11,7 +11,7 @@
 </li>
 
 <li class="pc-item pc-hasmenu">
-    <a href="https://lpse.kalselprov.go.id/" class="pc-link">
+    <a href="/" class="pc-link">
         <span class="pc-micon">
             <i class="fas fa-window-restore"></i>
         </span>
