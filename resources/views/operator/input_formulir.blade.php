@@ -54,6 +54,15 @@
                              <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                   
+                <div class="form-group">
+                    <label class="form-label @error('ket_salah') is-invalid @enderror" for="exampleSelect1" value="{{ old('ket_salah') }}">Keterangan Salah</label>
+                    <input type="text" class="form-control @error('ket_salah') is-invalid @enderror" placeholder="Isi KeteranganP" name="ket_salah" id="pc-datepicker-1" value="{{ old('ket_salah') }}">
+                    @error('ket_salah')
+                             <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary mb-4">Submit</button>
                    
                 </form>

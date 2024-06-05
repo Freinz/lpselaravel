@@ -2,10 +2,10 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header">
-            <a href="/dashboard" class="b-brand text-primary">
+            <a href="https://lpse.kalselprov.go.id/eproc4" class="b-brand text-primary">
                 <!-- ========   Change your logo from here   ============ -->
                 <img src="{{ URL::asset('build/images/logo-dark.svg') }}" alt="logo image" class="logo-lg">
-                <span class="badge bg-brand-color-2 rounded-pill ms-2 theme-version">v1.0</span>
+                <span class="badge bg-brand-color-2 rounded-pill ms-2 theme-version">LPSE Kalsel</span>
             </a>
         </div>
         <div class="navbar-content">
@@ -13,12 +13,7 @@
                 @include('layouts.menu-list')
             </ul>
             <div class="card nav-action-card bg-brand-color-4">
-                <div class="card-body" style="background-image: url('/build/images/layout/nav-card-bg.svg')">
-                    <h5 class="text-dark">Help Center</h5>
-                    <p class="text-dark text-opacity-75">Please contact us for more questions.</p>
-                    <a href="https://phoenixcoded.support-hub.io/" class="btn btn-primary" target="_blank">Go to help
-                        Center</a>
-                </div>
+                
             </div>
         </div>
         <div class="card pc-user-card">
@@ -29,8 +24,8 @@
                             class="user-avtar wid-45 rounded-circle">
                     </div>
                     <div class="flex-grow-1 ms-3 me-2">
-                        <h6 class="mb-0">Jonh Smith</h6>
-                        <small>Administrator</small>
+                        <h6 class="mb-0">ePengadaan</h6>
+                        <small>LPSE Kalimantan Selatan</small>
                     </div>
                     <div class="dropdown">
                         <a href="#" class="btn btn-icon btn-link-secondary avtar arrow-none dropdown-toggle"

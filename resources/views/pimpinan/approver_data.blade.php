@@ -24,41 +24,6 @@
                 <div class="table-responsive dt-responsive"> 
                   <table id="multi-table" class="table table-striped table-bordered nowrap">
 
-                 <!-- Button trigger modal -->
-                 <div class="col-auto"> 
-                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                     Import Data
-                   </button>
-                 </div> 
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-
-                    <form action="/importexcel" method="post" enctype="multipart/form-data">
-                      @csrf
-                    <div class="modal-body">
-                      <div class="formgroup">
-                        <input type="file" name="file" required>
-                      </div>
-                    </div>
-                    
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </form>
-
-                </div>
-              </div>
-
                   <thead>
                         <tr>
                             <th>Nama Kota</th>
@@ -75,7 +40,7 @@
                     
                         <tbody>
                     @foreach ($superadmin as $spadmin )
-                      @if ($spadmin -> status == 'pending')
+                      @if ($spadmin -> status == 'ditunda')
                         <tr>
                             <td>{{$spadmin->nama_kota}}</td>
                             <td>{{$spadmin->kategori}}</td>
@@ -90,9 +55,9 @@
                             @csrf
                             @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->                                     
                               <select class="btn btn-light-secondary" name="status">
-                                <option value="pending" {{ $spadmin->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="accepted" {{ $spadmin->status == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                                <option value="rejected" {{ $spadmin->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                <option value="ditunda" {{ $spadmin->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
+                                <option value="diterima" {{ $spadmin->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                <option value="ditolak" {{ $spadmin->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                               </select>
                                 <button type="submit" class="btn btn-primary">Update Status</button>
                             </form>

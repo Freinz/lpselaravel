@@ -34,7 +34,7 @@
                         </thead>
                         <tbody>
                             @foreach ($superadmin as $spadmin)
-                                @if ($spadmin->status == 'accepted')
+                                @if ($spadmin->status == 'diterima')
                                     <tr>
                                         <td>{{ $spadmin->nama_kota }}</td>
                                         <td>{{ $spadmin->kategori }}</td>

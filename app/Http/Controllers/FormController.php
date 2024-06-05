@@ -32,11 +32,13 @@ class FormController extends Controller
             'nama' => 'required|min:2|max:255',
             'tgl_survey' => 'required',
             'periode' => 'required',
+            'ket_salah' => 'required',
 
         ]);
         $data->nama = $request->nama;
         $data->tgl_survey = $request->tgl_survey;
         $data->periode = $request->periode;
+        $data->ket_salah = $request->ket_salah;
     
 
         $data->save();

@@ -18,6 +18,7 @@ class Form extends Model
         'tgl_survey',
         'periode',
         'status',
+        'ket_salah',
        
     ];
 

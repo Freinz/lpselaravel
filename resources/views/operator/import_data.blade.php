@@ -24,6 +24,80 @@
               <div class="card-body"> 
                 <div class="table-responsive dt-responsive"> 
                   <table id="basic-btn" class="table table-striped table-bordered nowrap">
+
+                 <!-- Button trigger modal -->
+                 <div class="col-auto"> 
+                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                     Import Data
+                   </button>
+                 </div> 
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Import Excel</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <form action="/importexcel" method="post" enctype="multipart/form-data">
+                      @csrf
+
+                      <!-- <div class="form-group">
+                      <label class="form-label" for="exampleInputEmail1">Nama</label>
+                      <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                        placeholder="masukan Nama" value="{{ old('nama') }}">  
+                          @error('nama')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label">Tanggal Survey</label>
+                       
+                        <input type="text" class="form-control @error('tgl_survey') is-invalid @enderror" placeholder="isi tanggal" name="tgl_survey" id="pc-datepicker-1" value="{{ old('tgl_survey') }}">
+                          @error('tgl_survey')
+                             <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                    </div>
+
+                    <div class="form-group">
+                    <label class="form-label @error('periode') is-invalid @enderror" for="exampleSelect1" value="{{ old('periode') }}">Periode</label>
+                    <select class="form-select" id="exampleSelect1" name="periode">
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                    @error('periode')
+                             <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>  
+                    
+                <div class="form-group">
+                    <label class="form-label @error('ket_salah') is-invalid @enderror" for="exampleSelect1" value="{{ old('ket_salah') }}">keterangan salah</label>
+                    <input type="text" class="form-control @error('ket_salah') is-invalid @enderror" placeholder="isi tanggal" name="ket_salah" id="pc-datepicker-1" value="{{ old('ket_salah') }}">
+                    @error('ket_salah')
+                             <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>   -->
+
+                    <div class="modal-body">
+                      <div class="formgroup">
+                        <input type="file" name="file" required>
+                      </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </form>
+
+                </div>
+              </div>
+
                   <thead>
                         <tr>
                             <th>Nama Kota</th>
@@ -33,13 +107,22 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
+                            <th>Status Permintaan</th>
+                            <!-- @foreach ($form as $form)
+                              @if ($form->status == 'pending')
+                              <th>
+                                keterangan salah
+                              </th>
+                              @endif
+                              @endforeach -->
+
                       
                           </tr>
                         </thead>
                     
                         <tbody>
                     @foreach ($superadmin as $spadmin )
-                      @if ($spadmin->status == 'diterima')
+                      @if ($spadmin->status == 'ditunda')
                     
                         <tr>
                             <td>{{$spadmin->nama_kota}}</td>
@@ -49,8 +132,17 @@
                             <td>{{$spadmin->satuan}}</td>
                             <td>{{$spadmin->merk}}</td>
                             <td>{{$spadmin->harga}}</td>
+                            <td>{{$spadmin->status}}</td>
+                            <!-- @foreach ($form as $form)
+                              @if ($form->status == 'pending')
+                              <td>
+                              {{$form->ket_salah}}
+                              </td>
+                              @endif
+                              @endforeach -->
+
                            
-                          
+                
                       </tr>
                         @endif
                       @endforeach

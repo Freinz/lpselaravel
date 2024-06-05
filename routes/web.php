@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/data_read/{id}', [SuperAdminController::class,'edit'])->middleware(['auth', 'role:superadmin|pimpinan']);
     Route::post('/data_edit/{id}', [SuperAdminController::class,'update'])->middleware(['auth', 'role:superadmin|pimpinan']);
     Route::get('/data_delete/{id}', [SuperAdminController::class,'destroy'])->middleware(['auth', 'role:superadmin|pimpinan']);
+    
+    Route::get('/import_data', [SuperAdminController::class,'import_data']);
 
     // Management Import and Approve Data
     Route::get('/approver_data', [SuperAdminController::class,'approver_data'])->middleware(['auth', 'role:pimpinan']);

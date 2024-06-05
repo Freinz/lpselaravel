@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama')->nullable();
             $table->string('tgl_survey')->nullable();
             $table->string('periode')->nullable();
+            $table->string('ket_salah')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

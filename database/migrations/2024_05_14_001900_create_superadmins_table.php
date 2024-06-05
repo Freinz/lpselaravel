@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('satuan')->nullable();
             $table->string('merk')->nullable();
             $table->string('harga')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('status')->default('ditunda');
+            $table->foreignID('form_id')->constrained()->onDelete('cascade');
             
             $table->timestamps();
 

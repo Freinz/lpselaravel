@@ -27,7 +27,10 @@ class SuperAdminController extends Controller
      */
 
     public function dashboard() {
-        return view('dashboard');
+
+        $superadmin = Superadmin::all();
+
+        return view('dashboard', compact('superadmin'));
     }
 
     public function index()
@@ -58,9 +61,19 @@ class SuperAdminController extends Controller
         }
 
         
-    else {
+else {
         return view ('pimpinan.show_data', compact('superadmin'));
     }   
+    }
+
+    public function import_data() {
+
+        $superadmin = Superadmin::all();
+
+        $form = Form::all();
+
+        return view('operator.import_data', compact('superadmin', 'form'));
+
     }
 
     /**
@@ -128,9 +141,9 @@ class SuperAdminController extends Controller
         
         $superadmin = Superadmin::all();
 
-        $superadmin = Form::all();
+        $form = Form::all();
 
-        return view('pimpinan.approver_data', compact('superadmin'));
+        return view('pimpinan.approver_data', compact('superadmin', 'form'));
        
         
 
@@ -164,7 +177,7 @@ class SuperAdminController extends Controller
 
         Alert::success('Sukses', 'Data Excel Berhasil Diimport');
 
-        return redirect()->back()->with('message', 'File imported successfully and awaiting approval');
+        return redirect()->back();
     }
 
     public function update_status(Request $request) {

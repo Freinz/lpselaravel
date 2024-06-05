@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('superadmin.main')
 
 @section('title', 'Data Widget')
 @section('breadcrumb-item', 'Widget')
