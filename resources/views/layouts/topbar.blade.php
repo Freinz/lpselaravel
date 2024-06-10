@@ -20,25 +20,13 @@
                         role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="ph-duotone ph-magnifying-glass"></i>
                     </a>
-                    <div class="dropdown-menu pc-h-dropdown drp-search">
-                        <form class="px-3">
-                            <div class="form-group mb-0 d-flex align-items-center">
-                                <input type="search" class="form-control border-0 shadow-none"
-                                    placeholder="Search..." />
-                                <button class="btn btn-light-secondary btn-search">Search</button>
-                            </div>
-                        </form>
-                    </div>
+                  
                 </li>
-                <li class="pc-h-item d-none d-md-inline-flex">
-                    <form class="form-search">
-                        <i class="ph-duotone ph-magnifying-glass icon-search"></i>
-                        <input type="search" class="form-control" placeholder="Search..." />
-                        <button class="btn btn-search" style="padding: 0"><kbd>ctrl+k</kbd></button>
-                    </form>
-                </li>
+                
             </ul>
         </div>
+
+        <h1 class="p-20">LPSE Kalimantan Selatan</h1>
         
         <!-- [Mobile Media Block end] -->
         <div class="ms-auto">
@@ -47,6 +35,10 @@
                 <li class="dropdown pc-h-item">
                     <a href="{{ route('login') }}" class="btn btn-primary mb-4">Login Disini</a>
                 </li>
+           
+                
+
+                
                 
 
             @can('store_role|approver_data|show_user')

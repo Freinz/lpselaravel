@@ -30,17 +30,37 @@ class SuperAdminController extends Controller
 
         $superadmin = Superadmin::all();
 
-        return view('dashboard', compact('superadmin'));
+        $jumlah_kota = Superadmin::select('nama_kota')
+        ->groupBy('nama_kota')
+        ->get()
+        ->count();
+
+        $jumlah_kategori = Superadmin::select('kategori')
+        ->groupBy('kategori')
+        ->get()
+        ->count();
+       
+        $total_barang = Superadmin::count();
+
+        $persentase_kota = ($jumlah_kota / 13) * 100;
+
+        $persentase_kategori = ($jumlah_kategori / 100) * 100;
+
+        return view('dashboard', compact('superadmin', 'jumlah_kota', 'jumlah_kategori', 'persentase_kota', 'persentase_kategori', 'total_barang'));
     }
 
     public function index()
     {
+        $superadmin = Superadmin::all();
+
+        $total_barang = Superadmin::count();
+
         if(Auth::user()->hasRole('superadmin')) {
             return redirect()->to('superadmin.index');
         } else if(Auth::user()->hasRole('pimpinan')) {
             return redirect()->to('pimpinan.index');
         }else if(Auth::user()->hasRole('operator')) {
-            return redirect()->to('operator.index');
+            return view('operator.index', compact('superadmin', 'total_barang'));
         } else {
             return redirect() -> back();
         }
@@ -182,20 +202,21 @@ else {
         return redirect()->back();
     }
 
-    public function update_status(Request $request) {
-        // Ambil semua data
-        $data = Superadmin::all();
-        
-        // Lakukan iterasi untuk setiap data dan update status
-        foreach ($data as $data) {
-            $data->status = $request->status; // Menggunakan status dari request
-            $data->save();
-        }
+    public function update_status(Request $request, $form_id) {
+        // Validasi input
+        $request->validate([
+            'status' => 'required|string',
+        ]);
     
+        // Perbarui semua data yang memiliki form_id yang sama
+        Superadmin::where('form_id', $form_id)->update(['status' => $request->input('status')]);
+    
+        // Berikan notifikasi sukses
         Alert::success('Sukses', 'Status Data Telah Terupdate');
-
+    
         return redirect()->back();
     }
+    
 
 
     /**

@@ -51,16 +51,17 @@
                             <td>{{$spadmin->harga}}</td>
                             <td>{{$spadmin->status}}</td>
                             <td>
-                            <form action="/update_status/{{ $spadmin->id }}" method="POST">
-                            @csrf
-                            @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->                                     
+                            <form action="/update_status/{{ $spadmin->form_id }}" method="POST">
+                              @csrf
+                              @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
                               <select class="btn btn-light-secondary" name="status">
-                                <option value="ditunda" {{ $spadmin->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
-                                <option value="diterima" {{ $spadmin->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
-                                <option value="ditolak" {{ $spadmin->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                  <option value="ditunda" {{ $spadmin->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
+                                  <option value="diterima" {{ $spadmin->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                  <option value="ditolak" {{ $spadmin->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                               </select>
-                                <button type="submit" class="btn btn-primary">Update Status</button>
-                            </form>
+                              <button type="submit" class="btn btn-primary">Update Status</button>
+                          </form>
+
                             </td>      
                       </tr>
                         @endif

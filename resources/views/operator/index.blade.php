@@ -19,16 +19,16 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Earnings</h5>
+                        <h5 class="mb-0">Jumlah Data Sukses Diinputkan</h5>
                         <input type="date" class="form-control form-control-sm w-auto border-0 shadow-none2">
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-1">
-                        <h3 class="mb-0">$894.39 <small class="text-muted">/+$200.10</small></h3>
+                        <h3 class="mb-0"> <small class="text-muted">/+$200.10</small></h3>
                         <span class="badge bg-light-success ms-2">36%</span>
                     </div>
-                    <p>Delivery Orders</p>
+                    <p>{{ $total_barang }}</p>
                     <div id="customer-rate-graph"></div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">User Activities</h5>
+                        <h5 class="mb-0">Jumlah Data Yang Masih Diproses</h5>
                         <select class="form-select form-select-sm w-auto border-0 shadow-none">
                             <option>Today</option>
                             <option selected="">This week</option>

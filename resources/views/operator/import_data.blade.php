@@ -102,17 +102,12 @@
                             <th>Merk</th>
                             <th>Harga</th>
                             <th>Status</th>
-                            
-
-                      
                           </tr>
                         </thead>
                     
                         <tbody>
                     @foreach ($superadmin as $spadmin )
-                     
-                    
-                    
+                    @if ($spadmin -> status == 'ditunda')
                         <tr>
                             <td>{{$spadmin->nama_kota}}</td>
                             <td>{{$spadmin->kategori}}</td>
@@ -127,7 +122,7 @@
                            
                 
                       </tr>
-                  
+                      @endif
                       @endforeach
                     </tbody>
 

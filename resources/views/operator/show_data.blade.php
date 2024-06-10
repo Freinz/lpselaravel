@@ -39,7 +39,7 @@
                     
                         <tbody>
                     @foreach ($superadmin as $spadmin )
-                      @if ($spadmin->status == 'diterima')
+                      @if ($spadmin->status == 'ditunda')
                     
                         <tr>
                             <td>{{$spadmin->nama_kota}}</td>
