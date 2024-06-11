@@ -53,14 +53,26 @@ class SuperAdminController extends Controller
     {
         $superadmin = Superadmin::all();
 
+        $role = Role::all();
+
         $total_barang = Superadmin::count();
+        
+        $total_barang_ditunda = Superadmin::where('status', 'ditunda')->count();
+        
+        $total_barang_ditolak = Superadmin::where('status', 'ditolak')->count();
+        
+        $jumlah_keseluruhan_barang = $total_barang + $total_barang_ditunda + $total_barang_ditolak;
+
+        $persentase_jumlah_barang = $total_barang / $jumlah_keseluruhan_barang * 100;
+
+        $jumlah_operator = Role::where('name', 'operator')->count();
 
         if(Auth::user()->hasRole('superadmin')) {
             return redirect()->to('superadmin.index');
         } else if(Auth::user()->hasRole('pimpinan')) {
-            return redirect()->to('pimpinan.index');
+            return view('pimpinan.index', compact ('superadmin','total_barang', 'total_barang_ditunda', 'total_barang_ditolak', 'jumlah_keseluruhan_barang', 'persentase_jumlah_barang', 'jumlah_operator'));
         }else if(Auth::user()->hasRole('operator')) {
-            return view('operator.index', compact('superadmin', 'total_barang'));
+            return view('operator.index', compact('superadmin', 'total_barang', 'total_barang_ditunda'));
         } else {
             return redirect() -> back();
         }
@@ -95,6 +107,16 @@ else {
         return view('operator.import_data', compact('superadmin', 'form'));
 
     }
+    
+    public function revisi_data() {
+
+        $superadmin = Superadmin::all();
+
+        $form = Form::all();
+
+        return view('operator.revisi_data', compact('superadmin', 'form'));
+
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -106,6 +128,15 @@ else {
         $city = Superadmin::all();
 
         return view('superadmin.update_data', compact('data', 'city'));
+    }
+    
+    public function revisi_read($id)
+    {
+        $data = Superadmin::find($id);
+
+        $form = Form::all();
+
+        return view('operator.revisi_read', compact('data', 'form'));
     }
 
     /**
@@ -140,10 +171,51 @@ else {
         return redirect('/show_data');
     }
 
+
+    public function revisi_edit(Request $request, $id)
+    {
+        $data = Superadmin::find($id);
+
+        $request->validate([
+            'nama_kota' => 'required|min:2|max:255',
+            'kategori' => 'required',
+            'sub_kategori' => 'required',
+            'nama_barang' => 'required',
+            'satuan' => 'required',
+            'merk' => 'required',
+            'harga' => 'required',
+        ]);
+
+        $data->nama_kota = $request->nama_kota;
+        $data->kategori = $request->kategori;
+        $data->sub_kategori = $request->sub_kategori;
+        $data->nama_barang = $request->nama_barang;
+        $data->satuan = $request->satuan;
+        $data->merk = $request->merk;
+        $data->harga = $request->harga;
+
+        $data->save();
+
+        Alert::success('Sukses', 'Data Berhasil Diupdate');
+
+        return redirect('/revisi_data');
+    }
+
+
     /**
      * Remove the specified resource from storage.
     */
     public function destroy($id)
+    {
+        $data = Superadmin::find($id);
+
+        $data->delete();
+
+        return redirect()->back();
+
+    }
+    
+    public function revisi_delete($id)
     {
         $data = Superadmin::find($id);
 
@@ -216,6 +288,18 @@ else {
     
         return redirect()->back();
     }
+
+    public function revisi_update_status($form_id) {
+        $superadmin = Superadmin::all();
+
+        $form = Form::all();
+
+        return view('operator.revisi_data', compact('superadmin', 'form'));
+    }
+
+
+
+    
     
 
 

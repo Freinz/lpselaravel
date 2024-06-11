@@ -10,7 +10,7 @@ class Form extends Model
     use HasFactory;
 
     public function superadmin(){
-        return $this->belongsTo(Superadmin::class);
+        return $this->hasMany(Superadmin::class, 'form_id');
     }
 
     protected $fillable = [

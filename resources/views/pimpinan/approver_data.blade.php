@@ -10,6 +10,12 @@
     <!-- data tables css -->
     <link rel="stylesheet" href="{{ URL::asset('build/css/plugins/dataTables.bootstrap5.min.css') }}">
     <!-- [Page specific CSS] end -->
+     <!-- Stylesheet -->
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -54,12 +60,48 @@
                             <form action="/update_status/{{ $spadmin->form_id }}" method="POST">
                               @csrf
                               @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
-                              <select class="btn btn-light-secondary" name="status">
+                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Revisi</button>
+
+                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Action</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <form>
+                                      <div class="mb-3">
+                                          <label for="recipient-name" class="col-form-label">Tujuan</label>
+                                          <input type="text" class="form-control" value="{{$spadmin->nama}}" id="recipient-name">
+                                      </div>
+                                      <div class="mb-3">
+                                          <label for="recipient-name" class="col-form-label">Aksi</label>
+                                          <select class="btn btn-light-secondary" name="status">
+                                            <option value="ditunda" {{ $spadmin->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
+                                            <option value="diterima" {{ $spadmin->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                            <option value="ditolak" {{ $spadmin->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                        </select>
+                                      </div>
+                                      <div class="mb-3">
+                                          <label for="message-text" class="col-form-label">Message:</label>
+                                          <textarea class="form-control" id="message-text"></textarea>
+                                      </div>
+                                      </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Send message</button>
+                                  </div>
+                                  </div>
+                              </div>
+                              </div>
+                              <!-- <select class="btn btn-light-secondary" name="status">
                                   <option value="ditunda" {{ $spadmin->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
                                   <option value="diterima" {{ $spadmin->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
                                   <option value="ditolak" {{ $spadmin->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                               </select>
-                              <button type="submit" class="btn btn-primary">Update Status</button>
+                              <button type="submit" class="btn btn-primary">Update Status</button> -->
                           </form>
 
                             </td>      

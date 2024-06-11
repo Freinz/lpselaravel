@@ -25,10 +25,10 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-1">
-                        <h3 class="mb-0"> <small class="text-muted">/+$200.10</small></h3>
-                        <span class="badge bg-light-success ms-2">36%</span>
+                        <h3 class="mb-0"> <small class="mb-0">Sukses</small></h3>
+                        <!-- <span class="badge bg-light-success ms-2">36%</span> -->
                     </div>
-                    <p>{{ $total_barang }}</p>
+                    <h3>{{ $total_barang }}</h3>
                     <div id="customer-rate-graph"></div>
                 </div>
             </div>
@@ -46,8 +46,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="mb-0">Sales</p>
-                    <h4>$2356.4</h4>
+                    <p class="mb-0">Ditunda</p>
+                    <h4>{{ $total_barang_ditunda }}</h4>
                     <div id="monthly-report-graph"></div>
                 </div>
             </div>

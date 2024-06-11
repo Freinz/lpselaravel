@@ -4,9 +4,9 @@
         <div class="m-header">
             <a href="https://lpse.kalselprov.go.id/eproc4" class="b-brand text-primary">
                 <!-- ========   Change your logo from here   ============ -->
-                <img src="{{ URL::asset('image/lpselogo.png') }}" alt="logo image">
-
-                <!-- <span class="badge bg-brand-color-2 rounded-pill ms-2 theme-version">LPSE Kalsel</span> -->
+                <img src="{{ URL::asset('image/lpselogo.png') }}" class="img-fluid w-50" alt="logo image">
+                <span class="badge bg-brand-color-2 rounded-pill ms-2 theme-version">v1.0</span>
+             
             </a>
         </div>
         <div class="navbar-content">

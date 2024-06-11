@@ -22,11 +22,3 @@
     </ul>
 </li>
 
-<li class="pc-item">
-    <a href="{{ url ('show_form') }}" class="pc-link">
-        <span class="pc-micon">
-            <i class="ph-duotone ph-projector-screen-chart"></i>
-        </span>
-        <span class="pc-mtext">Approve Form</span>
-    </a>
-</li>

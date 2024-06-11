@@ -25,6 +25,9 @@
                 <div class="table-responsive dt-responsive"> 
                   <table id="basic-btn" class="table table-striped table-bordered nowrap">
 
+                 
+                  
+
                  <!-- Button trigger modal -->
                  <div class="col-auto"> 
                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
