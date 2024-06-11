@@ -84,7 +84,7 @@
                                             <td>{{$spadmin->merk}}</td>
                                             <td>{{$spadmin->harga}}</td>
                                             <td>{{$spadmin->status}}</td>
-                                            <td>{{$spadmin->ket_salah}}</td>
+                                            <td>{{$spadmin->form->keterangan}}</td>
                                             <td>
                                                 <div class="d-flex flex-wrap gap-2">
                                                     <button type="button" class="btn btn-light-primary">

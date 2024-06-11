@@ -77,7 +77,32 @@
         </div>
         <!-- [ Row 1 ] end -->
         <!-- [ Row 2 ] start -->
-        <div class="col-sm-6 col-xl-4">
+
+        <div class="row">
+  <!-- [ variant-chart ] start -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Bar chart</h5>
+      </div>
+      <div class="card-body">
+        <div id="bar-chart-1"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Bar chart stacked</h5>
+      </div>
+      <div class="card-body">
+        <div id="bar-chart-2"></div>
+      </div>
+    </div>
+  </div>
+        </div>
+
+        <!-- <div class="col-sm-6 col-xl-4">
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between py-3">
                     <h5>Jumlah Operator yang terdaftar</h5>
@@ -86,7 +111,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-end mb-3">
                         <h4 class="mb-0">{{ $jumlah_operator }}</h4>
-                        <!-- <span class="badge bg-light-success ms-2">20%</span> -->
+                        <span class="badge bg-light-success ms-2">20%</span>
                     </div>
                     <p class="text-muted mb-0">Operator Sukses Terdaftar</p>
                 </div>
@@ -106,7 +131,7 @@
                     <p class="text-muted mb-0">Weekly Increase</p>
                 </div>
             </div>
-        </div>
+        </div> -->
         
     <!-- [ Main Content ] end -->
 @endsection
@@ -114,6 +139,7 @@
 @section('scripts')
     <!-- [Page Specific JS] start -->
     <script src="{{ URL::asset('build/js/plugins/apexcharts.min.js') }}"></script>
+    <script src="{{ URL::asset('build/js/pages/chart-apex.js') }}"></script>
     <script src="{{ URL::asset('build/js/plugins/jsvectormap.min.js') }}"></script>
     <script src="{{ URL::asset('build/js/plugins/world.js') }}"></script>
     <script src="{{ URL::asset('build/js/plugins/world-merc.js') }}"></script>

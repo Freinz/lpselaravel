@@ -278,10 +278,17 @@ else {
         // Validasi input
         $request->validate([
             'status' => 'required|string',
+            'keterangan' => 'required|string',
         ]);
     
         // Perbarui semua data yang memiliki form_id yang sama
         Superadmin::where('form_id', $form_id)->update(['status' => $request->input('status')]);
+
+        $form = Form::find($form_id);
+        if ($form) {
+            $form->keterangan = $request->input('keterangan');
+            $form->save();
+        }
     
         // Berikan notifikasi sukses
         Alert::success('Sukses', 'Status Data Telah Terupdate');

@@ -2,14 +2,7 @@
     <label>Navigation</label>
 </li>
 
-<li class="pc-item">
-    <a href="/widget/w_statistics" class="pc-link">
-        <span class="pc-micon">
-            <i class="ph-duotone ph-projector-screen-chart"></i>
-        </span>
-        <span class="pc-mtext">Statistics</span>
-    </a>
-</li>
+
 
 <li class="pc-item pc-hasmenu">
     <a href="#!" class="pc-link"><span class="pc-micon">
