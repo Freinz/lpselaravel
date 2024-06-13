@@ -20,12 +20,18 @@
 
     @include('pimpinan.head-css')
 </head>
-
+@role('pimpinan')
 <body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light" >
     @include('pimpinan.loader')
     @include('pimpinan.sidebar')
     @include('pimpinan.topbar')
-
+    @endrole
+    
+    @role('operator')
+    @include('operator.loader')
+    @include('operator.sidebar')
+    @include('operator.topbar')
+@endrole
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">

@@ -95,38 +95,30 @@
                 </div>
               </div>
 
-                  <thead>
+              <thead>
                         <tr>
-                            <th>Nama Kota</th>
-                            <th>Kategori</th>
-                            <th>Sub-Kategori</th>
-                            <th>Nama Barang</th>
-                            <th>Satuan</th>
-                            <th>Merk</th>
-                            <th>Harga</th>
-                            <th>Status</th>
+                            <th>Nama Pengirim</th>
+                            <th>Tanggal Survey</th>
+                            <th>Periode</th>
+                            <th>Cek Detail Data</th>
                           </tr>
                         </thead>
                     
                         <tbody>
-                    @foreach ($superadmin as $spadmin )
-                    @if ($spadmin -> status == 'ditunda')
+                    @foreach ($form as $form )
+                      @if ($form -> status == 'ditunda')
                         <tr>
-                            <td>{{$spadmin->nama_kota}}</td>
-                            <td>{{$spadmin->kategori}}</td>
-                            <td>{{$spadmin->sub_kategori}}</td>
-                            <td>{{$spadmin->nama_barang}}</td>
-                            <td>{{$spadmin->satuan}}</td>
-                            <td>{{$spadmin->merk}}</td>
-                            <td>{{$spadmin->harga}}</td>
-                            <td>{{$spadmin->status}}</td>
-                         
-
-                           
-                
+                            <td>{{ $form->nama }}</td>
+                            <td>{{$form->tgl_survey}}</td>
+                            <td>{{$form->periode}}</td>
+                            <td>
+                              <a href="{{ url('detail_data/'.$form->id)}}">Klik ini untuk melihat detail data</a>
+                            </td>    
                       </tr>
-                      @endif
+                        @endif
                       @endforeach
+
+                
                     </tbody>
 
                   

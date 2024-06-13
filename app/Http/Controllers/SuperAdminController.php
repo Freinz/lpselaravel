@@ -331,12 +331,21 @@ else {
         return redirect()->back();
     }
 
-    public function revisi_update_status($form_id) {
-        $superadmin = Superadmin::all();
-
-        $form = Form::all();
-
-        return view('operator.revisi_data', compact('superadmin', 'form'));
+    public function revisi_update_status(Request $request, $form_id) {
+        $request->validate([
+            'status' => 'required|string',
+        ]);
+    
+        // Mengubah status pada semua entri Superadmin dengan form_id yang sama
+        Superadmin::where('form_id', $form_id)->update(['status' => $request->status]);
+    
+        // Mengubah status pada form dengan form_id yang sama
+        Form::where('id', $form_id)->update(['status' => $request->status]);
+    
+        // Redirect kembali dengan notifikasi atau tampilkan halaman revisi_data
+        // Jika Anda ingin menampilkan halaman revisi_data, ganti redirect dengan:
+        // return view('operator.revisi_data', compact('superadmin', 'form'));
+        return redirect()->back()->with('success', 'Status berhasil diubah menjadi ' . $request->status);
     }
 
 

@@ -41,7 +41,7 @@
                     
                         <tbody>
                     @foreach ($form as $form )
-                      @if ($form -> status == 'pending')
+                      @if ($form -> status == 'ditunda')
                         <tr>
                             <td>{{ $form->nama }}</td>
                             <td>{{$form->tgl_survey}}</td>

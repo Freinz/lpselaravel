@@ -42,7 +42,9 @@
                             <th>Merk</th>
                             <th>Harga</th>
                             <th>Status Permintaan</th>
+                            @role('pimpinan')
                             <th>Action</th>
+                            @endrole
                           </tr>
                         </thead>
                     
@@ -61,6 +63,7 @@
                             <td>{{$spadmin->merk}}</td>
                             <td>{{$spadmin->harga}}</td>
                             <td>{{$spadmin->status}}</td>
+                            @role('pimpinan')
                             <td>
                          
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Respon</button>
@@ -100,7 +103,8 @@
                                 </div>
                             </div>
 
-                            </td>      
+                            </td>    
+                            @endrole  
                       </tr>
                         @endif
                       @endforeach

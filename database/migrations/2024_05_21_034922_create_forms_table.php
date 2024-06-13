@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tgl_survey')->nullable();
             $table->string('periode')->nullable();
             $table->string('keterangan')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('status')->default('ditunda');
             $table->timestamps();
         });
     }
