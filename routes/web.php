@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/import_data', [SuperAdminController::class,'import_data']);
     Route::get('/revisi_data', [SuperAdminController::class,'revisi_data']);
+    Route::get('/detail_revisi/{id}', [SuperAdminController::class,'detail_revisi'])->middleware(['auth', 'role:operator']);
 
     // Management Import and Approve Data
     Route::get('/approver_data', [SuperAdminController::class,'approver_data'])->middleware(['auth', 'role:pimpinan']);

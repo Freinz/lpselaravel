@@ -32,6 +32,7 @@
 
                   <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama Pengirim</th>
                             <th>Nama Kota</th>
                             <th>Kategori</th>
@@ -46,9 +47,11 @@
                         </thead>
                     
                         <tbody>
+                        @php $nomor = 1; @endphp
                     @foreach ($superadmin as $spadmin )
                       @if ($spadmin -> status == 'ditunda')
                         <tr>
+                            <td>{{ $nomor++ }}</td>
                             <td>{{ $spadmin->form->nama }}</td>
                             <td>{{$spadmin->nama_kota}}</td>
                             <td>{{$spadmin->kategori}}</td>

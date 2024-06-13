@@ -57,32 +57,51 @@
                       
                           
 
-                        <thead>
-                        <tr>
-                            <th>Nama Pengirim</th>
-                            <th>Tanggal Survey</th>
-                            <th>Periode</th>
-                            <th>Cek Detail Data</th>
-                          </tr>
-                        </thead>
-                    
-                        <tbody>
-                    @foreach ($form as $form )
-                      @if ($form -> status == 'ditolak')
-                        <tr>
-                            <td>{{ $form->nama }}</td>
-                            <td>{{$form->tgl_survey}}</td>
-                            <td>{{$form->periode}}</td>
-                            <td>
-                              <a href="{{ url('detail_revisi/'.$form->id)}}">Klik ini untuk melihat detail data</a>
-                            </td>    
-                      </tr>
-                        @endif
-                      @endforeach
-
-                
-                    </tbody>
-
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Pengirim</th>
+                                    <th>Nama Kota</th>
+                                    <th>Kategori</th>
+                                    <th>Sub-Kategori</th>
+                                    <th>Nama Barang</th>
+                                    <th>Satuan</th>
+                                    <th>Merk</th>
+                                    <th>Harga</th>
+                                    <th>Status</th>
+                                    <th>Keterangan Salah</th>
+                                    <th>Update & Delete</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                @php $nomor = 1; @endphp
+                                @foreach ($superadmin as $spadmin)
+                                    @if ($spadmin->status == 'ditolak')
+                                        <tr>
+                                            <td>{{ $nomor++ }}</td>
+                                            <td>{{$spadmin->form->nama  }}</td>
+                                            <td>{{$spadmin->nama_kota}}</td>
+                                            <td>{{$spadmin->kategori}}</td>
+                                            <td>{{$spadmin->sub_kategori}}</td>
+                                            <td>{{$spadmin->nama_barang}}</td>
+                                            <td>{{$spadmin->satuan}}</td>
+                                            <td>{{$spadmin->merk}}</td>
+                                            <td>{{$spadmin->harga}}</td>
+                                            <td>{{$spadmin->status}}</td>
+                                            <td>{{$spadmin->form->keterangan}}</td>
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <button type="button" class="btn btn-light-primary">
+                                                        <a href="{{ url('revisi_read', $spadmin->id) }}">Update</a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-light-danger delete-button" data-id="{{ $spadmin->id }}">Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -109,6 +128,27 @@
     <script src="{{ URL::asset('build/js/plugins/buttons.bootstrap5.min.js') }}"></script>
 
     <script src="{{ URL::asset('build/js/plugins/datepicker-full.min.js') }}"></script>
+
+    <script>
+        Swal.fire({
+        title: "Apakah Data Sudah Diperbaiki?",
+        text: "Data akan dikirimkan ke admin!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, data sudah diperbaiki!"
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+            });
+        }
+        });
+    </script>
+
     <script>
         (function() {
             const d_week = new Datepicker(document.querySelector('#pc-datepicker-1'), {

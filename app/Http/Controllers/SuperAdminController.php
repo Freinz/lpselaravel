@@ -130,6 +130,18 @@ else {
 
     }
 
+    public function detail_revisi($id) {
+
+        // Ambil data Superadmin berdasarkan form_id
+        $form = Form::findOrFail($id); // Mengambil data formulir berdasarkan ID
+ 
+        $superadmin = $form->superadmin;
+    
+ 
+        return view('operator.detail_revisi', compact('form', 'superadmin'));
+        
+     }
+
     /**
      * Show the form for editing the specified resource.
     */
