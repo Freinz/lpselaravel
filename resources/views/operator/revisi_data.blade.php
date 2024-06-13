@@ -59,6 +59,7 @@
 
                             <thead>
                                 <tr>
+                                    <th>Nama Pengirim</th>
                                     <th>Nama Kota</th>
                                     <th>Kategori</th>
                                     <th>Sub-Kategori</th>
@@ -76,6 +77,7 @@
                                 @foreach ($superadmin as $spadmin)
                                     @if ($spadmin->status == 'ditolak')
                                         <tr>
+                                            <td>{{$spadmin->form->nama  }}</td>
                                             <td>{{$spadmin->nama_kota}}</td>
                                             <td>{{$spadmin->kategori}}</td>
                                             <td>{{$spadmin->sub_kategori}}</td>

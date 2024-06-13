@@ -25,12 +25,9 @@
         .dataTables_filter input {
             font-family: Arial, sans-serif;
             font-size: 14px;
-        }
-
-        /* Mengatur lebar kotak pencarian */
-        .dataTables_filter input {
             width: 200px; /* Ubah nilai ini sesuai kebutuhan */
         }
+
     </style>
 </head>
 
@@ -42,7 +39,9 @@
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">
-            
+        
+        
+
             <div class='row'>
                 <!-- [ Row 1 ] start -->
                 <div class="col-sm-6 col-xl-4">
@@ -124,8 +123,39 @@
             </div>  
             <!-- <h3 class="text-center">Kumpulan Data LPSE Kalimantan Selatan</h3> -->
 
+
+           <!-- Search Menu-->
+           <div class="row">
+                <div class="col-md-4">
+                    <select id="nama_kota" class="form-select">
+                        <option value="">Pilih Kota</option>
+                        <!-- Tambahkan opsi kota sesuai kebutuhan -->
+                        @foreach($nama_kota as $kota)
+                            <option value="{{ $kota->nama_kota }}">{{ $kota->nama_kota }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="kategori" class="form-select" disabled>
+                        <option value="">Pilih Kategori</option>
+                        @foreach($kategori as $kategori)
+                            <option value="{{ $kategori->kategori }}">{{ $kategori->kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="sub_kategori" class="form-select" disabled>
+                        <option value="">Pilih Sub Kategori</option>
+                        @foreach($sub_kategori as $sub_kategori)
+                            <option value="{{ $sub_kategori->sub_kategori }}">{{ $sub_kategori->sub_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             <!-- Row Grouping table start -->
             <div class="row"> 
+                
          
           <!-- Row Grouping table start -->
           <div class="col-sm-12"> 
@@ -204,6 +234,85 @@
     
 
     <script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            ajax: {
+                url: '/search',
+                data: function(d) {
+                    d.nama_kota = $('#nama_kota').val();
+                    d.kategori = $('#kategori').val();
+                    d.sub_kategori = $('#sub_kategori').val();
+                }
+            },
+            columns: [
+                { data: 'nama_kota' },
+                { data: 'kategori' },
+                { data: 'sub_kategori' },
+                { data: 'nama_barang' },
+                { data: 'satuan' },
+                { data: 'merk' },
+                { data: 'harga' },
+                { data: 'status' }
+            ]
+        });
+
+        $('#nama_kota').on('change', function() {
+            var selectedKota = $(this).val();
+
+            // Enable kategori dropdown and reset sub_kategori
+            $('#kategori').prop('disabled', false).val('');
+            $('#sub_kategori').prop('disabled', true).val('');
+
+            // Load kategori options based on selectedKota
+            $.ajax({
+                url: '/get-categories',
+                data: { nama_kota: selectedKota },
+                success: function(categories) {
+                    $('#kategori').empty().append('<option value="">Pilih Kategori</option>');
+                    $.each(categories, function(key, value) {
+                        $('#kategori').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                    // Reload table after updating categories
+                    table.ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching categories:', status, error);
+                }
+            });
+        });
+
+        $('#kategori').on('change', function() {
+            var selectedKategori = $(this).val();
+
+            // Enable sub_kategori dropdown
+            $('#sub_kategori').prop('disabled', false).val('');
+
+            // Load sub_kategori options based on selectedKategori
+            $.ajax({
+                url: '/get-sub-categories',
+                data: { kategori: selectedKategori },
+                success: function(subCategories) {
+                    $('#sub_kategori').empty().append('<option value="">Pilih Sub Kategori</option>');
+                    $.each(subCategories, function(key, value) {
+                        $('#sub_kategori').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                    // Reload table after updating subcategories
+                    table.ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching subcategories:', status, error);
+                }
+            });
+        });
+
+        $('#sub_kategori').on('change', function() {
+            table.ajax.reload();
+        });
+    });
+</script>
+
+
+    <script>
         // [ HTML5 Export Buttons ]
         $(document).ready(function() {
             $('#basic-btn').DataTable({
@@ -228,13 +337,7 @@
                 ) + 'px'// Ubah nilai ini sesuai kebutuhan
             });
 
-        //     $('.dataTables_filter input').on('keyup', function() {
-        //     if ($(this).val() !== '') {
-        //         $('#basic-btn_wrapper').show(); // Menampilkan tabel jika nilai pencarian tidak kosong
-        //     } else {
-        //         $('#basic-btn_wrapper').hide(); // Menyembunyikan tabel jika nilai pencarian kosong
-        //     }
-        // });
+      
         
         });
     </script>

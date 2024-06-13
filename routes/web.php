@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +60,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Management Import and Approve Data
     Route::get('/approver_data', [SuperAdminController::class,'approver_data'])->middleware(['auth', 'role:pimpinan']);
+    Route::get('/detail_data/{id}', [SuperAdminController::class,'detail_data'])->middleware(['auth', 'role:pimpinan']);
    
+    // Search Route
+    Route::get('/search', [SearchController::class, 'filter']);
+    Route::get('/get-categories', [SearchController::class, 'getCategories']);
+    Route::get('/get-sub-categories', [SearchController::class, 'getSubCategories']);
 
 
     // Operator Route

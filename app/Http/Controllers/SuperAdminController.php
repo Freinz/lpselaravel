@@ -35,6 +35,18 @@ class SuperAdminController extends Controller
         ->get()
         ->count();
 
+        $nama_kota = Superadmin::select('nama_kota')
+        ->groupBy('nama_kota')
+        ->get();
+        
+        $kategori = Superadmin::select('kategori')
+        ->groupBy('kategori')
+        ->get();
+       
+        $sub_kategori = Superadmin::select('sub_kategori')
+        ->groupBy('sub_kategori')
+        ->get();
+
         $jumlah_kategori = Superadmin::select('kategori')
         ->groupBy('kategori')
         ->get()
@@ -46,7 +58,7 @@ class SuperAdminController extends Controller
 
         $persentase_kategori = ($jumlah_kategori / 100) * 100;
 
-        return view('dashboard', compact('superadmin', 'jumlah_kota', 'jumlah_kategori', 'persentase_kota', 'persentase_kategori', 'total_barang'));
+        return view('dashboard', compact('superadmin', 'jumlah_kota', 'nama_kota', 'kategori', 'sub_kategori', 'jumlah_kategori', 'persentase_kota', 'persentase_kategori', 'total_barang'));
     }
 
     public function index()
@@ -237,8 +249,18 @@ else {
 
         return view('pimpinan.approver_data', compact('superadmin', 'form'));
        
-        
+    }
+   
+    public function detail_data($id) {
 
+       // Ambil data Superadmin berdasarkan form_id
+       $form = Form::findOrFail($id); // Mengambil data formulir berdasarkan ID
+
+       $superadmin = $form->superadmin;
+   
+
+       return view('pimpinan.detail_data', compact('form', 'superadmin'));
+       
     }
 
     public function importexcel(Request $request)
@@ -286,6 +308,7 @@ else {
 
         $form = Form::find($form_id);
         if ($form) {
+            $form->status = $request->input('status');
             $form->keterangan = $request->input('keterangan');
             $form->save();
         }
