@@ -26,9 +26,15 @@ class SuperAdminController extends Controller
      * Display a listing of the resource.
      */
 
-    public function dashboard() {
+    public function dashboard(Request $request) {
 
-        $superadmin = Superadmin::all();
+        if($request->keyword) {
+            $superadmin = Superadmin::search($request->keyword)->get();
+        } 
+        else {
+            $superadmin = Superadmin::all();
+        }
+
 
         $jumlah_kota = Superadmin::select('nama_kota')
         ->groupBy('nama_kota')
@@ -58,7 +64,7 @@ class SuperAdminController extends Controller
 
         $persentase_kategori = ($jumlah_kategori / 100) * 100;
 
-        return view('dashboard', compact('superadmin', 'jumlah_kota', 'nama_kota', 'kategori', 'sub_kategori', 'jumlah_kategori', 'persentase_kota', 'persentase_kategori', 'total_barang'));
+        return view('dashboard', ['superadmin' => $superadmin] ,compact('superadmin', 'jumlah_kota', 'nama_kota', 'kategori', 'sub_kategori', 'jumlah_kategori', 'persentase_kota', 'persentase_kategori', 'total_barang'));
     }
 
     public function index()

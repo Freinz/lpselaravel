@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Light Able admin and dashboard template offer a variety of UI elements and pages, ensuring your admin panel is both fast and effective."/>
     <meta name="author" content="phoenixcoded" />
-    
 
     <!-- [Favicon] icon -->
     <link rel="icon" href="{{ URL::asset('image/lpselogo.png') }}" type="image/png">
@@ -27,7 +26,6 @@
             font-size: 14px;
             width: 200px; /* Ubah nilai ini sesuai kebutuhan */
         }
-
     </style>
 </head>
 
@@ -36,12 +34,10 @@
     @include('layouts.sidebar')
     @include('layouts.topbar')
 
+
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">
-        
-        
-
             <div class='row'>
                 <!-- [ Row 1 ] start -->
                 <div class="col-sm-6 col-xl-4">
@@ -56,6 +52,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="card-body">
                             <img src="{{ URL::asset('build/images/widget/img-status-1.svg') }}" alt="img" class="img-fluid img-bg h-100">
                             <div class="d-flex align-items-center">
@@ -121,13 +118,14 @@
                 </div>
                 <!-- [ Row 1 ] end -->
             </div>  
-            <!-- <h3 class="text-center">Kumpulan Data LPSE Kalimantan Selatan</h3> -->
 
+           
 
-           <!-- Search Menu-->
-           <div class="row">
+            <form action="" method="get">
+            <!-- Search Menu -->
+            <div class="row">
                 <div class="col-md-4">
-                    <select id="nama_kota" class="form-select">
+                    <select id="nama_kota" name="keyword" class="form-select">
                         <option value="">Pilih Kota</option>
                         <!-- Tambahkan opsi kota sesuai kebutuhan -->
                         @foreach($nama_kota as $kota)
@@ -136,7 +134,7 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <select id="kategori" class="form-select" disabled>
+                    <select id="kategori" name="keyword" class="form-select" disabled>
                         <option value="">Pilih Kategori</option>
                         @foreach($kategori as $kategori)
                             <option value="{{ $kategori->kategori }}">{{ $kategori->kategori }}</option>
@@ -144,72 +142,60 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <select id="sub_kategori" class="form-select" disabled>
+                    <select id="sub_kategori" name="keyword" class="form-select" disabled>
                         <option value="">Pilih Sub Kategori</option>
                         @foreach($sub_kategori as $sub_kategori)
                             <option value="{{ $sub_kategori->sub_kategori }}">{{ $sub_kategori->sub_kategori }}</option>
                         @endforeach
                     </select>
                 </div>
+                <input type="submit" class="btn btn-outline-secondary" value="search">
             </div>
+            </form>
 
             <!-- Row Grouping table start -->
             <div class="row"> 
-                
-         
-          <!-- Row Grouping table start -->
-          <div class="col-sm-12"> 
-            <div class="card"> 
-                
-              <div class="card-body"> 
-                <div class="table-responsive dt-responsive"> 
-                  <table id="basic-btn" class="table table-striped table-bordered nowrap">
-                  <thead>
-                        <tr>
-                            <th>Nama Kota</th>
-                            <th>Kategori</th>
-                            <th>Sub-Kategori</th>
-                            <th>Nama Barang</th>
-                            <th>Satuan</th>
-                            <th>Merk</th>
-                            <th>Harga</th>
-                      
-                          </tr>
-                        </thead>
-                    
-                        <tbody>
-                    @foreach ($superadmin as $spadmin )
-                      @if ($spadmin->status == 'diterima')
-                    
-                        <tr>
-                            <td>{{$spadmin->nama_kota}}</td>
-                            <td>{{$spadmin->kategori}}</td>
-                            <td>{{$spadmin->sub_kategori}}</td>
-                            <td>{{$spadmin->nama_barang}}</td>
-                            <td>{{$spadmin->satuan}}</td>
-                            <td>{{$spadmin->merk}}</td>
-                            <td>{{$spadmin->harga}}</td>
-                           
-                          
-                      </tr>
-                        @endif
-                      @endforeach
-                    </tbody>
-
-                  
-                  </table>
+                <div class="col-sm-12"> 
+                    <div class="card"> 
+                        <div class="card-body"> 
+                            <div class="table-responsive dt-responsive"> 
+                                <table id="basic-btn" class="table table-striped table-bordered nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Kota</th>
+                                            <th>Kategori</th>
+                                            <th>Sub-Kategori</th>
+                                            <th>Nama Barang</th>
+                                            <th>Satuan</th>
+                                            <th>Merk</th>
+                                            <th>Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($superadmin as $spadmin)
+                                            @if ($spadmin->status == 'diterima')
+                                                <tr>
+                                                    <td>{{ $spadmin->nama_kota }}</td>
+                                                    <td>{{ $spadmin->kategori }}</td>
+                                                    <td>{{ $spadmin->sub_kategori }}</td>
+                                                    <td>{{ $spadmin->nama_barang }}</td>
+                                                    <td>{{ $spadmin->satuan }}</td>
+                                                    <td>{{ $spadmin->merk }}</td>
+                                                    <td>{{ $spadmin->harga }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <!-- Row Grouping table end -->
-     
-        </div>
             <!-- Row Grouping table end -->
 
-
             @if(View::hasSection('breadcrumb-item'))
-            @include('layouts.breadcrumb')
+                @include('layouts.breadcrumb')
             @endif
 
             <!-- [ Main Content ] start -->
@@ -231,91 +217,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    
 
     <script>
-    $(document).ready(function() {
-        var table = $('#example').DataTable({
-            ajax: {
-                url: '/search',
-                data: function(d) {
-                    d.nama_kota = $('#nama_kota').val();
-                    d.kategori = $('#kategori').val();
-                    d.sub_kategori = $('#sub_kategori').val();
-                }
-            },
-            columns: [
-                { data: 'nama_kota' },
-                { data: 'kategori' },
-                { data: 'sub_kategori' },
-                { data: 'nama_barang' },
-                { data: 'satuan' },
-                { data: 'merk' },
-                { data: 'harga' },
-                { data: 'status' }
-            ]
-        });
-
-        $('#nama_kota').on('change', function() {
-            var selectedKota = $(this).val();
-
-            // Enable kategori dropdown and reset sub_kategori
-            $('#kategori').prop('disabled', false).val('');
-            $('#sub_kategori').prop('disabled', true).val('');
-
-            // Load kategori options based on selectedKota
-            $.ajax({
-                url: '/get-categories',
-                data: { nama_kota: selectedKota },
-                success: function(categories) {
-                    $('#kategori').empty().append('<option value="">Pilih Kategori</option>');
-                    $.each(categories, function(key, value) {
-                        $('#kategori').append('<option value="' + value + '">' + value + '</option>');
-                    });
-                    // Reload table after updating categories
-                    table.ajax.reload();
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching categories:', status, error);
-                }
-            });
-        });
-
-        $('#kategori').on('change', function() {
-            var selectedKategori = $(this).val();
-
-            // Enable sub_kategori dropdown
-            $('#sub_kategori').prop('disabled', false).val('');
-
-            // Load sub_kategori options based on selectedKategori
-            $.ajax({
-                url: '/get-sub-categories',
-                data: { kategori: selectedKategori },
-                success: function(subCategories) {
-                    $('#sub_kategori').empty().append('<option value="">Pilih Sub Kategori</option>');
-                    $.each(subCategories, function(key, value) {
-                        $('#sub_kategori').append('<option value="' + value + '">' + value + '</option>');
-                    });
-                    // Reload table after updating subcategories
-                    table.ajax.reload();
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching subcategories:', status, error);
-                }
-            });
-        });
-
-        $('#sub_kategori').on('change', function() {
-            table.ajax.reload();
-        });
-    });
-</script>
-
-
-    <script>
-        // [ HTML5 Export Buttons ]
         $(document).ready(function() {
-            $('#basic-btn').DataTable({
+            // Inisialisasi DataTable
+            var table = $('#basic-btn').DataTable({
                 dom: 'frtip',
                 language: {
                     search: "_INPUT_", // Mengganti default label 'Search' dengan ikon atau teks kustom
@@ -323,26 +229,55 @@
                 }
             });
 
-            var tableWidth = $('.dataTables_wrapper').width();
+            function filterTable() {
+                // Ambil nilai dari dropdown
+                var kota = $('#nama_kota').val();
+                var kategori = $('#kategori').val();
+                var subKategori = $('#sub_kategori').val();
 
-            // Mengubah gaya kotak pencarian dengan jQuery
-            $('.dataTables_filter input')
-            .val('') // Menetapkan nilai default ke string kosong
-            .css({
-                'font-family': 'Arial, sans-serif',
-                'font-size': '20px',
-                'text-align' : 'center',
-                'width': (tableWidth + 1
+                // Terapkan filter pada tabel
+                table.search(filterRegex, true, false).draw();
+            }
 
-                ) + 'px'// Ubah nilai ini sesuai kebutuhan
+            // Event listener untuk dropdown
+            $('#nama_kota').on('change', function() {
+                // Jika kota dipilih, aktifkan dropdown kategori
+                if ($(this).val()) {
+                    $('#kategori').prop('disabled', false);
+                } else {
+                    $('#kategori').prop('disabled', true).val('');
+                    $('#sub_kategori').prop('disabled', true).val('');
+                }
+                filterTable();
             });
 
-      
-        
+            $('#kategori').on('change', function() {
+                // Jika kategori dipilih, aktifkan dropdown sub kategori
+                if ($(this).val()) {
+                    $('#sub_kategori').prop('disabled', false);
+                } else {
+                    $('#sub_kategori').prop('disabled', true).val('');
+                }
+                filterTable();
+            });
+
+            $('#sub_kategori').on('change', function() {
+                filterTable();
+            });
+
+            // Mengubah gaya kotak pencarian dengan jQuery
+            var tableWidth = $('.dataTables_wrapper').width();
+            $('.dataTables_filter input')
+                .val('') // Menetapkan nilai default ke string kosong
+                .css({
+                    'font-family': 'Arial, sans-serif',
+                    'font-size': '20px',
+                    'text-align': 'center',
+                    'width': (tableWidth + 1) + 'px' // Ubah nilai ini sesuai kebutuhan
+                });
         });
     </script>
     <!-- [Page Specific JS] end -->
-
 </body>
 
 </html>
