@@ -82,7 +82,7 @@
                     </div>
                   
                     
-                    <button type="submit" class="btn btn-primary mb-4">Update User</button>
+                    <button type="submit" class="btn btn-primary mb-4">Update Data</button>
                 
                 </div>
                 

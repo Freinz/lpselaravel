@@ -3,21 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Models\Inputuser;
-
 use App\Models\Superadmin;  
-
 use App\Models\Role;  
-
 use Maatwebsite\Excel\Facades\Excel;
-
-use App\Models\ImportedFile;
-
 use App\Imports\EmployeeImport;
 use App\Models\Form;
 use Illuminate\Support\Facades\Auth;
-
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SuperAdminController extends Controller
@@ -353,11 +344,6 @@ else {
         // return view('operator.revisi_data', compact('superadmin', 'form'));
         return redirect()->back()->with('success', 'Status berhasil diubah menjadi ' . $request->status);
     }
-
-
-
-    
-    
 
 
     /**

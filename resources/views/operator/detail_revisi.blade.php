@@ -22,11 +22,12 @@
             <div class="card"> 
                 <div class="card-body"> 
                     <div class="table-responsive dt-responsive"> 
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Revisi</button>
                         <table id="basic-btn" class="table table-striped table-bordered nowrap">
                             
             
                         
-                      
+            
 
                             <thead>
                                 <tr>
@@ -42,7 +43,7 @@
                                     <th>Status</th>
                                     <th>Keterangan Salah</th>
                                     <th>Update & Delete</th>
-                                    <th>Kirim Revisi</th>
+                                   
                                 </tr>
                             </thead>
                             
@@ -65,42 +66,12 @@
                                             <td>
                                                 <div class="d-flex flex-wrap gap-2">
                                                     <button type="button" class="btn btn-light-primary">
-                                                        <a href="{{ url('revisi_read', $spadmin->id) }}">Update</a>
+                                                        <a href="{{ url('revisi_read/'. $form->id) }}">Update</a>
                                                     </button>
                                                     <button type="button" class="btn btn-light-danger delete-button" data-id="{{ $spadmin->id }}">Delete</button>
                                                 </div>
                                             </td>
-                                            <td>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Revisi</button>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Action</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/revisi_update_status/{{ $spadmin->form_id }}" method="POST">
-                        @csrf
-                        @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
-                        <div class="mb-3">
-                            <input type="hidden" name="status" value="ditunda">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Pesan:</label>
-                            <textarea class="form-control" name="keterangan" id="message-text"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-                                            </td>
+                                            
                                         </tr>
                                     @endif
                                 @endforeach
@@ -110,6 +81,33 @@
                 </div>
             </div>
         </div>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Action</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="/revisi_update_status/{{ $spadmin->form_id }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
+                                                                <div class="mb-3">
+                                                                    <input type="hidden" name="status" value="ditunda">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="message-text" class="col-form-label">Pesan:</label>
+                                                                    <textarea class="form-control" name="keterangan" id="message-text"></textarea>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
         <!-- Row Grouping table end -->
     </div>
     <!-- [ Main Content ] end -->

@@ -121,7 +121,7 @@
 
            
 
-            <form action="" method="get">
+            <form id="search-from" action="" method="get">
             <!-- Search Menu -->
             <div class="row">
                 <div class="col-md-4">
@@ -275,6 +275,17 @@
                     'text-align': 'center',
                     'width': (tableWidth + 1) + 'px' // Ubah nilai ini sesuai kebutuhan
                 });
+
+                $('#search-form').on('submit', function(event) {
+                var kota = $('#nama_kota').val();
+                var kategori = $('#kategori').val();
+                var subKategori = $('#sub_kategori').val();
+
+                if (!kota || !kategori || !subKategori) {
+                    event.preventDefault(); // Mencegah submit form
+                    alert('Silakan pilih Kota, Kategori, dan Sub Kategori terlebih dahulu.');
+                }
+        });
         });
     </script>
     <!-- [Page Specific JS] end -->

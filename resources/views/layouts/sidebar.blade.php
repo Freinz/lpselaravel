@@ -11,7 +11,7 @@
         </div>
         <div class="navbar-content">
             <ul class="pc-navbar">
-                @include('layouts.menu-list')
+            @include('layouts.menu-list')
             </ul>
             <div class="card nav-action-card bg-brand-color-4">
                 

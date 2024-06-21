@@ -28,6 +28,7 @@
                 
               <div class="card-body"> 
                 <div class="table-responsive dt-responsive"> 
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Respon</button>
                   <table id="multi-table" class="table table-striped table-bordered nowrap">
 
                   <thead>
@@ -42,9 +43,7 @@
                             <th>Merk</th>
                             <th>Harga</th>
                             <th>Status Permintaan</th>
-                            @role('pimpinan')
-                            <th>Action</th>
-                            @endrole
+                            
                           </tr>
                         </thead>
                     
@@ -63,12 +62,22 @@
                             <td>{{$spadmin->merk}}</td>
                             <td>{{$spadmin->harga}}</td>
                             <td>{{$spadmin->status}}</td>
-                            @role('pimpinan')
-                            <td>
-                         
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Respon</button>
+                           
+                      </tr>
+                        @endif
+                      @endforeach
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
+                    </tbody>
+
+                  
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Row Grouping table end -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -102,24 +111,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            </td>    
-                            @endrole  
-                      </tr>
-                        @endif
-                      @endforeach
-
-                
-                    </tbody>
-
-                  
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Row Grouping table end -->
-     
         </div>
         <!-- [ Main Content ] end -->
 
@@ -135,9 +126,7 @@
     <script>
 $(document).ready(function() {
   // Inisialisasi DataTables
-  $('#multi-table').DataTable({
-    dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
-  });
+  $('#multi-table').DataTable();
 });
 </script>
     <!-- [Page Specific JS] end -->

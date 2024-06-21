@@ -53,11 +53,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/revisi_read/{id}', [SuperAdminController::class,'revisi_read'])->middleware(['auth', 'role:superadmin|operator']);
     Route::post('/revisi_edit/{id}', [SuperAdminController::class,'revisi_edit'])->middleware(['auth', 'role:superadmin|operator']);
     Route::get('/revisi_delete/{id}', [SuperAdminController::class,'revisi_delete'])->middleware(['auth', 'role:superadmin|operator']);
+    Route::get('/revisi_data', [SuperAdminController::class,'revisi_data']);
+    Route::get('/detail_revisi/{id}', [SuperAdminController::class,'detail_revisi'])->middleware(['auth', 'role:operator']);
+    Route::put('/revisi_update_status/{form_id}', [SuperAdminController::class,'revisi_update_status'])->middleware(['auth', 'role:operator']);
 
 
     Route::get('/import_data', [SuperAdminController::class,'import_data']);
-    Route::get('/revisi_data', [SuperAdminController::class,'revisi_data']);
-    Route::get('/detail_revisi/{id}', [SuperAdminController::class,'detail_revisi'])->middleware(['auth', 'role:operator']);
 
     // Management Import and Approve Data
     Route::get('/approver_data', [SuperAdminController::class,'approver_data'])->middleware(['auth', 'role:pimpinan']);
@@ -77,7 +78,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/importexcel', [SuperAdminController::class,'importexcel'])->name('importexcel');
     Route::put('/update_status/{form_id}', [SuperAdminController::class,'update_status'])->middleware(['auth', 'role:pimpinan']);
     
-    Route::put('/revisi_update_status/{form_id}', [SuperAdminController::class,'revisi_update_status'])->middleware(['auth', 'role:operator']);
 
    
 

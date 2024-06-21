@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="text-center">
                     <img src="{{ URL::asset('build/images/lpse/lpsekalsellogo.png') }}" alt="images" class="img-fluid mb-3">
-                    <h4 class="f-w-500 mb-1">Login with your email</h4>
+                    <h4 class="f-w-500 mb-1">Masukkan Akun Anda</h4>
                   
                          
                 </div>
@@ -33,10 +33,10 @@
                     <div class="d-flex mt-1 justify-content-between align-items-center">
                         <div class="form-check">
                             <input class="form-check-input input-primary" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label text-muted" for="remember">Remember me?</label>
+                            <label class="form-check-label text-muted" for="remember">Ingat Sandi?</label>
                         </div>
                         <a href="{{ route('password.request') }}">
-                            <h6 class="f-w-400 mb-0">Forgot Password?</h6>
+                            <h6 class="f-w-400 mb-0">Lupa Password?</h6>
                         </a>
                     </div>
                     <div class="d-grid mt-4">
