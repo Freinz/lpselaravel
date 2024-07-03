@@ -2,10 +2,11 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header">
-            <a href="/dashboard" class="b-brand text-primary">
+            <a href="https://lpse.kalselprov.go.id/eproc4" class="b-brand text-primary">
                 <!-- ========   Change your logo from here   ============ -->
-                <img src="{{ URL::asset('build/images/lpselogo.png') }}" alt="logo image" class="logo-lg">
+                <img src="{{ URL::asset('image/lpselogo.png') }}" class="img-fluid w-50" alt="logo image">
                 <span class="badge bg-brand-color-2 rounded-pill ms-2 theme-version">v1.0</span>
+             
             </a>
         </div>
         <div class="navbar-content">

@@ -34,7 +34,6 @@
     @include('layouts.sidebar')
     @include('layouts.topbar')
 
-
     <!-- [ Main Content ] start -->
     <div class="pc-container">
         <div class="pc-content">
@@ -45,7 +44,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between py-3">
                             <h5>Jumlah Kategori</h5>
                             <div class="dropdown">
-                                <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons-two-tone f-18">more_vert</i></a>
+                            <a class="avtar avtar-xs btn-link-secondary dropdown-toggle arrow-none" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons-two-tone f-18">more_vert</i></a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a class="dropdown-item" href="#">View</a>
                                     <a class="dropdown-item" href="#">Edit</a>
@@ -119,38 +118,34 @@
                 <!-- [ Row 1 ] end -->
             </div>  
 
-           
-
-            <form id="search-from" action="" method="get">
-            <!-- Search Menu -->
-            <div class="row">
-                <div class="col-md-4">
-                    <select id="nama_kota" name="keyword" class="form-select">
-                        <option value="">Pilih Kota</option>
-                        <!-- Tambahkan opsi kota sesuai kebutuhan -->
-                        @foreach($nama_kota as $kota)
-                            <option value="{{ $kota->nama_kota }}">{{ $kota->nama_kota }}</option>
-                        @endforeach
-                    </select>
+            <form id="search-form" action="/" method="get">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select id="nama_kota" name="nama_kota" class="form-select">
+                            <option value="">Pilih Kota</option>
+                            @foreach($nama_kota as $kota)
+                                <option value="{{ $kota->nama_kota }}">{{ $kota->nama_kota }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="kategori" name="kategori" class="form-select">
+                            <option value="">Pilih Kategori</option>
+                            @foreach($kategori as $kategori)
+                                <option value="{{ $kategori->kategori }}">{{ $kategori->kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="sub_kategori" name="sub_kategori" class="form-select">
+                            <option value="">Pilih Sub Kategori</option>
+                            @foreach($sub_kategori as $sub_kategori)
+                                <option value="{{ $sub_kategori->sub_kategori }}">{{ $sub_kategori->sub_kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+        
                 </div>
-                <div class="col-md-4">
-                    <select id="kategori" name="keyword" class="form-select" disabled>
-                        <option value="">Pilih Kategori</option>
-                        @foreach($kategori as $kategori)
-                            <option value="{{ $kategori->kategori }}">{{ $kategori->kategori }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <select id="sub_kategori" name="keyword" class="form-select" disabled>
-                        <option value="">Pilih Sub Kategori</option>
-                        @foreach($sub_kategori as $sub_kategori)
-                            <option value="{{ $sub_kategori->sub_kategori }}">{{ $sub_kategori->sub_kategori }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <input type="submit" class="btn btn-outline-secondary" value="search">
-            </div>
             </form>
 
             <!-- Row Grouping table start -->
@@ -236,28 +231,15 @@
                 var subKategori = $('#sub_kategori').val();
 
                 // Terapkan filter pada tabel
-                table.search(filterRegex, true, false).draw();
+                table.columns(0).search(kota).columns(1).search(kategori).columns(2).search(subKategori).draw();
             }
 
             // Event listener untuk dropdown
             $('#nama_kota').on('change', function() {
-                // Jika kota dipilih, aktifkan dropdown kategori
-                if ($(this).val()) {
-                    $('#kategori').prop('disabled', false);
-                } else {
-                    $('#kategori').prop('disabled', true).val('');
-                    $('#sub_kategori').prop('disabled', true).val('');
-                }
                 filterTable();
             });
 
             $('#kategori').on('change', function() {
-                // Jika kategori dipilih, aktifkan dropdown sub kategori
-                if ($(this).val()) {
-                    $('#sub_kategori').prop('disabled', false);
-                } else {
-                    $('#sub_kategori').prop('disabled', true).val('');
-                }
                 filterTable();
             });
 
@@ -276,16 +258,16 @@
                     'width': (tableWidth + 1) + 'px' // Ubah nilai ini sesuai kebutuhan
                 });
 
-                $('#search-form').on('submit', function(event) {
+            $('#search-form').on('submit', function(event) {
                 var kota = $('#nama_kota').val();
                 var kategori = $('#kategori').val();
                 var subKategori = $('#sub_kategori').val();
 
-                if (!kota || !kategori || !subKategori) {
+                if (!kota && !kategori && !subKategori) {
                     event.preventDefault(); // Mencegah submit form
-                    alert('Silakan pilih Kota, Kategori, dan Sub Kategori terlebih dahulu.');
+                    alert('Silakan pilih minimal salah satu dari Kota, Kategori, atau Sub Kategori.');
                 }
-        });
+            });
         });
     </script>
     <!-- [Page Specific JS] end -->

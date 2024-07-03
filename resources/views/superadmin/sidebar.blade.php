@@ -4,7 +4,7 @@ p<!-- [ Sidebar Menu ] start -->
         <div class="m-header">
             <a href="https://lpse.kalselprov.go.id/eproc4" class="b-brand text-primary">
                 <!-- ========   Change your logo from here   ============ -->
-                <img src="{{ URL::asset('build/images/logo-dark.svg') }}" alt="logo image" class="logo-lg">
+                <img src="{{ URL::asset('image/lpselogo.png') }}" class="img-fluid w-50" alt="logo image">
                 <span class="badge bg-brand-color-2 rounded-pill ms-2 theme-version">Kal-Sel</span>
             </a>
         </div>

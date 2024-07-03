@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>@yield('title') | Light Able Laravel 11 Admin & Dashboard Template</title>
+    <title>@yield('title') LPSE Kalimantan Selatan</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -14,7 +14,7 @@
 <meta name="author" content="phoenixcoded" />
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ URL::asset('build/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('image/lpselogo.png') }}" type="image/png">
 
     @yield('css')
 
@@ -25,6 +25,13 @@
     @include('pimpinan.loader')
     @include('pimpinan.sidebar')
     @include('pimpinan.topbar')
+    @endrole
+
+    @role('superadmin')
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light" >
+    @include('superadmin.loader')
+    @include('superadmin.sidebar')
+    @include('superadmin.topbar')
     @endrole
     
     @role('operator')
@@ -45,7 +52,6 @@
     </div>
     <!-- [ Main Content ] end -->
 
-    @include('pimpinan.footer')
     @include('pimpinan.customizer')
 
     @include('pimpinan.footerjs')

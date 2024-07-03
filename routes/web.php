@@ -36,11 +36,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/role_update/{id}', [RoleController::class,'update'])->middleware(['auth', 'permission:edit_role']);
 
     Route::get('/input_user', [UserController::class,'create'])->middleware(['auth', 'role:superadmin']);
-    Route::post('/store_user', [UserController::class,'store'])->middleware(['auth', 'permission:store_user']);
+    Route::get('/input_user_operator', [UserController::class,'input_user_operator'])->middleware(['auth', 'role:pimpinan']);
+    Route::post('/store_user', [UserController::class,'store'])->middleware(['auth', 'role:superadmin|pimpinan']);
     Route::get('/show_user', [UserController::class,'show'])->middleware(['auth', 'permission:show_user']);
     Route::get('/user_read/{id}', [UserController::class,'edit'])->middleware(['auth', 'permission:edit_user']);
     Route::post('/user_edit/{id}', [UserController::class,'update'])->middleware(['auth', 'permission:update_user']);
     Route::get('/user_delete/{id}', [UserController::class,'destroy'])->middleware(['auth', 'permission:delete_user']);
+    
+    // Management User
+    Route::get('/lihat_profil', [UserController::class,'lihat_profil']);
+    Route::get('/edit_profil', [UserController::class,'edit_profil']);
+    Route::post('/kirim_edit_profil', [UserController::class,'kirim_edit_profil']);
+
 
     // Management Databases Route
     Route::get('/show_data', [SuperAdminController::class,'show']);
@@ -76,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
     
     // Penginputan Data Excel
     Route::post('/importexcel', [SuperAdminController::class,'importexcel'])->name('importexcel');
+    Route::post('/importexcel_kategori', [SuperAdminController::class,'importexcel_kategori'])->name('importexcel_kategori');
     Route::put('/update_status/{form_id}', [SuperAdminController::class,'update_status'])->middleware(['auth', 'role:pimpinan']);
     
 

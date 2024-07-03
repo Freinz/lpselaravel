@@ -45,7 +45,7 @@
                     </div>
 
 
-                    <form action="/importexcel" method="post" enctype="multipart/form-data">
+                    <form action="/importexcel_kategori" method="post" enctype="multipart/form-data">
                       @csrf
 
                       <div class="form-group">
@@ -172,7 +172,7 @@ $(document).ready(function() {
         // [ HTML5 Export Buttons ]
         $(document).ready(function() {
         $('#basic-btn').DataTable({
-          dom: 'Bfrtip',
+          dom: 'frtip',
           buttons: ['excel', 'print']
         });
       });

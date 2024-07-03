@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>@yield('title') | Light Able Laravel 11 Admin & Dashboard Template</title>
+    <title>@yield('title') LPSE Kalimantan Selatan</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -14,7 +14,7 @@
 <meta name="author" content="phoenixcoded" />
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ URL::asset('build/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('image/lpselogo.png') }}" type="image/png">
 
     @yield('css')
 
@@ -39,7 +39,7 @@
     </div>
     <!-- [ Main Content ] end -->
 
-    @include('operator.footer')
+ 
     @include('operator.customizer')
 
     @include('operator.footerjs')

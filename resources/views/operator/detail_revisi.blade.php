@@ -3,7 +3,7 @@
 @section('title', 'Advance Initialization')
 @section('breadcrumb-item', 'DataTable')
 
-@section('breadcrumb-item-active', 'Kumpulan Data Provinsi Kalimantan Selatan')
+@section('breadcrumb-item-active', 'Detail Revisi dari Admin')
 
 @section('css')
     <!-- [Page specific CSS] start -->

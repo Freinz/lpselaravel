@@ -7,9 +7,10 @@ use App\Models\Superadmin;
 use App\Models\Role;  
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\EmployeeImport;
+use App\Imports\EmployeeImportKategori;
 use App\Models\Form;
-use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\facades\Auth;
+use RealRashid\SweetAlert\facades\Alert;
 
 class SuperAdminController extends Controller
 {
@@ -17,46 +18,47 @@ class SuperAdminController extends Controller
      * Display a listing of the resource.
      */
 
-    public function dashboard(Request $request) {
+   public function dashboard(Request $request) {
+    $query = Superadmin::query();
 
-        if($request->keyword) {
-            $superadmin = Superadmin::search($request->keyword)->get();
-        } 
-        else {
-            $superadmin = Superadmin::all();
-        }
-
-
-        $jumlah_kota = Superadmin::select('nama_kota')
-        ->groupBy('nama_kota')
-        ->get()
-        ->count();
-
-        $nama_kota = Superadmin::select('nama_kota')
-        ->groupBy('nama_kota')
-        ->get();
-        
-        $kategori = Superadmin::select('kategori')
-        ->groupBy('kategori')
-        ->get();
-       
-        $sub_kategori = Superadmin::select('sub_kategori')
-        ->groupBy('sub_kategori')
-        ->get();
-
-        $jumlah_kategori = Superadmin::select('kategori')
-        ->groupBy('kategori')
-        ->get()
-        ->count();
-       
-        $total_barang = Superadmin::count();
-
-        $persentase_kota = ($jumlah_kota / 13) * 100;
-
-        $persentase_kategori = ($jumlah_kategori / 100) * 100;
-
-        return view('dashboard', ['superadmin' => $superadmin] ,compact('superadmin', 'jumlah_kota', 'nama_kota', 'kategori', 'sub_kategori', 'jumlah_kategori', 'persentase_kota', 'persentase_kategori', 'total_barang'));
+    if ($request->nama_kota) {
+        $query->where('nama_kota', $request->nama_kota);
     }
+
+    if ($request->kategori) {
+        $query->where('kategori', $request->kategori);
+    }
+
+    if ($request->sub_kategori) {
+        $query->where('sub_kategori', $request->sub_kategori);
+    }
+
+    $superadmin = $query->get();
+
+    $nama_kota = Superadmin::select('nama_kota')->groupBy('nama_kota')->get();
+    $kategori = Superadmin::select('kategori')->groupBy('kategori')->get();
+    $sub_kategori = Superadmin::select('sub_kategori')->groupBy('sub_kategori')->get();
+
+    $jumlah_kota = $nama_kota->count();
+    $jumlah_kategori = $kategori->count();
+    $total_barang = Superadmin::count();
+
+    $persentase_kota = ($jumlah_kota / 13) * 100;
+    $persentase_kategori = ($jumlah_kategori / 100) * 100;
+
+    return view('dashboard', compact(
+        'superadmin', 
+        'nama_kota', 
+        'kategori', 
+        'sub_kategori', 
+        'jumlah_kota', 
+        'jumlah_kategori', 
+        'persentase_kota', 
+        'persentase_kategori', 
+        'total_barang'
+    ));
+}
+
 
     public function index()
     {
@@ -304,20 +306,53 @@ else {
 
         return redirect()->back();
     }
-
-    public function update_status(Request $request, $form_id) {
-        // Validasi input
-        $request->validate([
-            'status' => 'required|string',
-            'keterangan' => 'required|string',
-        ]);
     
-        // Perbarui semua data yang memiliki form_id yang sama
-        Superadmin::where('form_id', $form_id)->update(['status' => $request->input('status')]);
+    public function importexcel_kategori(Request $request)
+    {
+        
+        $request->validate([
+            'nama' => 'required|min:2|max:255',
+            'tgl_survey' => 'required',
+            'periode' => 'required',
+            
+        ]);
 
-        $form = Form::find($form_id);
-        if ($form) {
-            $form->status = $request->input('status');
+        $form = new Form();
+        
+        $form->nama = $request->nama;
+        $form->tgl_survey = $request->tgl_survey;
+        $form->periode = $request->periode;
+        $form->save();
+        
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        
+        // Simpan file ke direktori
+        $data->move('Kategori', $namafile);
+
+        $form_id = $form -> id;
+    
+        Excel::import(new EmployeeImportKategori($form_id), \public_path('/Kategori/'.$namafile));
+        
+
+        Alert::success('Sukses', 'Data Excel Berhasil Diimport');
+
+        return redirect()->back();
+    }
+
+        public function update_status(Request $request, $form_id) {
+            // Validasi input
+            $request->validate([
+                'status' => 'required|string',
+                'keterangan' => 'required|string',
+            ]);
+        
+            // Perbarui semua data yang memiliki form_id yang sama
+            Superadmin::where('form_id', $form_id)->update(['status' => $request->input('status')]);
+
+            $form = Form::find($form_id);
+            if ($form) {
+                $form->status = $request->input('status');
             $form->keterangan = $request->input('keterangan');
             $form->save();
         }
@@ -342,6 +377,9 @@ else {
         // Redirect kembali dengan notifikasi atau tampilkan halaman revisi_data
         // Jika Anda ingin menampilkan halaman revisi_data, ganti redirect dengan:
         // return view('operator.revisi_data', compact('superadmin', 'form'));
+
+        Alert::success('Sukses', 'Revisi Data Telah Terkirim');
+
         return redirect()->back()->with('success', 'Status berhasil diubah menjadi ' . $request->status);
     }
 

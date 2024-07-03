@@ -14,7 +14,7 @@
 <meta name="author" content="phoenixcoded" />
 
     <!-- [Favicon] icon -->
-  <link rel="icon" href="{{ URL::asset('build/images/lpse/lpsekalsellogo.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('image/lpselogo.png') }}" type="image/png">
 
     @yield('css')
 

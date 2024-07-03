@@ -11,20 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inputusers', function (Blueprint $table) {
+        Schema::create('detail_users', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name')->nullable();
-            $table->string('address_user')->nullable();
-            $table->string('phone_user')->nullable();
-            $table->string('email')->nullable();
+            $table->string('nama_user')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('no_hp')->nullable();
             $table->string('nip')->nullable();
             $table->string('no_ktp')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
 
             $table->timestamps();
-
-
         });
     }
 
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inputusers');
+        Schema::dropIfExists('detail_users');
     }
 };

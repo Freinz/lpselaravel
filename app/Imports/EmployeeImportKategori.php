@@ -5,7 +5,7 @@ namespace App\Imports;
 use App\Models\Superadmin;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class EmployeeImport implements ToModel
+class EmployeeImportKategori implements ToModel
 {
     /**
     * @param array $row
@@ -27,13 +27,8 @@ class EmployeeImport implements ToModel
         return new Superadmin([
             'nama_kota'=> $row[0],
             'kategori'=> $row[1],
-            'sub_kategori'=> $row[2],
-            'nama_barang'=> $row[3],
-            'satuan'=> $row[4],
-            'merk'=> $row[5],
-            'harga'=> $row[6],
+        
             'form_id' => $this->form_id
         ]);
     }
 }
-

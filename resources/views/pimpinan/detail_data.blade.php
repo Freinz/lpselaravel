@@ -3,7 +3,7 @@
 @section('title', 'Advance Initialization')
 @section('breadcrumb-item', 'DataTable')
 
-@section('breadcrumb-item-active', 'Kumpulan Data Provinsi Kalimantan Selatan')
+@section('breadcrumb-item-active', 'Detail Data')
 
 @section('css')
     <!-- [Page specific CSS] start -->
@@ -25,11 +25,12 @@
           <!-- Row Grouping table start -->
           <div class="col-sm-12"> 
             <div class="card"> 
-                
               <div class="card-body"> 
                 <div class="table-responsive dt-responsive"> 
+                  @role('pimpinan')
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Respon</button>
-                  <table id="multi-table" class="table table-striped table-bordered nowrap">
+                  @endrole
+                <table id="multi-table" class="table table-striped table-bordered nowrap">
 
                   <thead>
                         <tr>
@@ -76,6 +77,7 @@
               </div>
             </div>
           </div>
+          @role('pimpinan')
           <!-- Row Grouping table end -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -112,6 +114,7 @@
                                 </div>
                             </div>
         </div>
+        @endrole
         <!-- [ Main Content ] end -->
 
       

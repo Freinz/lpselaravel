@@ -71,6 +71,7 @@
                             <th>Satuan</th>
                             <th>Merk</th>
                             <th>Harga</th>
+                            <th>Update & Delete</th>
                      @endif
                           </tr>
                         </thead>
@@ -86,6 +87,16 @@
                             <td>{{$spadmin->satuan}}</td>
                             <td>{{$spadmin->merk}}</td>
                             <td>{{$spadmin->harga}}</td>
+                            <td>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <button type="button" class="btn btn-light-primary">
+                                                    <a href="{{ url('data_read', $spadmin->id) }}">Update</a>
+                                                </button>
+                                                <button type="button" class="btn btn-light-danger" onclick="confirmation(event)">
+                                                    <a href="{{ url('data_delete', $spadmin->id) }}">Delete</a>
+                                                </button>
+                                            </div>
+                                        </td>
                            
                       </tr>
                         @endif

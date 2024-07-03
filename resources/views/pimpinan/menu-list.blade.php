@@ -15,3 +15,13 @@
     </ul>
 </li>
 
+
+<li class="pc-item">
+    <a href="{{ url('input_user_operator') }}" class="pc-link">
+        <span class="pc-micon">
+            <i class="ph-duotone ph-identification-card"></i>
+        </span>
+        <span class="pc-mtext">Pembuatan Akun Operator</span>
+    </a>
+</li>
+

@@ -38,24 +38,8 @@
          <div class="invalid-feedback">{{ $message }}</div>
        @enderror
     </div>
-                    
-    <div class="form-group">
-        <label class="form-label" for="password">Password</label>
-        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter Password">
-        @error('password')
-         <div class="invalid-feedback">{{ $message }}</div>
-       @enderror
-    </div>
-    
-    <div class="form-group">
-        <label class="form-label" for="password_confirmation">Konfirmasi Password</label>
-        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Enter Password Again">
-      </div>
-    
-    <button type="submit" class="btn btn-primary">Submit</button>
-          
 
-                    <!-- <div class="form-group">
+    <!-- <div class="form-group">
                       <label class="form-label">Role User</label>
 <br>
                       <select class="btn btn-light-secondary" name="role" required>
@@ -69,6 +53,14 @@
                       </select>
 
                     </div> -->
+                    
+   
+      
+      
+    <button type="submit" class="btn btn-primary">Submit</button>
+          
+
+                    
 
                     <!-- <div class="form-group">
                       <label class="form-label" for="exampleInputPassword1">Alamat</label>
@@ -107,8 +99,7 @@
                   </div> -->
                 </form>
                  
-                
-                  </form>
+              
 
                 
         <!-- [ form-element ] end -->
