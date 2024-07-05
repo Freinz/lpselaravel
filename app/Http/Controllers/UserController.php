@@ -4,12 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailUser;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-
 use App\Models\User; 
-
 use Spatie\Permission\Models\Role;
 
 
@@ -32,7 +28,9 @@ class UserController extends Controller
 
     public function lihat_profil() {
 
-        return view('operator.lihat_profil');
+        $user = DetailUser::all();
+
+        return view('operator.lihat_profil', compact('user'));
 
     }
     

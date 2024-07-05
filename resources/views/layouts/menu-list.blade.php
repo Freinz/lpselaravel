@@ -2,7 +2,7 @@
     <label>Navigation</label>
 </li>
 <li class="pc-item pc-hasmenu">
-    <a href="#" class="pc-link">
+    <a href="/" class="pc-link">
         <span class="pc-micon">
             <i class="fas fa-desktop"></i>
         </span>
@@ -21,7 +21,7 @@
 
 
 <li class="pc-item pc-hasmenu">
-    <a href="https://lpse.kalselprov.go.id/eproc4/kontak" class="pc-link">
+    <a href="{{url ('hubungi_kami')  }}" class="pc-link">
         <span class="pc-micon">
             <i class="ph-duotone ph-chats-circle"></i>
         </span>

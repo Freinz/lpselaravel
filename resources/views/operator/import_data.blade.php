@@ -45,7 +45,7 @@
                     </div>
 
 
-                    <form action="/importexcel_kategori" method="post" enctype="multipart/form-data">
+                    <form action="/importexcel" method="post" enctype="multipart/form-data">
                       @csrf
 
                       <div class="form-group">

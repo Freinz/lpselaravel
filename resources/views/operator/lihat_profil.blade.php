@@ -15,57 +15,60 @@
 
 @section('content')
 
-<div class="row mt-3">
-    <div class="col-lg-5 col-xxl-3">
-        
+    <div class="row mt-3">
+        <div class="col-lg-5 col-xxl-3">
+            
         <div class="card overflow-hidden">
-            <div class="card-body position-relative">
-                <div class="text-center mt-3">
-                    <div class="chat-avatar d-inline-flex mx-auto">
-                        <img class="rounded-circle img-fluid wid-90 img-thumbnail"
-                            src="{{ URL::asset('build/images/user/avatar-1.jpg') }}" alt="User image">
-                        <i class="chat-badge bg-success me-2 mb-2"></i>
+        <div class="card-body position-relative">
+            <div class="text-center mt-3">
+                <div class="chat-avatar d-inline-flex mx-auto">
+                    <img class="rounded-circle img-fluid wid-90 img-thumbnail"
+                        src="{{ URL::asset('build/images/user/avatar-1.jpg') }}" alt="User image">
+                    <i class="chat-badge bg-success me-2 mb-2"></i>
+                </div>
+                <h5 class="mb-0">{{ $user->nama_user }}</h5>
+                <p class="text-muted text-sm">DM on <a href="#" class="link-primary">@williambond</a> 😍</p>
+                <ul class="list-inline mx-auto my-4">
+                    <li class="list-inline-item">
+                        <a href="#" class="avatar avatar-s text-white bg-dribbble">
+                            <i class="ti ti-brand-dribbble f-24"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="avatar avatar-s text-white bg-amazon">
+                            <i class="ti ti-brand-figma f-24"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="avatar avatar-s text-white bg-pinterest">
+                            <i class="ti ti-brand-pinterest f-24"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="avatar avatar-s text-white bg-behance">
+                            <i class="ti ti-brand-behance f-24"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="row g-3">
+                    <div class="col-4">
+                        <h5 class="mb-0">86</h5>
+                        <small class="text-muted">Post</small>
                     </div>
-                    <h5 class="mb-0">William Bond</h5>
-                    <p class="text-muted text-sm">DM on <a href="#" class="link-primary">@williambond</a> 😍</p>
-                    <ul class="list-inline mx-auto my-4">
-                        <li class="list-inline-item">
-                            <a href="#" class="avatar avatar-s text-white bg-dribbble">
-                                <i class="ti ti-brand-dribbble f-24"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="avatar avatar-s text-white bg-amazon">
-                                <i class="ti ti-brand-figma f-24"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="avatar avatar-s text-white bg-pinterest">
-                                <i class="ti ti-brand-pinterest f-24"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="avatar avatar-s text-white bg-behance">
-                                <i class="ti ti-brand-behance f-24"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="row g-3">
-                        <div class="col-4">
-                            <h5 class="mb-0">86</h5>
-                            <small class="text-muted">Post</small>
-                        </div>
-                        <div class="col-4 border border-top-0 border-bottom-0">
-                            <h5 class="mb-0">40</h5>
-                            <small class="text-muted">Project</small>
-                        </div>
-                        <div class="col-4">
-                            <h5 class="mb-0">4.5K</h5>
-                            <small class="text-muted">Members</small>
-                        </div>
+                    <div class="col-4 border border-top-0 border-bottom-0">
+                        <h5 class="mb-0">40</h5>
+                        <small class="text-muted">Project</small>
+                    </div>
+                    <div class="col-4">
+                        <h5 class="mb-0">4.5K</h5>
+                        <small class="text-muted">Members</small>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
             <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0"
                 id="user-set-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link list-group-item list-group-item-action active"

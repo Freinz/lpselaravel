@@ -307,38 +307,7 @@ else {
         return redirect()->back();
     }
     
-    public function importexcel_kategori(Request $request)
-    {
-        
-        $request->validate([
-            'nama' => 'required|min:2|max:255',
-            'tgl_survey' => 'required',
-            'periode' => 'required',
-            
-        ]);
-
-        $form = new Form();
-        
-        $form->nama = $request->nama;
-        $form->tgl_survey = $request->tgl_survey;
-        $form->periode = $request->periode;
-        $form->save();
-        
-        $data = $request->file('file');
-        $namafile = $data->getClientOriginalName();
-        
-        // Simpan file ke direktori
-        $data->move('Kategori', $namafile);
-
-        $form_id = $form -> id;
-    
-        Excel::import(new EmployeeImportKategori($form_id), \public_path('/Kategori/'.$namafile));
-        
-
-        Alert::success('Sukses', 'Data Excel Berhasil Diimport');
-
-        return redirect()->back();
-    }
+   
 
         public function update_status(Request $request, $form_id) {
             // Validasi input
@@ -381,6 +350,12 @@ else {
         Alert::success('Sukses', 'Revisi Data Telah Terkirim');
 
         return redirect()->back()->with('success', 'Status berhasil diubah menjadi ' . $request->status);
+    }
+
+    public function hubungi_kami () {
+
+        return view('hubungi_kami');
+
     }
 
 

@@ -23,11 +23,13 @@ use App\Http\Controllers\SearchController;
 Auth::routes(['register' => false]);
 
 Route::get('/', [SuperAdminController::class, 'dashboard']);
+Route::get('/hubungi_kami', [SuperAdminController::class,'hubungi_kami']);
 
 // Define a group of routes with 'auth' middleware applied
 Route::middleware(['auth'])->group(function () {
     // Redirect to '/home' route    
     Route::get('/index', [SuperAdminController::class,'index']);
+
 
     Route::get('/role_page', [RoleController::class,'create'])->middleware(['auth', 'role:superadmin']);
     Route::post('/role_add', [RoleController::class,'store'])->middleware(['auth', 'permission:store_role']);
@@ -83,7 +85,6 @@ Route::middleware(['auth'])->group(function () {
     
     // Penginputan Data Excel
     Route::post('/importexcel', [SuperAdminController::class,'importexcel'])->name('importexcel');
-    Route::post('/importexcel_kategori', [SuperAdminController::class,'importexcel_kategori'])->name('importexcel_kategori');
     Route::put('/update_status/{form_id}', [SuperAdminController::class,'update_status'])->middleware(['auth', 'role:pimpinan']);
     
 
