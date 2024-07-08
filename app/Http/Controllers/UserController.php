@@ -7,96 +7,68 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User; 
 use Spatie\Permission\Models\Role;
-
-
-
 use Illuminate\Support\Facades\Auth;
-
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
-
-
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // Your code here
     }
 
-    public function lihat_profil() {
+    public function lihat_profil() 
+    {
+       // Alternatif: Jika menggunakan relasi, Anda bisa langsung akses seperti ini:
+    $detail_user = auth()->user()->detailuser;
 
-        $user = DetailUser::all();
-
-        return view('operator.lihat_profil', compact('user'));
-
+    return view('operator.lihat_profil', compact('detail_user'));
     }
     
-    public function edit_profil() {
 
-        $data = DetailUser::all();
 
-        return view('operator.edit_profil', compact('data'));
+        public function kirim_edit_profil(Request $request, $id)
+        {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'alamat' => 'required|string|max:255',
+                'no_hp' => 'required|string|max:15', // biasanya no HP maksimal 15 karakter
+                'nip' => 'required|string|max:20', // disesuaikan dengan panjang NIP
+                'no_ktp' => 'required|string|max:20', // disesuaikan dengan panjang KTP
+                'tempat_lahir' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date', // menggunakan tipe date untuk validasi tanggal
+            ]); 
+        
+            $detail_user = DetailUser::findOrFail($id);
 
-    }
-
-    public function kirim_edit_profil(Request $request)
-    {
-
-        $request->validate([
-            'nama_user' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'no_hp' => 'required|string|max:15', // biasanya no HP maksimal 15 karakter
-            'nip' => 'required|string|max:20', // disesuaikan dengan panjang NIP
-            'no_ktp' => 'required|string|max:20', // disesuaikan dengan panjang KTP
-            'tempat_lahir' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date', // menggunakan tipe date untuk validasi tanggal
-        ]);
-
-        // Membuat instance User baru
-        $data = new DetailUser;
-
-        // Menyimpan data yang telah divalidasi
-        $data->nama_user = $request->nama_user;
-        $data->alamat = $request->alamat;
-        $data->no_hp = $request->no_hp;
-        $data->nip = $request->nip;
-        $data->no_ktp = $request->no_ktp;
-        $data->tempat_lahir = $request->tempat_lahir;
-        $data->tanggal_lahir = $request->tanggal_lahir;   
-
-        // Menyimpan data ke database
-        $data->save();
-
-        // Menampilkan notifikasi sukses
-        Alert::success('Sukses', 'Permintaan pendaftaran berhasil diajukan');
-
-        // Mengarahkan kembali ke halaman sebelumnya
-        return redirect()->back();
-    }
+            // Update user details
+            $detail_user->update($request->all());
+        
+            Alert::success('Sukses', 'Profil berhasil diperbarui');
+            return redirect()->back();
+        }
+    
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $data = Role::all();
-
-        return view('superadmin.user.input_user', compact('data') );
+        $roles = Role::all();
+        return view('superadmin.user.input_user', compact('roles'));
 
         $user = User::all();
-
-        return view('superadmin.user.input_user', compact(['user']) );
+        return view('superadmin.user.input_user', compact('user'));
     }
-   
+
     public function input_user_operator()
     {
-
         $user = User::all();
-
-        return view('pimpinan.input_user', compact('user') );
+        $detail_user = DetailUser::all();
+        return view('pimpinan.input_user', compact('user', 'detail_user'));
     }
 
     /**
@@ -104,93 +76,141 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
-        $data = new User;
-
         $request->validate([
-            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'name' => 'required|string|max:255',
+            'alamat' => 'nullable|string|max:255', // Mengubah menjadi nullable
+            'no_hp' => 'nullable|string|max:20',   // Mengubah menjadi nullable
+            'nip' => 'nullable|string|max:20',      // Mengubah menjadi nullable
+            'no_ktp' => 'nullable|string|max:20',   // Mengubah menjadi nullable
+            'tempat_lahir' => 'nullable|string|max:255', // Mengubah menjadi nullable
+            'tanggal_lahir' => 'nullable|date',     // Mengubah menjadi nullable
         ]);
-
-        // Membuat instance User baru
-        $data = new User;
-
-        // Menyimpan data yang telah divalidasi
-        $data->name = $request->name;
-        $data->email = $request->email;
-
-        $data->password = Hash::make('password');
-       
-
-        // Menyimpan data ke database
-        $data->save();
-
-        // Temukan atau buat peran "operator"
+    
+        // menambah detail user baru
+        $detail_user = DetailUser::create([
+            'email' => $request->email,
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'nip' => $request->nip,
+            'no_ktp' => $request->no_ktp,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'detail_user_id' => $request->detail_user_id,
+        ]);
+    
+        // Membuat pengguna baru terkait dengan detail user yang baru dibuat
+        $user = User::create([
+            'email' => $detail_user->email,
+            'password' => bcrypt('password'),
+            'detail_user_id' => $detail_user->id,
+        ]);
+    
+        // Menyimpan pengguna dan menetapkan peran operator
         $role = Role::firstOrCreate(['name' => 'operator']);
-
-    // Berikan peran "operator" kepada pengguna baru
-        $data->assignRole($role);
-
+        $user->assignRole($role);
+    
         // Menampilkan notifikasi sukses
         Alert::success('Sukses', 'Akun berhasil dibuat');
-
-        // Mengarahkan kembali ke halaman sebelumnya
         return redirect()->back();
     }
+    
+
 
     /**
      * Display the specified resource.
      */
     public function show()
     {
-        $role = Role::all();
-        $user = User::all();
+        $roles = Role::all(); // Ubah $role menjadi $roles untuk konsistensi
+    $users = User::all(); // Ubah $user menjadi $users untuk konsistensi
 
-        return view('superadmin.user.show_user', compact('user', 'role'));
+    // Ambil detail_user untuk setiap user
+    foreach ($users as $user) {
+        $user->detail_user = DetailUser::find($user->detail_user_id);
+    }
 
+    return view('superadmin.user.show_user', compact('users', 'roles'));
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
-    {
 
-        $data = User::find($id);
+     
+     public function store_user_superadmin(Request $request)
+     {
+         $request->validate([
+             'name' => 'required|string|max:255',
+             'email' => 'required|string|email|max:255|unique:users,email,' . $request->id,
+             'role' => 'required|exists:roles,id',
+         ]);
 
-        $roles = Role::all();
+         $detail_user = DetailUser::create([
+            'email' => $request->email,
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'nip' => $request->nip,
+            'no_ktp' => $request->no_ktp,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'detail_user_id' => $request->detail_user_id,
+        ]);
+     
+        $user = User::create([
+            'email' => $detail_user->email,
+            'password' => bcrypt('password'),
+            'detail_user_id' => $detail_user->id,
+        ]);
 
-        return view('superadmin.user.update_user', compact('data', 'roles'));
+     
+         // Attach role to user
+         $user->roles()->attach($request->role);
+     
+         Alert::success('Sukses', 'Akun berhasil dibuat');
+         return redirect()->back();
+     }
 
-    }
+     public function edit($id)
+     {
+         $data = User::find($id);
+         $roles = Role::all();
+         
+         // Ambil DetailUser berdasarkan detail_user_id dari User
+         $detail_user = DetailUser::find($data->detail_user_id);
+         
+         return view('superadmin.user.update_user', compact('data', 'roles', 'detail_user'));
+     }
+     
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        $data = User::find($id);
-    
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'role' => 'required|exists:roles,id', // memastikan role yang dipilih ada di database
-        ]);
-    
-        $data->name = $request->name;
-        $data->email = $request->email;
-    
-        // Simpan user
-        $data->save();
-    
-        // Sinkronisasi role user
-        $data->roles()->sync([$request->role]);
-    
-        Alert::success('Sukses', 'User berhasil diperbarui');
-    
-        return redirect('/show_user');
-    }
-    
+{
+    $user = User::find($id);
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        'role' => 'required|exists:roles,id',
+    ]);
+
+    // Update data user
+    $user->detailUser->name = $request->name; // Pastikan Anda menggunakan relasi yang benar
+    $user->email = $request->email;
+    $user->save();
+
+    // Sync roles
+    $user->roles()->sync([$request->role]);
+
+    Alert::success('Sukses', 'User berhasil diperbarui');
+    return redirect('/show_user');
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -198,16 +218,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-
-        $user -> delete();
-
-    return redirect()->back();
-
+        $user->delete();
+        return redirect()->back();
     }
-
-    
-
-
 }
-
-

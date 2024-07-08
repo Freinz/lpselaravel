@@ -22,7 +22,7 @@
                             @csrf
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputEmail1">User Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $data->name }}">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $detail_user->name) }}">
                                 @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -42,7 +42,7 @@
                                 <select class="btn btn-light-secondary" name="role" required>
                                     <option>Select Role</option>
                                     @foreach($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->id }}" {{ $role->id == $data->roles->first()->id ? 'selected' : '' }}>{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

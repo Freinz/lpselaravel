@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('detail_users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_user')->nullable();
+            $table->string('email')->unique();
+            $table->string('name')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('nip')->nullable();

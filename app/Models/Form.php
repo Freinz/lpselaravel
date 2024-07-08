@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Form extends Model
 {
@@ -19,7 +19,7 @@ class Form extends Model
         'periode',
         'status',
         'ket_salah',
-       
+
     ];
 
     // public function superadmin() {

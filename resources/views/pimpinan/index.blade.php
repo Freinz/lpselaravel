@@ -101,37 +101,6 @@
     </div>
   </div>
         </div>
-
-        <!-- <div class="col-sm-6 col-xl-4">
-            <div class="card">
-                <div class="card-header d-flex align-items-center justify-content-between py-3">
-                    <h5>Jumlah Operator yang terdaftar</h5>
-                   
-                </div>
-                <div class="card-body">
-                    <div class="d-flex align-items-end mb-3">
-                        <h4 class="mb-0">{{ $jumlah_operator }}</h4>
-                        <span class="badge bg-light-success ms-2">20%</span>
-                    </div>
-                    <p class="text-muted mb-0">Operator Sukses Terdaftar</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-4">
-            <div class="card">
-                <div class="card-header d-flex align-items-center justify-content-between py-3">
-                    <h5>Jumlah pengajuan operator</h5>
-                   
-                </div>
-                <div class="card-body">
-                    <div class="d-flex align-items-end mb-3">
-                        <h4 class="mb-0">467</h4>
-                        <span class="badge bg-light-warning ms-2">10%</span>
-                    </div>
-                    <p class="text-muted mb-0">Weekly Increase</p>
-                </div>
-            </div>
-        </div> -->
         
     <!-- [ Main Content ] end -->
 @endsection

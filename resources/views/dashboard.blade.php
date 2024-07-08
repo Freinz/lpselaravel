@@ -13,6 +13,9 @@
     <!-- [Favicon] icon -->
     <link rel="icon" href="{{ URL::asset('image/lpselogo.png') }}" type="image/png">
 
+    <!-- data tables css -->
+    <link rel="stylesheet" href="{{ URL::asset('build/css/plugins/dataTables.bootstrap5.min.css') }}">
+
     @yield('css')
     <!-- [Page specific CSS] end -->
 
@@ -20,13 +23,18 @@
 
     <!-- Custom CSS for DataTables Search Box -->
     <style>
-        /* Mengatur font pada kotak pencarian */
-        .dataTables_filter input {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            width: 200px; /* Ubah nilai ini sesuai kebutuhan */
-        }
-    </style>
+    .dataTables_filter {
+        width: 100%; /* Extend the width as needed */
+        margin-bottom: 10px; /* Optional: Add margin for spacing */
+    }
+
+    .dataTables_filter input {
+        width: 100%; /* Adjust the input width */
+        padding: 8px; /* Optional: Adjust padding for better appearance */
+        font-size: 14px; /* Optional: Adjust font size */
+    }
+</style>
+
 </head>
 
 <body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
@@ -118,41 +126,43 @@
                 <!-- [ Row 1 ] end -->
             </div>  
 
-            <form id="search-form" action="/" method="get">
-                <div class="row">
-                    <div class="col-md-4">
-                        <select id="nama_kota" name="nama_kota" class="form-select">
-                            <option value="">Pilih Kota</option>
-                            @foreach($nama_kota as $kota)
-                                <option value="{{ $kota->nama_kota }}">{{ $kota->nama_kota }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select id="kategori" name="kategori" class="form-select">
-                            <option value="">Pilih Kategori</option>
-                            @foreach($kategori as $kategori)
-                                <option value="{{ $kategori->kategori }}">{{ $kategori->kategori }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select id="sub_kategori" name="sub_kategori" class="form-select">
-                            <option value="">Pilih Sub Kategori</option>
-                            @foreach($sub_kategori as $sub_kategori)
-                                <option value="{{ $sub_kategori->sub_kategori }}">{{ $sub_kategori->sub_kategori }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-        
-                </div>
-            </form>
+         
 
             <!-- Row Grouping table start -->
             <div class="row"> 
                 <div class="col-sm-12"> 
                     <div class="card"> 
                         <div class="card-body"> 
+                        {{-- Filter --}}
+                    <div class="mb-3 d-flex justify-content-start grid gap-3">
+                        <div class="dropdown">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKotaBtn">
+                                Filter Kota
+                            </a>
+                            <ul class="dropdown-menu" id="kotaDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="filterKota('')">Semua Kota</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKategoriBtn">
+                                Filter Kategori
+                            </a>
+                            <ul class="dropdown-menu" id="kategoriDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="filterKategori('')">Semua Kategori</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterSubKategoriBtn">
+                                Filter Sub-Kategori
+                            </a>
+                            <ul class="dropdown-menu" id="subKategoriDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="filterSubKategori('')">Semua Sub-Kategori</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn btn-info" onclick="resetFilters()">
+                            Reset Filters
+                        </div>
+                    </div>
                             <div class="table-responsive dt-responsive"> 
                                 <table id="basic-btn" class="table table-striped table-bordered nowrap">
                                     <thead>
@@ -208,131 +218,102 @@
     @yield('scripts')
 
     <!-- [Page Specific JS] start -->
-    <!-- datatable Js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="{{ URL::asset('build/js/plugins/buttons.colVis.min.js') }}"></script>
-    <script src="{{ URL::asset('build/js/plugins/buttons.print.min.js') }}"></script>
-    <!-- <script src="{{ URL::asset('build/js/plugins/dataTables.buttons.min.js') }}"></script> -->
-
-    <script src="{{ URL::asset('build/js/plugins/buttons.html5.min.js') }}"></script>
-    <script src="{{ URL::asset('build/js/plugins/buttons.bootstrap5.min.js') }}"></script>
-
+  <!-- datatable Js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ URL::asset('build/js/plugins/dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('build/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
+    <!-- DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+  
     <script>
         $(document).ready(function() {
-            // Inisialisasi DataTable
-            var table = $('#basic-btn').DataTable({
-                dom: 'Bfrtip',
-                buttons: ['excel', 'print'],
-                language: {
-                    search: "_INPUT_", // Mengganti default label 'Search' dengan ikon atau teks kustom
-                    searchPlaceholder: "Masukkan barang yang ingin anda cari...",
+        var table = $('#basic-btn').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['excel', 'print'],
+            language: {
+                search: "_INPUT_", // Customizing the search input
+                searchPlaceholder: "Cari Barang",
+            }
+        });
+        
+
+
+           // Populate Kategori dropdown
+        var categories = [];
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            var category = data[1]; // Kategori
+            if (categories.indexOf(category) === -1) {
+                categories.push(category);
+            }
+        });
+
+        categories.forEach(function(category) {
+            $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
+        });
+
+        // Populate Kota dropdown
+        var cities = [];
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            var city = data[0]; // Kota
+            if (cities.indexOf(city) === -1) {
+                cities.push(city);
+            }
+        });
+
+        cities.forEach(function(city) {
+        $('#kotaDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKota(\'' + city + '\')">' + city + '</a></li>');
+        });
+
+        // Handle Kategori filter
+        window.filterKategori = function(kategori) {
+            $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
+            var subCategories = [];
+
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                var category = data[1]; // Kategori
+                var subCategory = data[2]; // Sub-Kategori
+
+                if (category === kategori && subCategories.indexOf(subCategory) === -1) {
+                    subCategories.push(subCategory);
                 }
             });
 
-            $('#cbtn-selectors').DataTable({
-          dom: 'Bfrtip',
-          buttons: [
-            {
-              extend: 'copyHtml5',
-              exportOptions: {
-                columns: [0, ':visible']
-              }
-            },
-            {
-              extend: 'excelHtml5',
-              exportOptions: {
-                columns: ':visible'
-              }
-            },
-            {
-              extend: 'pdfHtml5',
-              exportOptions: {
-                columns: [0, 1, 2, 5]
-              }
-            },
-            'colvis'
-          ]
-        });
-
-        // [ Excel - Cell Background ]
-        $('#excel-bg').DataTable({
-          dom: 'Bfrtip',
-          buttons: [
-            {
-              extend: 'excelHtml5',
-              customize: function (xlsx) {
-                var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                $('row c[r^="F"]', sheet).each(function () {
-                  if ($('is t', this).text().replace(/[^\d]/g, '') * 1 >= 500000) {
-                    $(this).attr('s', '20');
-                  }
-                });
-              }
-            }
-          ]
-        });
-
-        // [ Custom File (JSON) ]
-        $('#pdf-json').DataTable({
-          dom: 'Bfrtip',
-          buttons: [
-            {
-              text: 'JSON',
-              action: function (e, dt, button, config) {
-                var data = dt.buttons.exportData();
-                $.fn.dataTable.fileSave(new Blob([JSON.stringify(data)]), 'Export.json');
-              }
-            }
-          ]
-        });
-
-            function filterTable() {
-                // Ambil nilai dari dropdown
-                var kota = $('#nama_kota').val();
-                var kategori = $('#kategori').val();
-                var subKategori = $('#sub_kategori').val();
-
-                // Terapkan filter pada tabel
-                table.columns(0).search(kota).columns(1).search(kategori).columns(2).search(subKategori).draw();
-            }
-
-            // Event listener untuk dropdown
-            $('#nama_kota').on('change', function() {
-                filterTable();
+            subCategories.forEach(function(subCategory) {
+                $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
             });
 
-            $('#kategori').on('change', function() {
-                filterTable();
-            });
+            table.column(1).search(kategori).draw();
+            $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
+        };
 
-            $('#sub_kategori').on('change', function() {
-                filterTable();
-            });
+        // Handle Sub-Kategori filter
+        window.filterSubKategori = function(subKategori) {
+            table.column(2).search(subKategori).draw();
+            $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
+        };
 
-            // Mengubah gaya kotak pencarian dengan jQuery
-            var tableWidth = $('.dataTables_wrapper').width();
-            $('.dataTables_filter input')
-                .val('') // Menetapkan nilai default ke string kosong
-                .css({
-                    'font-family': 'Arial, sans-serif',
-                    'font-size': '20px',
-                    'text-align': 'center',
-                    'width': (tableWidth + 1) + 'px' // Ubah nilai ini sesuai kebutuhan
-                });
+        // Handle Kota filter
+        window.filterKota = function(kota) {
+            table.column(0).search(kota).draw();
+            $('#filterKotaBtn').text(kota ? 'Kota: ' + kota : 'Filter Kota');
+        };
 
-            $('#search-form').on('submit', function(event) {
-                var kota = $('#nama_kota').val();
-                var kategori = $('#kategori').val();
-                var subKategori = $('#sub_kategori').val();
+        // Reset all filters
+        window.resetFilters = function() {
+            $('#filterKotaBtn').text('Filter Kota');
+            $('#filterKategoriBtn').text('Filter Kategori');
+            $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
 
-                if (!kota && !kategori && !subKategori) {
-                    event.preventDefault(); // Mencegah submit form
-                    alert('Silakan pilih minimal salah satu dari Kota, Kategori, atau Sub Kategori.');
-                }
-            });
-        });
+            table.columns().search('').draw();
+        };
+    });
     </script>
     <!-- [Page Specific JS] end -->
 </body>

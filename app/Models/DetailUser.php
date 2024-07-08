@@ -10,7 +10,8 @@ class DetailUser extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_user',
+        'email',
+        'name',
         'alamat',
         'no_hp',
         'nip',

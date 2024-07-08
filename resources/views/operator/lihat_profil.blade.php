@@ -2,7 +2,6 @@
 
 @section('title', 'Advance Initialization')
 @section('breadcrumb-item', 'DataTable')
-
 @section('breadcrumb-item-active', 'Profil Data')
 
 @section('css')
@@ -14,246 +13,165 @@
 @endsection
 
 @section('content')
-
-    <div class="row mt-3">
-        <div class="col-lg-5 col-xxl-3">
-            
-        <div class="card overflow-hidden">
-        <div class="card-body position-relative">
-            <div class="text-center mt-3">
-                <div class="chat-avatar d-inline-flex mx-auto">
-                    <img class="rounded-circle img-fluid wid-90 img-thumbnail"
-                        src="{{ URL::asset('build/images/user/avatar-1.jpg') }}" alt="User image">
-                    <i class="chat-badge bg-success me-2 mb-2"></i>
-                </div>
-                <h5 class="mb-0">{{ $user->nama_user }}</h5>
-                <p class="text-muted text-sm">DM on <a href="#" class="link-primary">@williambond</a> 😍</p>
-                <ul class="list-inline mx-auto my-4">
-                    <li class="list-inline-item">
-                        <a href="#" class="avatar avatar-s text-white bg-dribbble">
-                            <i class="ti ti-brand-dribbble f-24"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="avatar avatar-s text-white bg-amazon">
-                            <i class="ti ti-brand-figma f-24"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="avatar avatar-s text-white bg-pinterest">
-                            <i class="ti ti-brand-pinterest f-24"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="avatar avatar-s text-white bg-behance">
-                            <i class="ti ti-brand-behance f-24"></i>
-                        </a>
-                    </li>
-                </ul>
-                <div class="row g-3">
-                    <div class="col-4">
-                        <h5 class="mb-0">86</h5>
-                        <small class="text-muted">Post</small>
-                    </div>
-                    <div class="col-4 border border-top-0 border-bottom-0">
-                        <h5 class="mb-0">40</h5>
-                        <small class="text-muted">Project</small>
-                    </div>
-                    <div class="col-4">
-                        <h5 class="mb-0">4.5K</h5>
-                        <small class="text-muted">Members</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-            <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0"
-                id="user-set-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link list-group-item list-group-item-action active"
-                    id="user-set-profile-tab" data-bs-toggle="pill"
-                    href="#user-set-profile" role="tab"
-                    aria-controls="user-set-profile"
-                    aria-selected="true">
-                    <span class="fw-500"><i
-                            class="ph-duotone ph-user-circle m-r-10"></i>Profile
-                        Overview</span>
-                </a>
-                <a class="nav-link list-group-item list-group-item-action"
-                    id="user-set-information-tab" data-bs-toggle="pill"
-                    href="#user-set-information" role="tab"
-                    aria-controls="user-set-information"
-                    aria-selected="false">
-                    <span class="fw-500"><i
-                            class="ph-duotone ph-clipboard-text m-r-10"></i>Personal
-                        Information</span>
-                </a>
-                <a class="nav-link list-group-item list-group-item-action"
-                    id="user-set-account-tab" data-bs-toggle="pill"
-                    href="#user-set-account" role="tab"
-                    aria-controls="user-set-account"
-                    aria-selected="false">
-                    <span class="fw-500"><i
-                            class="ph-duotone ph-notebook m-r-10"></i>Account
-                        Information</span>
-                </a>
-                <a class="nav-link list-group-item list-group-item-action"
-                    id="user-set-password-tab" data-bs-toggle="pill"
-                    href="#user-set-password" role="tab"
-                    aria-controls="user-set-password"
-                    aria-selected="false">
-                    <span class="fw-500"><i
-                            class="ph-duotone ph-key m-r-10"></i>Change
-                        Password</span>
-                </a>
-                <a class="nav-link list-group-item list-group-item-action"
-                    id="user-set-email-tab" data-bs-toggle="pill"
-                    href="#user-set-email" role="tab"
-                    aria-controls="user-set-email"
-                    aria-selected="false">
-                    <span class="fw-500"><i
-                            class="ph-duotone ph-envelope-open m-r-10"></i>Email
-                        Settings</span>
-                </a>
-            </div>
-        </div>
-    </div>
+<div class="row mt-3">
     <div class="col-lg-7 col-xxl-9">
         <div class="tab-content" id="user-set-tabContent">
-            <div class="tab-pane fade show active" id="user-set-profile"
-                role="tabpanel" aria-labelledby="user-set-profile-tab">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>About me</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="mb-0">Hello, I’m Anshan Handgun Creative
-                            Graphic Designer & User Experience Designer
-                            based in Website, I create digital Products a
-                            more Beautiful and usable place. Morbid accusant
-                            ipsum. Nam nec tellus at.</p>
-                    </div>
-                </div>
+            <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
                 <div class="card">
                     <div class="card-header">
                         <h5>Personal Details</h5>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item px-0 pt-0">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p class="mb-1 text-muted">Full
-                                            Name</p>
-                                        <p class="mb-0">Anshan
-                                            Handgun</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="mb-1 text-muted">Father
-                                            Name</p>
-                                        <p class="mb-0">Mr. Deepen
-                                            Handgun</p>
-                                    </div>
-                                </div>
+                            <li class="list-group-item px-0">
+                                <p class="mb-1 text-muted">Full Name</p>
+                                <p class="mb-0">{{ $detail_user->name }}</p>
                             </li>
                             <li class="list-group-item px-0">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p class="mb-1 text-muted">Phone</p>
-                                        <p class="mb-0">(+1-876) 8654 239
-                                            581</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="mb-1 text-muted">Country</p>
-                                        <p class="mb-0">New York</p>
-                                    </div>
-                                </div>
+                                <p class="mb-1 text-muted">Email</p>
+                                <p class="mb-0">{{ $detail_user->email }}</p>
                             </li>
                             <li class="list-group-item px-0">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p class="mb-1 text-muted">Email</p>
-                                        <p class="mb-0">anshan.dh81@gmail.com</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="mb-1 text-muted">Zip
-                                            Code</p>
-                                        <p class="mb-0">956 754</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item px-0 pb-0">
                                 <p class="mb-1 text-muted">Address</p>
-                                <p class="mb-0">Street 110-B Kalians Bag,
-                                    Dewan, M.P. New York</p>
+                                <p class="mb-0">{{ $detail_user->alamat }}</p>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <p class="mb-1 text-muted">Phone Number</p>
+                                <p class="mb-0">{{ $detail_user->no_hp }}</p>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <p class="mb-1 text-muted">NIP</p>
+                                <p class="mb-0">{{ $detail_user->nip }}</p>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <p class="mb-1 text-muted">ID Card Number</p>
+                                <p class="mb-0">{{ $detail_user->no_ktp }}</p>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <p class="mb-1 text-muted">Place of Birth</p>
+                                <p class="mb-0">{{ $detail_user->tempat_lahir }}</p>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <p class="mb-1 text-muted">Date of Birth</p>
+                                <p class="mb-0">{{ $detail_user->tanggal_lahir }}</p>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="user-set-information"
-                role="tabpanel" aria-labelledby="user-set-information-tab">
+
+            <div class="tab-pane fade" id="user-set-information" role="tabpanel" aria-labelledby="user-set-information-tab">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Personal Information</h5>
+                        <h5>Edit Data</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label">First Name</label>
-                                    <input type="text" class="form-control"
-                                        value="Anshan">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label">Last Name</label>
-                                    <input type="text" class="form-control"
-                                        value="Handgun">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label">Country</label>
-                                    <input type="text" class="form-control" value="New York">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-label">Zip code</label>
-                                <input type="text" class="form-control"value="956754">
-                            </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                <label class="form-label">Bio</label>
-                                <textarea class="form-control">Hello, I’m Anshan Handgun Creative Graphic Designer & User Experience Designer based in Website, I create digital Products a more Beautiful and usable place. Morbid accusant ipsum. Nam nec tellus at.</textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group mb-0">
-                                    <label class="form-label">Experience</label>
-                                    <select class="form-control">
-                                    <option>Startup</option>
-                                    <option>2 year</option>
-                                    <option>3 year</option>
-                                    <option selected>4 year</option>
-                                    <option>5 year</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-            </div>
-                 
-            </div>
-          </div>
-        </div>
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
+                        <form method="POST" action="{{ url('kirim_edit_profil', ['id' => $detail_user->id]) }}">
+                            @csrf
+                            @method('PUT') <!-- Metode PUT untuk update data -->
 
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Nama</label>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $detail_user->name) }}">
+                                        @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Alamat</label>
+                                        <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat', $detail_user->alamat) }}">
+                                        @error('alamat')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Nomor HP</label>
+                                        <input type="text" class="form-control @error('no_hp') is-invalid @enderror" name="no_hp" value="{{ old('no_hp', $detail_user->no_hp) }}">
+                                        @error('no_hp')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">NIP</label>
+                                        <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip', $detail_user->nip) }}">
+                                        @error('nip')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Nomor KTP</label>
+                                        <input type="text" class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp" value="{{ old('no_ktp', $detail_user->no_ktp) }}">
+                                        @error('no_ktp')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Lahir</label>
+                                        <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" name="tempat_lahir" value="{{ old('tempat_lahir', $detail_user->tempat_lahir) }}">
+                                        @error('tempat_lahir')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Lahir</label>
+                                        <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" value="{{ old('tanggal_lahir', $detail_user->tanggal_lahir) }}">
+                                        @error('tanggal_lahir')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5 col-xxl-3">
+        <div class="card overflow-hidden">
+            <div class="card-body position-relative">
+                <div class="text-center mt-3">
+                    <div class="chat-avatar d-inline-flex mx-auto">
+                        <img class="rounded-circle img-fluid wid-90 img-thumbnail"
+                            src="{{ URL::asset('build/images/user/avatar-1.jpg') }}" alt="User image">
+                        <i class="chat-badge bg-success me-2 mb-2"></i>
+                    </div>
+                    <h5 class="mb-0">{{ $detail_user -> name }}</h5>
+                    <p class="text-muted text-sm">Email <a href="#" class="link-primary">{{ $detail_user -> email }}</a></p>
+
+                    <div class="row g-3">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0" id="user-set-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link list-group-item list-group-item-action active" id="user-set-profile-tab" data-bs-toggle="pill" href="#user-set-profile" role="tab" aria-controls="user-set-profile" aria-selected="true">
+                <span class="fw-500"><i class="ph-duotone ph-user-circle m-r-10"></i>Profile Overview</span>
+            </a>
+            <a class="nav-link list-group-item list-group-item-action" id="user-set-information-tab" data-bs-toggle="pill" href="#user-set-information" role="tab" aria-controls="user-set-information" aria-selected="false">
+                <span class="fw-500"><i class="ph-duotone ph-clipboard-text m-r-10"></i>Edit Data</span>
+            </a>
+        </div>
+    </div>
+</div>
 @endsection

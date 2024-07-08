@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('nama_kota')->nullable();
             $table->string('kategori')->nullable();
             $table->string('sub_kategori')->nullable();
-            $table->string('nama_barang')->nullable();
+            $table->string('nama_barang', 500)->nullable();
             $table->string('satuan')->nullable();
             $table->string('merk')->nullable();
             $table->string('harga')->nullable();
             $table->string('status')->default('ditunda');
             $table->foreignID('form_id')->constrained()->onDelete('cascade');
-            
+
             $table->timestamps();
 
         });

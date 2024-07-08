@@ -13,11 +13,11 @@ class EmployeeImport implements ToModel
     * @return \Illuminate\Database\Eloquent\Model|null
     */
 
-    protected $form_id;                                                                                                    
+    protected $form_id;
 
     public function __construct($form_id)
     {
-        
+
         $this->form_id = $form_id;
     }
 

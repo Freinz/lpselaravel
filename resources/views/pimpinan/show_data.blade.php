@@ -1,6 +1,6 @@
 @extends('pimpinan.main')
 
-@section('title', 'Advance Initialization')
+@section('title')
 @section('breadcrumb-item', 'DataTable')
 @section('breadcrumb-item-active', 'Kumpulan Data Provinsi Kalimantan Selatan')
 
@@ -18,6 +18,39 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
+            {{-- Filter --}}
+                    <div class="mb-3 d-flex justify-content-start grid gap-3">
+                        <div class="dropdown">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKotaBtn">
+                                Filter Kota
+                            </a>
+                            <ul class="dropdown-menu" id="kotaDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="filterKota('')">Semua Kota</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKategoriBtn">
+                                Filter Kategori
+                            </a>
+                            <ul class="dropdown-menu" id="kategoriDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="filterKategori('')">Semua Kategori</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterSubKategoriBtn">
+                                Filter Sub-Kategori
+                            </a>
+                            <ul class="dropdown-menu" id="subKategoriDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="filterSubKategori('')">Semua Sub-Kategori</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn btn-info" onclick="resetFilters()">
+                            Reset Filters
+                        </div>
+                    </div>
+
+                     <!-- Button trigger modal -->
+                
                 <div class="table-responsive dt-responsive">
                     <table id="basic-btn" class="table table-striped table-bordered nowrap">
                         <thead>
@@ -88,93 +121,113 @@
 @endsection
 
 @section('scripts')
-<!-- [Page Specific JS] start -->
-<!-- datatable Js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{ URL::asset('build/js/plugins/dataTables.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/buttons.colVis.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/buttons.print.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/pdfmake.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/jszip.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/dataTables.buttons.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/vfs_fonts.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/buttons.html5.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/plugins/buttons.bootstrap5.min.js') }}"></script>
-
-<script>
+    <!-- [Page Specific JS] start -->
+    <!-- datatable Js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ URL::asset('build/js/plugins/dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('build/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
+    <!-- DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script>
     $(document).ready(function() {
         // Inisialisasi DataTables
-        $('#multi-table').DataTable({
-            dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
-        });
-    });
-
-    // [ HTML5 Export Buttons ]
-    $(document).ready(function() {
-        $('#basic-btn').DataTable({
-            dom: 'Bfrtip',
-            buttons: ['excel', 'print']
-        });
-    });
-
-    // [ Column Selectors ]
-    $('#cbtn-selectors').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
+        var table = $('#basic-btn').DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
             {
-                extend: 'copyHtml5',
+                extend: 'excel',
                 exportOptions: {
-                    columns: [0, ':visible']
+                    columns: ':not(:last-child)'  // Mengecualikan kolom terakhir
                 }
             },
             {
-                extend: 'excelHtml5',
+                extend: 'print',
                 exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: [0, 1, 2, 5]
-                }
-            },
-            'colvis'
-        ]
-    });
-
-    // [ Excel - Cell Background ]
-    $('#excel-bg').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                customize: function(xlsx) {
-                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                    $('row c[r^="F"]', sheet).each(function() {
-                        if ($('is t', this).text().replace(/[^\d]/g, '') * 1 >= 500000) {
-                            $(this).attr('s', '20');
-                        }
-                    });
+                    columns: ':not(:last-child)'  // Mengecualikan kolom terakhir
                 }
             }
+        ],
+        "columnDefs": [
+            { "orderable": false, "targets": [0, 1, 2, -1] } // Disable sorting for Kota, Kategori, Sub-Kategori, and Update & Delete columns
         ]
     });
 
-    // [ Custom File (JSON) ]
-    $('#pdf-json').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                text: 'JSON',
-                action: function(e, dt, button, config) {
-                    var data = dt.buttons.exportData();
-                    $.fn.dataTable.fileSave(new Blob([JSON.stringify(data)]), 'Export.json');
-                }
+        // Populate Kategori dropdown
+        var categories = [];
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            var category = data[1]; // Kategori
+            if (categories.indexOf(category) === -1) {
+                categories.push(category);
             }
-        ]
+        });
+
+        categories.forEach(function(category) {
+            $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
+        });
+
+        // Populate Kota dropdown
+        var cities = [];
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            var city = data[0]; // Kota
+            if (cities.indexOf(city) === -1) {
+                cities.push(city);
+            }
+        });
+
+        cities.forEach(function(city) {
+        $('#kotaDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKota(\'' + city + '\')">' + city + '</a></li>');
+        });
+
+        // Handle Kategori filter
+        window.filterKategori = function(kategori) {
+            $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
+            var subCategories = [];
+
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                var category = data[1]; // Kategori
+                var subCategory = data[2]; // Sub-Kategori
+
+                if (category === kategori && subCategories.indexOf(subCategory) === -1) {
+                    subCategories.push(subCategory);
+                }
+            });
+
+            subCategories.forEach(function(subCategory) {
+                $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
+            });
+
+            table.column(1).search(kategori).draw();
+            $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
+        };
+
+        // Handle Sub-Kategori filter
+        window.filterSubKategori = function(subKategori) {
+            table.column(2).search(subKategori).draw();
+            $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
+        };
+
+        // Handle Kota filter
+        window.filterKota = function(kota) {
+            table.column(0).search(kota).draw();
+            $('#filterKotaBtn').text(kota ? 'Kota: ' + kota : 'Filter Kota');
+        };
+
+        // Reset all filters
+        window.resetFilters = function() {
+            $('#filterKotaBtn').text('Filter Kota');
+            $('#filterKategoriBtn').text('Filter Kategori');
+            $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
+
+            table.columns().search('').draw();
+        };
     });
-</script>
-<!-- [Page Specific JS] end -->
+    </script>
+    <!-- [Page Specific JS] end -->
 @endsection
