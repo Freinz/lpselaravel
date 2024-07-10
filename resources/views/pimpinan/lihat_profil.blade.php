@@ -1,6 +1,6 @@
-@extends('operator.main')
+@extends('pimpinan.main')
 
-@section('title', 'Advance Initialization')
+@section('title')
 @section('breadcrumb-item', 'DataTable')
 @section('breadcrumb-item-active', 'Profil Data')
 
@@ -19,12 +19,12 @@
             <div class="tab-pane fade show active" id="user-set-profile" role="tabpanel" aria-labelledby="user-set-profile-tab">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Personal</h5>
+                        <h5>Data Pribadi</h5>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item px-0">
-                                <p class="mb-1 text-muted">Nama User</p>
+                                <p class="mb-1 text-muted">Nama Lengkap</p>
                                 <p class="mb-0">{{ $detail_user->name }}</p>
                             </li>
                             <li class="list-group-item px-0">
@@ -165,7 +165,7 @@
 
         <div class="nav flex-column nav-pills list-group list-group-flush account-pills mb-0" id="user-set-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link list-group-item list-group-item-action active" id="user-set-profile-tab" data-bs-toggle="pill" href="#user-set-profile" role="tab" aria-controls="user-set-profile" aria-selected="true">
-                <span class="fw-500"><i class="ph-duotone ph-user-circle m-r-10"></i>Data Profil</span>
+                <span class="fw-500"><i class="ph-duotone ph-user-circle m-r-10"></i>User Profil</span>
             </a>
             <a class="nav-link list-group-item list-group-item-action" id="user-set-information-tab" data-bs-toggle="pill" href="#user-set-information" role="tab" aria-controls="user-set-information" aria-selected="false">
                 <span class="fw-500"><i class="ph-duotone ph-clipboard-text m-r-10"></i>Edit Data</span>

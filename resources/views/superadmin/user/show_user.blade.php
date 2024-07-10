@@ -1,8 +1,8 @@
 @extends('superadmin.main')
 
-@section('title', 'User List')
+@section('title', 'List User')
 @section('breadcrumb-item', 'Profile')
-@section('breadcrumb-item-active', 'User List')
+@section('breadcrumb-item-active', 'List User')
 
 @section('css')
 <link rel="stylesheet" href="{{ URL::asset('build/css/plugins/style.css') }}">
@@ -19,53 +19,47 @@
                     <table class="table table-hover" id="pc-dt-simple">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>Nama</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Status</th>
+                                <th>Aksi</th> <!-- Added action column -->
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $usr)
-<tr>
-    <td>
-        <div class="d-inline-block align-middle">
-            <img src="{{ URL::asset('build/images/user/avatar-1.jpg') }}" alt="user image" class="img-radius align-top m-r-15" style="width:40px;">
-            <div class="d-inline-block">
-                <h6 class="m-b-0">{{ old('name', $usr->detail_user ? $usr->detail_user->name : '') }}</h6>
-                <p class="m-b-0 text-primary"></p>
-            </div>
-        </div>
-    </td>
-    <td>{{ $usr->email }}</td>
-    <td>
-        @foreach($usr->roles as $role)
-            {{ $role->name }}@if(!$loop->last), @endif
-        @endforeach
-    </td>
-    <td>
-        <span class="badge bg-light-success">Active</span>
-        <div class="overlay-edit">
-            <ul class="list-inline mb-0">
-                <li class="list-inline-item m-0">
-                    <a href="{{ url('user_read', $usr->id) }}" class="avtar avtar-s btn btn-primary">
-                        <i class="ti ti-pencil f-18"></i>
-                    </a>
-                </li>
-                <li class="list-inline-item m-0">
-                    <form action="{{ url('user_delete', $usr->id) }}" method="POST" onclick="confirmation(event)">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="avtar avtar-s btn bg-white btn-link-danger">
-                            <i class="ti ti-trash f-18"></i>
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </td>
-</tr>
-@endforeach
+                            @foreach($users as $user)
+                            <tr>
+                                <td>
+                                    <div class="d-inline-block align-middle">
+                                        <img src="{{ URL::asset('build/images/user/avatar-1.jpg') }}" alt="user image" class="img-radius align-top m-r-15" style="width:40px;">
+                                        <div class="d-inline-block">
+                                            <h6 class="m-b-0">{{ old('name', $user->detail_user ? $user->detail_user->name : '') }}</h6>
+                                            <p class="m-b-0 text-primary"></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    @foreach($user->roles as $role)
+                                    {{ $role->name }}@if(!$loop->last), @endif
+                                    @endforeach
+                                </td>
+
+                                <td>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item m-0">
+                                            <a href="{{ url('user_read', $user->id) }}" class="avtar avtar-s btn btn-primary">
+                                                <i class="ti ti-pencil f-18"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item m-0">
+                                            <button class="btn btn-danger delete-button" data-id="{{ $user->id }}">
+                                                <i class="ti ti-trash f-18"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -80,31 +74,39 @@
 @section('scripts')
 <!-- [Page Specific JS] start -->
 <script src="{{ URL::asset('build/js/plugins/simple-datatables.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ URL::asset('build/js/plugins/dataTables.min.js') }}"></script>
+<script src="{{ URL::asset('build/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
+<!-- Sweet Alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
-    const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
-        sortable: false,
-        perPage: 5
+    document.addEventListener('DOMContentLoaded', function() {
+        const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: false,
+            perPage: 5
+        });
+
+        $(document).ready(function() {
+        $('.delete-button').on('click', function() {
+            var id = $(this).data('id');
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Iya, Hapus saja!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/user_delete/" + id;
+                }
+            }); 
+        });
+
+    });
     });
 </script>
 <!-- [Page Specific JS] end -->
-
-<script type="text/javascript">
-    function confirmation(ev) {
-        ev.preventDefault();
-        var form = ev.target;
-
-        swal({
-            title: "Anda yakin menghapus ini?",
-            text: "Data yang dihapus akan permanen!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                form.submit();
-            }
-        });
-    }
-</script>
 @endsection

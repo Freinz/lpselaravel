@@ -13,45 +13,52 @@
 @section('content')
 
     <!-- [ Main Content ] start -->
-    <!-- [ Main Content ] start -->
+
     <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Jumlah Data Sukses Diinputkan</h5>
-                        <input type="date" class="form-control form-control-sm w-auto border-0 shadow-none2">
-                    </div>
+        <!-- [ Row 1 ] start -->
+        <div class="col-sm-6 col-xl-6">
+            <div class="card statistics-card-1">
+                <div class="card-header d-flex align-items-center justify-content-between py-3">
+                    <h5>Jumlah Data Sukses Diinputkan</h5>
+                   
                 </div>
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-1">
-                        <h3 class="mb-0"> <small class="mb-0">Sukses</small></h3>
-                        <!-- <span class="badge bg-light-success ms-2">36%</span> -->
+                    <img src="{{ URL::asset('build/images/widget/img-status-1.svg') }}" alt="img" class="img-fluid img-bg h-100">
+                    <div class="d-flex align-items-center">
+                        <h3 class="f-w-300 d-flex align-items-center m-b-0">{{ $total_barang }}</h3>
+                        <span class="badge bg-light-success ms-2">100%</span>
                     </div>
-                    <h3>{{ $total_barang }}</h3>
-                    <div id="customer-rate-graph"></div>
+                    <p class="text-muted mb-2 text-sm mt-3">Proses Total Barang</p>
+                    <div class="progress" style="height: 7px">
+                        <div class="progress-bar bg-brand-color-2" role="progressbar" style="width: 100%" aria-valuenow="75"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Jumlah Data Yang Masih Diproses</h5>
-                        <select class="form-select form-select-sm w-auto border-0 shadow-none">
-                            <option>Today</option>
-                            <option selected="">This week</option>
-                            <option>Monthly</option>
-                        </select>
-                    </div>
+        <div class="col-sm-6 col-xl-6">
+            <div class="card statistics-card-1">
+                <div class="card-header d-flex align-items-center justify-content-between py-3">
+                    <h5>Jumlah Data Yang Masih Diproses</h5>
+                 
                 </div>
                 <div class="card-body">
-                    <p class="mb-0">Ditunda</p>
-                    <h4>{{ $total_barang_ditunda }}</h4>
-                    <div id="monthly-report-graph"></div>
+                    <img src="{{ URL::asset('build/images/widget/img-status-2.svg') }}" alt="img" class="img-fluid img-bg">
+                    <div class="d-flex align-items-center">
+                        <h3 class="f-w-300 d-flex align-items-center m-b-0">{{ $total_barang_ditunda }}</h3>
+                        <!-- <span class="badge bg-light-primary ms-2">20%</span> -->
+                    </div>
+                    <p class="text-muted mb-2 text-sm mt-3">Menunggu antrian</p>
+                    <div class="progress" style="height: 7px">
+                        <div class="progress-bar bg-brand-color-1" role="progressbar" style="width: 100%" aria-valuenow="75"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <!-- [ Row 1 ] end -->
+
         
     <!-- [ Main Content ] end -->
     @endsection

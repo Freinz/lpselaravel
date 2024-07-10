@@ -34,18 +34,11 @@
                         </a>
                         <div class="dropdown-menu">
                             <ul>
-                                <li><a class="pc-user-links">
+                                <li><a class="pc-user-links" href="{{ url('lihat_profil_pimpinan') }}">
                                         <i class="ph-duotone ph-user"></i>
                                         <span>My Account</span>
                                     </a></li>
-                                <li><a class="pc-user-links">
-                                        <i class="ph-duotone ph-gear"></i>
-                                        <span>Settings</span>
-                                    </a></li>
-                                <li><a class="pc-user-links">
-                                        <i class="ph-duotone ph-lock-key"></i>
-                                        <span>Lock Screen</span>
-                                    </a></li>
+                               
                                 <li><a class="pc-user-links" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">

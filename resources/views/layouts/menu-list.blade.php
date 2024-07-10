@@ -13,7 +13,7 @@
 <li class="pc-item pc-hasmenu">
     <a href="https://lpse.kalselprov.go.id/eproc4" class="pc-link">
         <span class="pc-micon">
-            <i class="fas fa-window-restore"></i>
+            <i class="ph-duotone ph-globe"></i>
         </span>
         <span class="pc-mtext">Kunjungi Website Resmi</span>
     </a>

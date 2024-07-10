@@ -7,10 +7,8 @@ use App\Models\Role;
 use App\Models\Superadmin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Imports\EmployeeImport;
 use Illuminate\Support\facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\EmployeeImportKategori;
+use App\Models\User;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use RealRashid\SweetAlert\facades\Alert;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -25,9 +23,7 @@ class SuperAdminController extends Controller
     {
         $query = Superadmin::query();
 
-        if ($request->nama_kota) {
-            $query->where('nama_kota', $request->nama_kota);
-        }
+
 
         if ($request->kategori) {
             $query->where('kategori', $request->kategori);
@@ -39,22 +35,24 @@ class SuperAdminController extends Controller
 
         $superadmin = $query->get();
 
-        $nama_kota = Superadmin::select('nama_kota')->groupBy('nama_kota')->get();
+
         $kategori = Superadmin::select('kategori')->groupBy('kategori')->get();
         $sub_kategori = Superadmin::select('sub_kategori')->groupBy('sub_kategori')->get();
 
-        $jumlah_kota = $nama_kota->count();
+        $jumlah_kota = 13;
         $jumlah_kategori = $kategori->count();
         $total_barang = Superadmin::count();
+
+        $jumlah_user = User::count();
 
         $persentase_kota = ($jumlah_kota / 13) * 100;
         $persentase_kategori = ($jumlah_kategori / 100) * 100;
 
         return view('dashboard', compact(
             'superadmin',
-            'nama_kota',
             'kategori',
             'sub_kategori',
+            'jumlah_user',
             'jumlah_kota',
             'jumlah_kategori',
             'persentase_kota',
@@ -89,8 +87,12 @@ class SuperAdminController extends Controller
 
         $jumlah_operator = Role::where('name', 'operator')->count();
 
+        $jumlah_user = User::count();
+
+        $jumlah_role = Role::count();
+
         if (Auth::user()->hasRole('superadmin')) {
-            return redirect()->to('superadmin.index');
+            return view('superadmin.index', compact('jumlah_user', 'jumlah_role', 'total_barang'));
         } else if (Auth::user()->hasRole('pimpinan')) {
             return view('pimpinan.index', compact('superadmin', 'detail_user', 'total_barang', 'total_barang_ditunda', 'total_barang_ditolak', 'jumlah_keseluruhan_barang', 'persentase_jumlah_barang', 'jumlah_operator'));
         } else if (Auth::user()->hasRole('operator')) {
@@ -161,9 +163,7 @@ class SuperAdminController extends Controller
     {
         $data = Superadmin::find($id);
 
-        $city = Superadmin::all();
-
-        return view('superadmin.update_data', compact('data', 'city'));
+        return view('superadmin.update_data', compact('data'));
     }
 
     public function revisi_read($id)
@@ -185,29 +185,52 @@ class SuperAdminController extends Controller
         $data = Superadmin::find($id);
 
         $request->validate([
-            'nama_kota' => 'required|min:2|max:255',
             'kategori' => 'required',
             'sub_kategori' => 'required',
             'nama_barang' => 'required',
             'satuan' => 'required',
-            'merk' => 'required',
-            'harga' => 'required',
+            'merk' => 'nullable',
+            'banjarmasin' => 'required',
+            'banjarbaru' => 'required',
+            'banjar' => 'required',
+            'batola' => 'required',
+            'tapin' => 'required',
+            'hss' => 'required',
+            'hst' => 'required',
+            'hsu' => 'required',
+            'balangan' => 'required',
+            'tabalong' => 'required',
+            'tanah_laut' => 'required',
+            'tanah_bumbu' => 'required',
+            'kotabaru' => 'required',
         ]);
 
-        $data->nama_kota = $request->nama_kota;
         $data->kategori = $request->kategori;
         $data->sub_kategori = $request->sub_kategori;
         $data->nama_barang = $request->nama_barang;
         $data->satuan = $request->satuan;
         $data->merk = $request->merk;
-        $data->harga = $request->harga;
+        $data->banjarmasin = $request->banjarmasin;
+        $data->banjarbaru = $request->banjarbaru;
+        $data->banjar = $request->banjar;
+        $data->batola = $request->batola;
+        $data->tapin = $request->tapin;
+        $data->hss = $request->hss;
+        $data->hst = $request->hst;
+        $data->hsu = $request->hsu;
+        $data->balangan = $request->balangan;
+        $data->tabalong = $request->tabalong;
+        $data->tanah_laut = $request->tanah_laut;
+        $data->tanah_bumbu = $request->tanah_bumbu;
+        $data->kotabaru = $request->kotabaru;
 
         $data->save();
 
-        Alert::success('Sukses', 'Data Berhasil Diupdate');
+        Alert::success('Sukses', 'Data Berhasil Diperbarui');
 
         return redirect('/show_data');
     }
+
 
 
     public function revisi_edit(Request $request, $id)
@@ -215,26 +238,48 @@ class SuperAdminController extends Controller
         $data = Superadmin::find($id);
 
         $request->validate([
-            'nama_kota' => 'required|min:2|max:255',
             'kategori' => 'required',
             'sub_kategori' => 'required',
             'nama_barang' => 'required',
             'satuan' => 'required',
-            'merk' => 'required',
-            'harga' => 'required',
+            'merk' => 'nullable',
+            'banjarmasin' => 'required',
+            'banjarbaru' => 'required',
+            'banjar' => 'required',
+            'batola' => 'required',
+            'tapin' => 'required',
+            'hss' => 'required',
+            'hst' => 'required',
+            'hsu' => 'required',
+            'balangan' => 'required',
+            'tabalong' => 'required',
+            'tanah_laut' => 'required',
+            'tanah_bumbu' => 'required',
+            'kotabaru' => 'required',
         ]);
 
-        $data->nama_kota = $request->nama_kota;
         $data->kategori = $request->kategori;
         $data->sub_kategori = $request->sub_kategori;
         $data->nama_barang = $request->nama_barang;
         $data->satuan = $request->satuan;
         $data->merk = $request->merk;
-        $data->harga = $request->harga;
+        $data->banjarmasin = $request->banjarmasin;
+        $data->banjarbaru = $request->banjarbaru;
+        $data->banjar = $request->banjar;
+        $data->batola = $request->batola;
+        $data->tapin = $request->tapin;
+        $data->hss = $request->hss;
+        $data->hst = $request->hst;
+        $data->hsu = $request->hsu;
+        $data->balangan = $request->balangan;
+        $data->tabalong = $request->tabalong;
+        $data->tanah_laut = $request->tanah_laut;
+        $data->tanah_bumbu = $request->tanah_bumbu;
+        $data->kotabaru = $request->kotabaru;
 
         $data->save();
 
-        Alert::success('Sukses', 'Data Berhasil Diupdate');
+        Alert::success('Sukses', 'Data Berhasil Diperbarui');
 
         return redirect('/revisi_data');
     }
@@ -249,14 +294,18 @@ class SuperAdminController extends Controller
 
         $data->delete();
 
+        Alert::success('Sukses', 'Data Berhasil Dihapus');
+        
         return redirect()->back();
     }
-
+    
     public function revisi_delete($id)
     {
         $data = Superadmin::find($id);
-
+        
         $data->delete();
+        
+        Alert::success('Sukses', 'Data Berhasil Dihapus');
 
         return redirect()->back();
     }
@@ -314,7 +363,7 @@ class SuperAdminController extends Controller
 
         $this->process_excel($file_path, $form->id);
 
-        Alert::success('Sukses', 'Data Excel Berhasil Diimport');
+        Alert::success('Sukses', 'Data Excel Berhasil Dikirim');
 
         return redirect()->back();
     }
@@ -324,71 +373,61 @@ class SuperAdminController extends Controller
     {
         $spreadsheet = IOFactory::load($file_path);
         $combined_data = [];
-    
+
         // Ambil sheet pertama saja
         $worksheet = $spreadsheet->getSheet(0);
         $highest_row = $worksheet->getHighestRow();
         $highest_column = $worksheet->getHighestColumn();
-    
+
         $highest_column_index = Coordinate::columnIndexFromString($highest_column);
         $highest_column_index = min($highest_column_index, 18); // Column 18 (R)
-    
+
         for ($row = 4; $row <= $highest_row; ++$row) {
             $row_data = [];
-    
+
             for ($col = 1; $col <= $highest_column_index; ++$col) {
                 $cell_coordinate = Coordinate::stringFromColumnIndex($col) . $row;
                 $cell_value = $worksheet->getCell($cell_coordinate)->getValue();
                 $row_data[] = $cell_value;
             }
-    
+
             if (!empty(array_filter($row_data, function ($value) {
                 return !is_null($value) && $value !== '';
             }))) {
                 $combined_data[] = $row_data;
             }
         }
-    
-        // Pecah data jadi per-kota
-        $city_list = [
-            "Banjarmasin",
-            "Banjarbaru",
-            "Banjar",
-            "Batola",
-            "Tapin",
-            "HSS",
-            "HST",
-            "HSU",
-            "Balangan",
-            "Tabalong",
-            "Tanah Laut",
-            "Tanah Bumbu",
-            "Kotabaru",
-        ];
-    
-        $result_data = [];
-    
+
+        // Menyimpan data langsung sesuai kolom yang ada
         foreach ($combined_data as $data) {
-            foreach ($city_list as $index => $city) {
-                $new_array = [
-                    'nama_kota' => $city,
-                    'kategori' => $data[0],
-                    'sub_kategori' => $data[1],
-                    'nama_barang' => "'" . $data[2] . "'",
-                    'satuan' => $data[3],
-                    'merk' => $data[4],
-                    'harga' => $data[5 + $index],
-                    'status' => "ditunda",
-                    'form_id' => $form_id,
-                ];
-    
-                Superadmin::create($new_array);
-    
-                array_push($result_data, $new_array);
-            }
+            $new_array = [
+                'kategori' => $data[0],
+                'sub_kategori' => $data[1],
+                'nama_barang' => $data[2],
+                'satuan' => $data[3],
+                'merk' => $data[4],
+                'banjarmasin' => $data[5],
+                'banjarbaru' => $data[6],
+                'banjar' => $data[7],
+                'batola' => $data[8],
+                'tapin' => $data[9],
+                'hss' => $data[10],
+                'hst' => $data[11],
+                'hsu' => $data[12],
+                'balangan' => $data[13],
+                'tabalong' => $data[14],
+                'tanah_laut' => $data[15],
+                'tanah_bumbu' => $data[16],
+                'kotabaru' => $data[17],
+                'status' => 'ditunda',
+                'form_id' => $form_id,
+            ];
+
+            Superadmin::create($new_array);
         }
     }
-    
+
+
 
 
 
@@ -411,7 +450,7 @@ class SuperAdminController extends Controller
         }
 
         // Berikan notifikasi sukses
-        Alert::success('Sukses', 'Status Data Telah Terupdate');
+        Alert::success('Sukses', 'Status Data Telah Diperbarui');
 
         return redirect()->back();
     }

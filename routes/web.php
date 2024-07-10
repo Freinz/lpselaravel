@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Management User
     Route::get('/lihat_profil', [UserController::class,'lihat_profil']);
+    Route::get('/lihat_profil_pimpinan', [UserController::class,'lihat_profil_pimpinan']);
     Route::get('/edit_profil', [UserController::class,'edit_profil']);
     Route::put('/kirim_edit_profil/{id}', [UserController::class, 'kirim_edit_profil']);
 

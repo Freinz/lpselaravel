@@ -76,31 +76,7 @@
             </div>
         </div>
         <!-- [ Row 1 ] end -->
-        <!-- [ Row 2 ] start -->
-
-        <div class="row">
-  <!-- [ variant-chart ] start -->
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Bar chart</h5>
-      </div>
-      <div class="card-body">
-        <div id="bar-chart-1"></div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">
-        <h5>Bar chart stacked</h5>
-      </div>
-      <div class="card-body">
-        <div id="bar-chart-2"></div>
-      </div>
-    </div>
-  </div>
-        </div>
+        
         
     <!-- [ Main Content ] end -->
 @endsection

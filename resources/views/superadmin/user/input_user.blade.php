@@ -1,7 +1,7 @@
 @extends('superadmin.main')
 
 @section('title', 'Form Elements')
-@section('breadcrumb-item', 'Forms')
+@section('breadcrumb-item', 'Form')
 @section('breadcrumb-item-active', 'Daftarkan User')
 
 @section('css')
@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="name">Nama</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" id="name" placeholder="Enter Nama" value="{{ old('name') }}">
+                                        name="name" id="name" placeholder="Masukkan Nama" value="{{ old('name') }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="email">Email</label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" id="email" placeholder="Enter Email"
+                                        name="email" id="email" placeholder="Masukkan Email"
                                         value="{{ old('email') }}">
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -45,14 +45,14 @@
                                 <label class="form-label">Role User</label>
                                 <br>
                                 <select class="btn btn-light-secondary" name="role" required>
-                                    <option>Select Role</option>
+                                    <option>Pilih Role</option>
                                     @foreach($roles as $role)
                                     <option value="{{ $role->id }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Kirim</button>
                             </form>
                         </div>
                     </div>

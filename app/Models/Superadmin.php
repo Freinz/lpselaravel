@@ -16,24 +16,34 @@ class Superadmin extends Model
     }
 
     use HasFactory, Searchable;
-
     protected $fillable = [
-        'nama_kota',
         'kategori',
         'sub_kategori',
         'nama_barang',
         'satuan',
         'merk',
-        'harga',
         'status',
         'form_id',
+        'banjarmasin',
+        'banjarbaru',
+        'banjar',
+        'batola',
+        'tapin',
+        'hss',
+        'hst',
+        'hsu',
+        'balangan',
+        'tabalong',
+        'tanah_laut',
+        'tanah_bumbu',
+        'kotabaru',
     ];
+    
 
 
     public function toSearchableArray()
 {
     return [
-        'nama_kota' => $this->nama_kota,
         'kategori' => $this->kategori,
         'sub_kategori' => $this->sub_kategori,
         'nama_barang' => $this->nama_barang,

@@ -96,6 +96,8 @@ class RoleController extends Controller
 
         $data->delete();
 
+        Alert::success('Sukses', 'Role Berhasil Dihapus');
+
         return redirect()->back();
     }
 }

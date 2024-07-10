@@ -33,7 +33,7 @@
             <ul class="list-unstyled">
                 <li class="dropdown pc-h-item">
                 <li class="dropdown pc-h-item">
-                    <a href="{{ route('login') }}" class="btn btn-primary mb-4">Login Disini</a>
+                <a href="{{ route('login') }}" class="btn btn-primary mb-4">Login Disini</a>
                 </li>
                 @if (Auth::check())
                     <form action="{{ route('logout') }}" method="post">

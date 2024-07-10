@@ -1,9 +1,9 @@
 @extends('pimpinan.main')
 
-@section('title', 'Advance Initialization')
+@section('title')
 @section('breadcrumb-item', 'DataTable')
 
-@section('breadcrumb-item-active', 'Kumpulan data yang perlu di Approve')
+@section('breadcrumb-item-active', 'Kumpulan data yang perlu disetujui')
 
 @section('css')
     <!-- [Page specific CSS] start -->
