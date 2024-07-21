@@ -21,9 +21,6 @@
     <!-- [Page specific CSS] end -->
 
     @include('layouts.head-css')
-
-
-
 </head>
 
 <body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"

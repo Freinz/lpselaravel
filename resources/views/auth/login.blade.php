@@ -15,7 +15,7 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="form-group mb-3">
-                        <input type="bil" class="form-control @error('email') is-invalid @enderror" name="email" value="@gmail.com" required autocomplete="email" autofocus id="floatingInput" placeholder="Email Address">
+                        <input type="bil" class="form-control @error('email') is-invalid @enderror" name="email" value="@gmail.com" required autocomplete="email" autofocus id="floatingInput" placeholder="Masukkan Email">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -23,7 +23,7 @@
                     @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <input type="password" type="password" class="form-control @error('password') is-invalid @enderror" value="12345678" name="password" required autocomplete="current-password" id="floatingInput1" placeholder="Password">
+                        <input type="password" type="password" class="form-control @error('password') is-invalid @enderror" value="12345678" name="password" required autocomplete="current-password" id="floatingInput1" placeholder="Masukkan Kata Sandi">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

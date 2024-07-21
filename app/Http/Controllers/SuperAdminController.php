@@ -22,9 +22,6 @@ class SuperAdminController extends Controller
     public function dashboard(Request $request)
     {
         $query = Superadmin::query();
-
-
-
         if ($request->kategori) {
             $query->where('kategori', $request->kategori);
         }
