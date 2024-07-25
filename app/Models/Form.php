@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,22 +8,26 @@ class Form extends Model
 {
     use HasFactory;
 
-    public function superadmin(){
-        return $this->hasMany(Superadmin::class, 'form_id');
-    }
-
+    // Field yang dapat diisi dengan mass assignment
     protected $fillable = [
-        'nama',
-        'tgl_survey',
-        'periode',
-        'status',
-        'ket_salah',
-
+        'nama', 'tgl_survey', 'periode', 'kota_id', 'kategori_id', 'sub_kategori_id'
     ];
 
-    // public function superadmin() {
+    // Relasi dengan model Kota
+    public function kota()
+    {
+        return $this->belongsTo(Kota::class);
+    }
 
-    //     return $this->hasOne('App]\Models\Superadmin', 'id', 'table_id'); // table_id hrs ada pada database form
+    // Relasi dengan model Kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
 
-    // }
+    // Relasi dengan model SubKategori
+    public function subKategori()
+    {
+        return $this->belongsTo(SubKategori::class);
+    }
 }

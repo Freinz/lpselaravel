@@ -16,11 +16,9 @@
 @section('content')
 <!-- [ Main Content ] start -->
 <div class="row">
-
   <!-- Row Grouping table start -->
   <div class="col-sm-12">
     <div class="card">
-
       <div class="card-body">
         <div class="table-responsive dt-responsive">
           <table id="basic-btn" class="table table-striped table-bordered nowrap">
@@ -41,7 +39,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
 
-
                   <form action="/importexcel" method="post" enctype="multipart/form-data">
                     @csrf
 
@@ -55,7 +52,6 @@
 
                     <div class="form-group">
                       <label class="form-label">Tanggal Survey</label>
-
                       <input type="text" class="form-control @error('tgl_survey') is-invalid @enderror" placeholder="isi tanggal" name="tgl_survey" id="pc-datepicker-1" value="{{ old('tgl_survey') }}">
                       @error('tgl_survey')
                       <div class="invalid-feedback">{{ $message }}</div>
@@ -73,7 +69,40 @@
                       @enderror
                     </div>
 
+                    <div class="form-group">
+                      <label class="form-label" for="kota_id">Kota</label>
+                      <select class="form-select @error('kota_id') is-invalid @enderror" id="kota_id" name="kota_id">
+                        @foreach ($kotas as $kota)
+                        <option value="{{ $kota->id }}" {{ old('kota_id') == $kota->id ? 'selected' : '' }}>{{ $kota->nama_kota }}</option>
+                        @endforeach
+                      </select>
+                      @error('kota_id')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
 
+                    <div class="form-group">
+                      <label class="form-label" for="kategori_id">Kategori</label>
+                      <select class="form-select @error('kategori_id') is-invalid @enderror" id="kategori_id" name="kategori_id">
+                        <option value="">Pilih Kategori</option>
+                        @foreach ($kategoris as $kategori)
+                        <option value="{{ $kategori->id }}" {{ old('kategori_id') == $kategori->id ? 'selected' : '' }}>{{ $kategori->nama_kategori }}</option>
+                        @endforeach
+                      </select>
+                      @error('kategori_id')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label" for="sub_kategori_id">Sub Kategori</label>
+                      <select class="form-select @error('sub_kategori_id') is-invalid @enderror" id="sub_kategori_id" name="sub_kategori_id">
+                        <option value="">Pilih Sub Kategori</option>
+                      </select>
+                      @error('sub_kategori_id')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
 
                     <div class="modal-body">
                       <div class="formgroup">
@@ -102,7 +131,7 @@
 
             <tbody>
               @foreach ($form as $form )
-              @if ($form -> status == 'ditunda')
+              @if ($form->status == 'ditunda')
               <tr>
                 <td>{{ $form->nama }}</td>
                 <td>{{$form->tgl_survey}}</td>
@@ -113,10 +142,7 @@
               </tr>
               @endif
               @endforeach
-
-
             </tbody>
-
 
           </table>
         </div>
@@ -124,10 +150,8 @@
     </div>
   </div>
   <!-- Row Grouping table end -->
-
 </div>
 <!-- [ Main Content ] end -->
-
 
 @endsection
 
@@ -158,72 +182,32 @@
 <script>
   $(document).ready(function() {
     // Inisialisasi DataTables
-    $('#multi-table').DataTable({
-      dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
-    });
-  });
-</script>
-
-<script>
-  // [ HTML5 Export Buttons ]
-  $(document).ready(function() {
     $('#basic-btn').DataTable({
       dom: 'frtip',
       buttons: ['excel', 'print']
     });
-  });
 
-  // [ Column Selectors ]
-  $('#cbtn-selectors').DataTable({
-    dom: 'Bfrtip',
-    buttons: [{
-        extend: 'copyHtml5',
-        exportOptions: {
-          columns: [0, ':visible']
-        }
-      },
-      {
-        extend: 'excelHtml5',
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'pdfHtml5',
-        exportOptions: {
-          columns: [0, 1, 2, 5]
-        }
-      },
-      'colvis'
-    ]
-  });
+    // Handle category change and update subcategory
+    $('#kategori_id').on('change', function() {
+      var kategori_id = $(this).val();
+      var sub_kategori_select = $('#sub_kategori_id');
+      sub_kategori_select.empty(); // Clear existing options
 
-  // [ Excel - Cell Background ]
-  $('#excel-bg').DataTable({
-    dom: 'Bfrtip',
-    buttons: [{
-      extend: 'excelHtml5',
-      customize: function(xlsx) {
-        var sheet = xlsx.xl.worksheets['sheet1.xml'];
-        $('row c[r^="F"]', sheet).each(function() {
-          if ($('is t', this).text().replace(/[^\d]/g, '') * 1 >= 500000) {
-            $(this).attr('s', '20');
+      if (kategori_id) {
+        $.ajax({
+          url: '/sub-kategoris/' + kategori_id,
+          method: 'GET',
+          success: function(data) {
+            sub_kategori_select.append('<option value="">Pilih Sub Kategori</option>');
+            $.each(data, function(index, sub_kategori) {
+              sub_kategori_select.append('<option value="' + sub_kategori.id + '">' + sub_kategori.nama_subkategori + '</option>');
+            });
           }
         });
+      } else {
+        sub_kategori_select.append('<option value="">Pilih Sub Kategori</option>');
       }
-    }]
-  });
-
-  // [ Custom File (JSON) ]
-  $('#pdf-json').DataTable({
-    dom: 'Bfrtip',
-    buttons: [{
-      text: 'JSON',
-      action: function(e, dt, button, config) {
-        var data = dt.buttons.exportData();
-        $.fn.dataTable.fileSave(new Blob([JSON.stringify(data)]), 'Export.json');
-      }
-    }]
+    });
   });
 </script>
 <!-- [Page Specific JS] end -->

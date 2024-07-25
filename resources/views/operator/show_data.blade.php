@@ -54,52 +54,28 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Nama Kota</th>
                                 <th>Kategori</th>
                                 <th>Sub-Kategori</th>
                                 <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Merk</th>
-                                <th>Banjarmasin</th>
-                                <th>Banjarbaru</th>
-                                <th>Banjar</th>
-                                <th>Batola</th>
-                                <th>Tapin</th>
-                                <th>HSS</th>
-                                <th>HST</th>
-                                <th>HSU</th>
-                                <th>Balangan</th>
-                                <th>Tabalong</th>
-                                <th>Tanah Laut</th>
-                                <th>Tanah Bumbu</th>
-                                <th>Kotabaru</th>
-
+                                <th>Harga</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php $nomor = 1; @endphp
-                            @foreach ($superadmin as $spadmin )
-                            @if ($spadmin -> status == 'diterima')
+                            @foreach ($tabelproduk as $tabelproduk )
+                            @if ($tabelproduk -> status == 'diterima')
                             <tr>
                                 <td>{{ $nomor++ }}</td>
-                                <td>{{$spadmin->kategori}}</td>
-                                <td>{{$spadmin->sub_kategori}}</td>
-                                <td>{{$spadmin->nama_barang}}</td>
-                                <td>{{$spadmin->satuan}}</td>
-                                <td>{{$spadmin->merk}}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarmasin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarbaru, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjar, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->batola, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tapin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hss, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hst, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hsu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->balangan, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tabalong, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_laut, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_bumbu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->kotabaru, 0, ',', '.') }}</td>
-
+                                <td>{{$tabelproduk->nama_kota}}</td>
+                                <td>{{$tabelproduk->kategori}}</td>
+                                <td>{{$tabelproduk->sub_kategori}}</td>
+                                <td>{{$tabelproduk->nama_barang}}</td>
+                                <td>{{$tabelproduk->satuan}}</td>
+                                <td>{{$tabelproduk->merk}}</td>
+                                <td>Rp. {{ number_format($tabelproduk->harga, 0, ',', '.') }}</td>
                             </tr>
                             @endif
                             @endforeach
@@ -119,15 +95,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/update_status/{{ $spadmin->form_id }}" method="POST">
+                    <form action="/update_status/{{ $tabelproduk->form_id }}" method="POST">
                         @csrf
                         @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Aksi</label>
                             <select class="btn btn-light-secondary" name="status">
-                                <option value="ditunda" {{ $spadmin->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
-                                <option value="diterima" {{ $spadmin->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
-                                <option value="ditolak" {{ $spadmin->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                <option value="ditunda" {{ $tabelproduk->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
+                                <option value="diterima" {{ $tabelproduk->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                <option value="ditolak" {{ $tabelproduk->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                             </select>
                         </div>
                         <div class="mb-3">

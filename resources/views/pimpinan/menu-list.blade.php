@@ -15,6 +15,17 @@
     </ul>
 </li>
 
+<li class="pc-item pc-hasmenu">
+    <a href="#!" class="pc-link"><span class="pc-micon">
+            <i class="ph-duotone ph-gear"></i></span><span class="pc-mtext">Input Data</span><span
+            class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+    <ul class="pc-submenu">
+        <li class="pc-item"><a class="pc-link" href="{{ url('input_kategori') }}">Input Kategori</a></li>
+        <li class="pc-item"><a class="pc-link" href="{{ url('input_subkategori') }}">Input Subkategori</a></li>
+        <li class="pc-item"><a class="pc-link" href="{{ url('input_namakota') }}">Input Namakota</a></li>
+    </ul>
+</li>
+
 <li class="pc-item">
     <a class="pc-link" href="{{ url('lihat_profil_pimpinan') }}">
         <span class="pc-micon"><i class="ph-duotone ph-identification-card"></i></span>

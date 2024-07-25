@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Form;
+use App\Models\Kategori;
+use App\Models\Kota;
 use App\Models\Role;
+use App\Models\SubKategori;
 use App\Models\Superadmin;
+use App\Models\TabelProduk;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\facades\Auth;
@@ -21,7 +25,7 @@ class SuperAdminController extends Controller
 
     public function dashboard(Request $request)
     {
-        $query = Superadmin::query();
+        $query = TabelProduk::query();
         if ($request->kategori) {
             $query->where('kategori', $request->kategori);
         }
@@ -30,15 +34,15 @@ class SuperAdminController extends Controller
             $query->where('sub_kategori', $request->sub_kategori);
         }
 
-        $superadmin = $query->get();
+        $tabelproduk = $query->get();
 
 
-        $kategori = Superadmin::select('kategori')->groupBy('kategori')->get();
-        $sub_kategori = Superadmin::select('sub_kategori')->groupBy('sub_kategori')->get();
+        $kategori = TabelProduk::select('kategori')->groupBy('kategori')->get();
+        $sub_kategori = TabelProduk::select('sub_kategori')->groupBy('sub_kategori')->get();
 
         $jumlah_kota = 13;
         $jumlah_kategori = $kategori->count();
-        $total_barang = Superadmin::count();
+        $total_barang = TabelProduk::count();
 
         $jumlah_user = User::count();
 
@@ -46,7 +50,7 @@ class SuperAdminController extends Controller
         $persentase_kategori = ($jumlah_kategori / 100) * 100;
 
         return view('dashboard', compact(
-            'superadmin',
+            'tabelproduk',
             'kategori',
             'sub_kategori',
             'jumlah_user',
@@ -61,17 +65,17 @@ class SuperAdminController extends Controller
 
     public function index()
     {
-        $superadmin = Superadmin::all();
+        $tabelproduk = TabelProduk::all();
 
         $detail_user = auth()->user()->detailuser;
 
         $role = Role::all();
 
-        $total_barang = Superadmin::count();
+        $total_barang = TabelProduk::count();
 
-        $total_barang_ditunda = Superadmin::where('status', 'ditunda')->count();
+        $total_barang_ditunda = TabelProduk::where('status', 'ditunda')->count();
 
-        $total_barang_ditolak = Superadmin::where('status', 'ditolak')->count();
+        $total_barang_ditolak = TabelProduk::where('status', 'ditolak')->count();
 
         $jumlah_keseluruhan_barang = $total_barang + $total_barang_ditunda + $total_barang_ditolak;
 
@@ -91,9 +95,9 @@ class SuperAdminController extends Controller
         if (Auth::user()->hasRole('superadmin')) {
             return view('superadmin.index', compact('jumlah_user', 'jumlah_role', 'total_barang'));
         } else if (Auth::user()->hasRole('pimpinan')) {
-            return view('pimpinan.index', compact('superadmin', 'detail_user', 'total_barang', 'total_barang_ditunda', 'total_barang_ditolak', 'jumlah_keseluruhan_barang', 'persentase_jumlah_barang', 'jumlah_operator'));
+            return view('pimpinan.index', compact('tabelproduk', 'detail_user', 'total_barang', 'total_barang_ditunda', 'total_barang_ditolak', 'jumlah_keseluruhan_barang', 'persentase_jumlah_barang', 'jumlah_operator'));
         } else if (Auth::user()->hasRole('operator')) {
-            return view('operator.index', compact('superadmin', 'detail_user',  'total_barang', 'total_barang_ditunda'));
+            return view('operator.index', compact('tabelproduk','detail_user',  'total_barang', 'total_barang_ditunda'));
         } else {
             return redirect()->back();
         }
@@ -102,30 +106,32 @@ class SuperAdminController extends Controller
     public function show()
     {
 
-        $superadmin = Superadmin::all();
+        $tabelproduk = TabelProduk::all();
 
         $detail_user = auth()->user()->detailuser;
 
         if (Auth::user()->hasRole('superadmin')) {
-            return view('superadmin.show_data', compact('superadmin', 'detail_user'));
+            return view('superadmin.show_data', compact('tabel_produk', 'detail_user'));
         } else if (Auth::user()->hasRole('pimpinan')) {
-            return view('pimpinan.show_data', compact('superadmin', 'detail_user'));
+            return view('pimpinan.show_data', compact('tabel_produk', 'detail_user'));
         } else if (Auth::user()->hasRole('operator')) {
-            return view('operator.show_data', compact('superadmin', 'detail_user'));
+            return view('operator.show_data', compact('tabel_produk', 'detail_user'));
         } else {
-            return view('pimpinan.show_data', compact('superadmin', 'detail_user'));
+            return view('pimpinan.show_data', compact('tabel_produk', 'detail_user'));
         }
     }
 
     public function import_data()
     {
-        $detail_user = auth()->user()->detailuser;
+        // Mengambil data untuk dropdown
+        $kotas = Kota::all();
+        $kategoris = Kategori::all();
+        $sub_kategoris = SubKategori::all();
 
-        $superadmin = Superadmin::all();
-
+        // Mengambil data form yang ada
         $form = Form::all();
 
-        return view('operator.import_data', compact('superadmin', 'detail_user', 'form'));
+        return view('operator.import_data', compact('kotas', 'kategoris', 'sub_kategoris', 'form'));
     }
 
     public function revisi_data()
@@ -133,11 +139,11 @@ class SuperAdminController extends Controller
 
         $detail_user = auth()->user()->detailuser;
 
-        $superadmin = Superadmin::all();
+        $tabelproduk = TabelProduk::all();
 
         $form = Form::all();
 
-        return view('operator.revisi_data', compact('superadmin', 'form', 'detail_user'));
+        return view('operator.revisi_data', compact('tabel$tabelproduk', 'form', 'detail_user'));
     }
 
     public function detail_revisi($id)
@@ -146,11 +152,11 @@ class SuperAdminController extends Controller
         // Ambil data Superadmin berdasarkan form_id
         $form = Form::findOrFail($id); // Mengambil data formulir berdasarkan ID
 
-        $superadmin = $form->superadmin;
+        $tabel_produk = $form->tabel_produk;
 
         $detail_user = auth()->user()->detailuser;
 
-        return view('operator.detail_revisi', compact('form', 'superadmin', 'detail_user'));
+        return view('operator.detail_revisi', compact('form', 'tabel_produk', 'detail_user'));
     }
 
     /**
@@ -158,7 +164,7 @@ class SuperAdminController extends Controller
      */
     public function edit($id)
     {
-        $data = Superadmin::find($id);
+        $data = TabelProduk::find($id);
 
         return view('superadmin.update_data', compact('data'));
     }
@@ -167,7 +173,7 @@ class SuperAdminController extends Controller
     {
         $detail_user = auth()->user()->detailuser;
 
-        $data = Superadmin::find($id);
+        $data = TabelProduk::find($id);
 
         $form = Form::all();
 
@@ -179,7 +185,7 @@ class SuperAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Superadmin::find($id);
+        $data = TabelProduk::find($id);
 
         $request->validate([
             'kategori' => 'required',
@@ -232,7 +238,7 @@ class SuperAdminController extends Controller
 
     public function revisi_edit(Request $request, $id)
     {
-        $data = Superadmin::find($id);
+        $data = TabelProduk::find($id);
 
         $request->validate([
             'kategori' => 'required',
@@ -287,21 +293,21 @@ class SuperAdminController extends Controller
      */
     public function destroy($id)
     {
-        $data = Superadmin::find($id);
+        $data = TabelProduk::find($id);
 
         $data->delete();
 
         Alert::success('Sukses', 'Data Berhasil Dihapus');
-        
+
         return redirect()->back();
     }
-    
+
     public function revisi_delete($id)
     {
-        $data = Superadmin::find($id);
-        
+        $data = TabelProduk::find($id);
+
         $data->delete();
-        
+
         Alert::success('Sukses', 'Data Berhasil Dihapus');
 
         return redirect()->back();
@@ -314,11 +320,11 @@ class SuperAdminController extends Controller
 
         $user_type = Auth::user()->usertype;
 
-        $superadmin = Superadmin::all();
+        $tabelproduk = TabelProduk::all();
 
         $form = Form::all();
 
-        return view('pimpinan.approver_data', compact('superadmin', 'form'));
+        return view('pimpinan.approver_data', compact('tabelproduk', 'form'));
     }
 
     public function detail_data($id)
@@ -327,102 +333,90 @@ class SuperAdminController extends Controller
         // Ambil data Superadmin berdasarkan form_id
         $form = Form::findOrFail($id); // Mengambil data formulir berdasarkan ID
 
-        $superadmin = $form->superadmin;
+        $tabelproduk = $form->tabelproduk;
 
         $detail_user = auth()->user()->detailuser;
 
 
-        return view('pimpinan.detail_data', compact('form', 'superadmin', 'detail_user'));
+        return view('pimpinan.detail_data', compact('form', 'tabelproduk', 'detail_user'));
     }
 
-    /* ==== UPLOAD EXCEL + NEW FORM ==== */
     public function importexcel(Request $request)
     {
         $request->validate([
             'nama' => 'required|min:2|max:255',
             'tgl_survey' => 'required',
             'periode' => 'required',
+            'kota_id' => 'nullable|exists:kotas,id',
+            'kategori_id' => 'nullable|exists:kategoris,id',
+            'sub_kategori_id' => 'nullable|exists:sub_kategoris,id',
+            'file' => 'required|file|mimes:xlsx,xls,csv',
         ]);
-
+    
         $file = $request->file('file');
-
-        // Nama file dibikin random biar gak tabrakan sama nama file baru yg namanya sama
+    
+        // Nama file dibuat acak untuk menghindari tabrakan
         $file_name = Str::random(40) . '.' . $file->getClientOriginalExtension();
-
         $file_path = $file->move('EmployeeData', $file_name);
-
+    
+        // Simpan data form
         $form = new Form();
-
         $form->nama = $request->nama;
         $form->tgl_survey = $request->tgl_survey;
         $form->periode = $request->periode;
+        $form->kota_id = $request->kota_id;
+        $form->kategori_id = $request->kategori_id;
+        $form->sub_kategori_id = $request->sub_kategori_id;
         $form->save();
-
-        $this->process_excel($file_path, $form->id);
-
+    
+        // Proses file Excel dan simpan data ke tabel_produk
+        $this->process_excel($file_path, $form->id, $request->kategori_id, $request->sub_kategori_id, $request->kota_id);
+    
         Alert::success('Sukses', 'Data Excel Berhasil Dikirim');
-
+    
         return redirect()->back();
     }
-
-    /* ==== READ & PROCESS EXCEL ==== */
-    public function process_excel($file_path, $form_id)
+    
+    public function process_excel($file_path, $form_id, $kategori_id, $sub_kategori_id, $kota_id)
     {
         $spreadsheet = IOFactory::load($file_path);
-        $combined_data = [];
-
-        // Ambil sheet pertama saja
         $worksheet = $spreadsheet->getSheet(0);
         $highest_row = $worksheet->getHighestRow();
         $highest_column = $worksheet->getHighestColumn();
-
         $highest_column_index = Coordinate::columnIndexFromString($highest_column);
-        $highest_column_index = min($highest_column_index, 18); // Column 18 (R)
-
+        $highest_column_index = min($highest_column_index, 19); // Column 19 (S)
+    
         for ($row = 4; $row <= $highest_row; ++$row) {
             $row_data = [];
-
             for ($col = 1; $col <= $highest_column_index; ++$col) {
                 $cell_coordinate = Coordinate::stringFromColumnIndex($col) . $row;
                 $cell_value = $worksheet->getCell($cell_coordinate)->getValue();
                 $row_data[] = $cell_value;
             }
-
+    
+            // Filter untuk mengabaikan baris kosong
             if (!empty(array_filter($row_data, function ($value) {
                 return !is_null($value) && $value !== '';
             }))) {
-                $combined_data[] = $row_data;
+                $new_array = [
+                    'kategori_id' => $kategori_id,
+                    'sub_kategori_id' => $sub_kategori_id,
+                    'kota_id' => $kota_id,
+                    'nama_barang' => $row_data[0], // Kolom nama_barang
+                    'satuan' => $row_data[1], // Kolom satuan
+                    'merk' => $row_data[2], // Kolom merk
+                    'harga' => $row_data[3], // Kolom harga
+                    'status' => 'ditunda',
+                    'form_id' => $form_id,
+                ];
+    
+                TabelProduk::create($new_array);
             }
         }
-
-        // Menyimpan data langsung sesuai kolom yang ada
-        foreach ($combined_data as $data) {
-            $new_array = [
-                'kategori' => $data[0],
-                'sub_kategori' => $data[1],
-                'nama_barang' => $data[2],
-                'satuan' => $data[3],
-                'merk' => $data[4],
-                'banjarmasin' => $data[5],
-                'banjarbaru' => $data[6],
-                'banjar' => $data[7],
-                'batola' => $data[8],
-                'tapin' => $data[9],
-                'hss' => $data[10],
-                'hst' => $data[11],
-                'hsu' => $data[12],
-                'balangan' => $data[13],
-                'tabalong' => $data[14],
-                'tanah_laut' => $data[15],
-                'tanah_bumbu' => $data[16],
-                'kotabaru' => $data[17],
-                'status' => 'ditunda',
-                'form_id' => $form_id,
-            ];
-
-            Superadmin::create($new_array);
-        }
     }
+    
+    
+
 
 
 
@@ -437,7 +431,7 @@ class SuperAdminController extends Controller
         ]);
 
         // Perbarui semua data yang memiliki form_id yang sama
-        Superadmin::where('form_id', $form_id)->update(['status' => $request->input('status')]);
+        TabelProduk::where('form_id', $form_id)->update(['status' => $request->input('status')]);
 
         $form = Form::find($form_id);
         if ($form) {
@@ -459,7 +453,7 @@ class SuperAdminController extends Controller
         ]);
 
         // Mengubah status pada semua entri Superadmin dengan form_id yang sama
-        Superadmin::where('form_id', $form_id)->update(['status' => $request->status]);
+        TabelProduk::where('form_id', $form_id)->update(['status' => $request->status]);
 
         // Mengubah status pada form dengan form_id yang sama
         Form::where('id', $form_id)->update(['status' => $request->status]);
@@ -479,24 +473,4 @@ class SuperAdminController extends Controller
         return view('hubungi_kami');
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
 }
