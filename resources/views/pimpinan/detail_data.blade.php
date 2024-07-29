@@ -24,8 +24,18 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                {{-- Filter --}}
+                <!-- {{-- Filter --}}
                 <div class="mb-3 d-flex justify-content-start grid gap-3">
+
+                    <div class="dropdown">
+                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKotaBtn">
+                            Filter Kota
+                        </a>
+                        <ul class="dropdown-menu" id="kotaDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="filterKota('')">Semua Kota</a></li>
+                        </ul>
+                    </div>
+
 
                     <div class="dropdown">
                         <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKategoriBtn">
@@ -46,7 +56,7 @@
                     <div class="btn btn-info" onclick="resetFilters()">
                         Reset Filters
                     </div>
-                </div>
+                </div> -->
 
                 <div class="table-responsive dt-responsive">
                     @role('pimpinan')
@@ -57,53 +67,31 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Pengirim</th>
+                                <th>Nama Kota</th>
                                 <th>Kategori</th>
                                 <th>Sub-Kategori</th>
                                 <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Merk</th>
-                                <th>Banjarmasin</th>
-                                <th>Banjarbaru</th>
-                                <th>Banjar</th>
-                                <th>Batola</th>
-                                <th>Tapin</th>
-                                <th>HSS</th>
-                                <th>HST</th>
-                                <th>HSU</th>
-                                <th>Balangan</th>
-                                <th>Tabalong</th>
-                                <th>Tanah Laut</th>
-                                <th>Tanah Bumbu</th>
-                                <th>Kotabaru</th>
+                                <th>Harga</th>
 
 
                             </tr>
                         </thead>
                         <tbody>
                             @php $nomor = 1; @endphp
-                            @foreach ($superadmin as $spadmin )
-                            @if ($spadmin -> status == 'ditunda')
+                            @foreach ($tabelproduk as $tbproduk )
+                            @if ($tbproduk -> status == 'ditunda')
                             <tr>
                                 <td>{{ $nomor++ }}</td>
-                                <td>{{ $spadmin->form->nama }}</td>
-                                <td>{{$spadmin->kategori}}</td>
-                                <td>{{$spadmin->sub_kategori}}</td>
-                                <td>{{$spadmin->nama_barang}}</td>
-                                <td>{{$spadmin->satuan}}</td>
-                                <td>{{$spadmin->merk}}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarmasin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarbaru, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjar, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->batola, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tapin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hss, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hst, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hsu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->balangan, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tabalong, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_laut, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_bumbu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->kotabaru, 0, ',', '.') }}</td>
+                                <td>{{ $tbproduk->form->nama }}</td>
+                                <td>{{$tbproduk->kota->nama_kota}}</td>
+                                <td>{{$tbproduk->kategori->nama_kategori}}</td>
+                                <td>{{$tbproduk->subKategori->nama_subkategori}}</td>
+                                <td>{{$tbproduk->nama_barang}}</td>
+                                <td>{{$tbproduk->satuan}}</td>
+                                <td>{{$tbproduk->merk}}</td>
+                                <td>Rp. {{ number_format($tbproduk->harga, 0, ',', '.') }}</td>
                             </tr>
                             @endif
                             @endforeach
@@ -123,15 +111,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/update_status/{{ $spadmin->form_id }}" method="POST">
+                    <form action="/update_status/{{ $tbproduk->form_id }}" method="POST">
                         @csrf
                         @method('PUT') <!-- Jika menggunakan metode PUT atau PATCH -->
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Aksi</label>
                             <select class="btn btn-light-secondary" name="status">
-                                <option value="ditunda" {{ $spadmin->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
-                                <option value="diterima" {{ $spadmin->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
-                                <option value="ditolak" {{ $spadmin->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                <option value="ditunda" {{ $tbproduk->status == 'ditunda' ? 'selected' : '' }}>Ditunda</option>
+                                <option value="diterima" {{ $tbproduk->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                                <option value="ditolak" {{ $tbproduk->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -167,7 +155,7 @@
         var categories = [];
         table.rows().every(function(rowIdx, tableLoop, rowLoop) {
             var data = this.data();
-            var category = data[2]; // Kategori
+            var category = data[3]; // Kategori
             if (categories.indexOf(category) === -1) {
                 categories.push(category);
             }
@@ -184,8 +172,8 @@
 
             table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                 var data = this.data();
-                var category = data[2]; // Kategori
-                var subCategory = data[3]; // Sub-Kategori
+                var category = data[3]; // Kategori
+                var subCategory = data[4]; // Sub-Kategori
 
                 if (category === kategori && subCategories.indexOf(subCategory) === -1) {
                     subCategories.push(subCategory);
@@ -196,22 +184,41 @@
                 $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
             });
 
-            table.column(2).search(kategori).draw();
+            table.column(3).search(kategori).draw();
             $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
         };
 
         // Handle Sub-Kategori filter
         window.filterSubKategori = function(subKategori) {
-            table.column(3).search(subKategori).draw();
+            table.column(4).search(subKategori).draw();
             $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
         };
 
+        // Populate Kota dropdown
+        var cities = [];
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            var city = data[2]; // Nama Kota
+            if (cities.indexOf(city) === -1) {
+                cities.push(city);
+            }
+        });
 
+        cities.forEach(function(city) {
+            $('#kotaDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKota(\'' + city + '\')">' + city + '</a></li>');
+        });
+
+        // Handle Kota filter
+        window.filterKota = function(city) {
+            table.column(2).search(city).draw();
+            $('#filterKotaBtn').text(city ? 'Kota: ' + city : 'Filter Kota');
+        };
 
         // Reset all filters
         window.resetFilters = function() {
             $('#filterKategoriBtn').text('Filter Kategori');
             $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
+            $('#filterKotaBtn').text('Filter Kota');
 
             table.columns().search('').draw();
         };

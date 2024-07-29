@@ -21,8 +21,8 @@
             class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
     <ul class="pc-submenu">
         <li class="pc-item"><a class="pc-link" href="{{ url('input_kategori') }}">Input Kategori</a></li>
-        <li class="pc-item"><a class="pc-link" href="{{ url('input_subkategori') }}">Input Subkategori</a></li>
-        <li class="pc-item"><a class="pc-link" href="{{ url('input_namakota') }}">Input Namakota</a></li>
+        <li class="pc-item"><a class="pc-link" href="{{ url('input_subkategori') }}">Input Sub Kategori</a></li>
+        <li class="pc-item"><a class="pc-link" href="{{ url('input_namakota') }}">Input Nama Kota</a></li>
     </ul>
 </li>
 

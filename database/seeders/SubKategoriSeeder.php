@@ -16,6 +16,7 @@ class SubKategoriSeeder extends Seeder
 
         DB::table('sub_kategoris')->insert([
             // SubKategori untuk Dekorasi
+            ['nama_subkategori' => 'Dekorasi', 'kategori_id' => $dekorasiId],
             ['nama_subkategori' => 'Dekorasi Backdrop/Panggung', 'kategori_id' => $dekorasiId],
             ['nama_subkategori' => 'Dekorasi Lainnya', 'kategori_id' => $dekorasiId],
             ['nama_subkategori' => 'Dekorasi Ruangan', 'kategori_id' => $dekorasiId],

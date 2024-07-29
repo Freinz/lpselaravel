@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('nama')->nullable(); // Kolom untuk nama
             $table->string('tgl_survey')->nullable(); // Kolom untuk tanggal survey
             $table->string('periode')->nullable(); // Kolom untuk periode
+            $table->string('keterangan')->nullable(); // Kolom untuk keterangan
             $table->foreignId('kota_id')->nullable()->constrained('kotas')->onDelete('set null'); // Kolom untuk kota
             $table->foreignId('kategori_id')->nullable()->constrained('kategoris')->onDelete('set null'); // Kolom untuk kategori
             $table->foreignId('sub_kategori_id')->nullable()->constrained('sub_kategoris')->onDelete('set null'); // Kolom untuk subkategori

@@ -10,7 +10,7 @@ class Form extends Model
 
     // Field yang dapat diisi dengan mass assignment
     protected $fillable = [
-        'nama', 'tgl_survey', 'periode', 'kota_id', 'kategori_id', 'sub_kategori_id'
+        'nama', 'tgl_survey', 'periode', 'keterangan', 'kota_id', 'kategori_id', 'sub_kategori_id'
     ];
 
     // Relasi dengan model Kota
@@ -29,5 +29,10 @@ class Form extends Model
     public function subKategori()
     {
         return $this->belongsTo(SubKategori::class);
+    }
+
+    public function tabelproduk()
+    {
+        return $this->hasMany(TabelProduk::class, 'form_id');
     }
 }

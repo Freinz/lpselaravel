@@ -60,7 +60,8 @@ Route::middleware(['auth'])->group(function () {
     // Management Databases Route
     Route::get('/show_data', [SuperAdminController::class, 'show']);
     Route::get('/data_read/{id}', [SuperAdminController::class, 'edit'])->middleware(['auth', 'role:superadmin|pimpinan']);
-    Route::post('/data_edit/{id}', [SuperAdminController::class, 'update'])->middleware(['auth', 'role:superadmin|pimpinan']);
+    Route::put('/data_edit/{id}', [SuperAdminController::class, 'update'])->middleware(['auth', 'role:superadmin|pimpinan']);
+    Route::get('/get_subkategori/{kategori_id}', [SuperAdminController::class, 'getSubKategori']);
     Route::get('/data_delete/{id}', [SuperAdminController::class, 'destroy'])->middleware(['auth', 'role:superadmin|pimpinan']);
 
 
@@ -73,18 +74,18 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/revisi_update_status/{form_id}', [SuperAdminController::class, 'revisi_update_status'])->middleware(['auth', 'role:operator']);
 
 
-    Route::get('/import_data', [SuperAdminController::class, 'import_data']);
-
+    
     // Management Import and Approve Data
     Route::get('/approver_data', [SuperAdminController::class, 'approver_data'])->middleware(['auth', 'role:pimpinan']);
     Route::get('/detail_data/{id}', [SuperAdminController::class, 'detail_data'])->middleware(['auth', 'role:pimpinan|operator']);
     // Operator Route
     Route::get('/importexcel_operator/{id}', [HomeController::class, 'importexcel_operator']);
-
-
+    
+    
     // Penginputan Data Excel
-    Route::post('/importexcel', [SuperAdminController::class, 'importexcel'])->name('importexcel');
-    Route::put('/update_status/{form_id}', [SuperAdminController::class, 'update_status'])->middleware(['auth', 'role:pimpinan']);
+    Route::get('/import_data', [FormController::class, 'import_data']);
+    Route::post('/importexcel', [FormController::class, 'importexcel'])->name('importexcel');
+    Route::put('/update_status/{form_id}', [FormController::class, 'update_status'])->middleware(['auth', 'role:pimpinan']);
 
 
     // Rute baru untuk menginput kategori, subkategori, dan namakota

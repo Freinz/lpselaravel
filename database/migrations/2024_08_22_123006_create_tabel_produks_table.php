@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('harga')->nullable();
             $table->string('status')->default('ditunda');
             $table->foreignId('form_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

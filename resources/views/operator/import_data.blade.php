@@ -44,7 +44,7 @@
 
                     <div class="form-group">
                       <label class="form-label" for="exampleInputEmail1">Nama</label>
-                      <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="masukan Nama" value="{{ old('nama') }}">
+                      <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ $detail_user -> name }}" readonly>
                       @error('nama')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -52,11 +52,12 @@
 
                     <div class="form-group">
                       <label class="form-label">Tanggal Survey</label>
-                      <input type="text" class="form-control @error('tgl_survey') is-invalid @enderror" placeholder="isi tanggal" name="tgl_survey" id="pc-datepicker-1" value="{{ old('tgl_survey') }}">
+                      <input type="text" class="form-control @error('tgl_survey') is-invalid @enderror" placeholder="isi tanggal" name="tgl_survey" id="pc-datepicker-1" value="">
                       @error('tgl_survey')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
+
 
                     <div class="form-group">
                       <label class="form-label @error('periode') is-invalid @enderror" for="exampleSelect1" value="{{ old('periode') }}">Periode</label>

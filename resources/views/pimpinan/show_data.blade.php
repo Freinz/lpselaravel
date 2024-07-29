@@ -20,6 +20,16 @@
             <div class="card-body">
                 <!-- Filter -->
                 <div class="mb-3 d-flex justify-content-start grid gap-3">
+
+                    <div class="dropdown">
+                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKotaBtn">
+                            Filter Kota
+                        </a>
+                        <ul class="dropdown-menu" id="kotaDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="filterKota('')">Semua Kota</a></li>
+                        </ul>
+                    </div>
+
                     <div class="dropdown">
                         <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKategoriBtn">
                             Filter Kategori
@@ -48,57 +58,36 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Nama Kota</th>
                                 <th>Kategori</th>
                                 <th>Sub-Kategori</th>
                                 <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Merk</th>
-                                <th>Banjarmasin</th>
-                                <th>Banjarbaru</th>
-                                <th>Banjar</th>
-                                <th>Batola</th>
-                                <th>Tapin</th>
-                                <th>HSS</th>
-                                <th>HST</th>
-                                <th>HSU</th>
-                                <th>Balangan</th>
-                                <th>Tabalong</th>
-                                <th>Tanah Laut</th>
-                                <th>Tanah Bumbu</th>
-                                <th>Kotabaru</th>
+                                <th>Harga</th>
                                 <th>Edit & Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php $nomor = 1; @endphp
-                            @foreach ($superadmin as $spadmin)
-                            @if ($spadmin->status == 'diterima')
+                            @foreach ($tabelproduk as $tabelproduk)
+                            @if ($tabelproduk->status == 'diterima')
                             <tr>
                                 <td>{{ $nomor++ }}</td>
-                                <td>{{$spadmin->kategori}}</td>
-                                <td>{{$spadmin->sub_kategori}}</td>
-                                <td>{{$spadmin->nama_barang}}</td>
-                                <td>{{$spadmin->satuan}}</td>
-                                <td>{{$spadmin->merk}}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarmasin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarbaru, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjar, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->batola, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tapin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hss, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hst, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hsu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->balangan, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tabalong, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_laut, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_bumbu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->kotabaru, 0, ',', '.') }}</td>
+                                <td>{{$tabelproduk->kota->nama_kota}}</td>
+                                <td>{{$tabelproduk->kategori->nama_kategori}}</td>
+                                <td>{{$tabelproduk->subKategori->nama_subkategori}}</td>
+                                <td>{{$tabelproduk->nama_barang}}</td>
+                                <td>{{$tabelproduk->satuan}}</td>
+                                <td>{{$tabelproduk->merk}}</td>
+                                <td>Rp. {{ $tabelproduk->harga }}</td>
+  
                                 <td>
                                     <div class="d-flex flex-wrap gap-2">
                                         <button type="button" class="btn btn-light-primary">
-                                            <a href="{{ url('data_read', $spadmin->id) }}">Edit</a>
+                                            <a href="{{ url('data_read', $tabelproduk->id) }}">Edit</a>
                                         </button>
-                                        <button type="button" class="btn btn-light-danger delete-button" data-id="{{ $spadmin->id }}">Hapus</button>
+                                        <button type="button" class="btn btn-light-danger delete-button" data-id="{{ $tabelproduk->id }}">Hapus</button>
                                     </div>
                                 </td>
                             </tr>
@@ -171,7 +160,7 @@
         var categories = [];
         table.rows().every(function(rowIdx, tableLoop, rowLoop) {
             var data = this.data();
-            var category = data[1]; // Kategori
+            var category = data[2]; // Kategori
             if (categories.indexOf(category) === -1) {
                 categories.push(category);
             }
@@ -181,10 +170,11 @@
             $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
         });
 
-        var cities = [];
+         // Populate Kota dropdown
+         var cities = [];
         table.rows().every(function(rowIdx, tableLoop, rowLoop) {
             var data = this.data();
-            var city = data[0]; // Kota
+            var city = data[1]; // Nama Kota
             if (cities.indexOf(city) === -1) {
                 cities.push(city);
             }
@@ -194,14 +184,20 @@
             $('#kotaDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKota(\'' + city + '\')">' + city + '</a></li>');
         });
 
+        // Handle Kota filter
+        window.filterKota = function(city) {
+            table.column(1).search(city).draw();
+            $('#filterKotaBtn').text(city ? 'Kota: ' + city : 'Filter Kota');
+        };
+
         window.filterKategori = function(kategori) {
             $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
             var subCategories = [];
 
             table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                 var data = this.data();
-                var category = data[1];
-                var subCategory = data[2];
+                var category = data[2];
+                var subCategory = data[3];
 
                 if (category === kategori && subCategories.indexOf(subCategory) === -1) {
                     subCategories.push(subCategory);
@@ -212,17 +208,17 @@
                 $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
             });
 
-            table.column(1).search(kategori).draw();
+            table.column(2).search(kategori).draw();
             $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
         };
 
         window.filterSubKategori = function(subKategori) {
-            table.column(2).search(subKategori).draw();
+            table.column(3).search(subKategori).draw();
             $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
         };
 
         window.filterKota = function(kota) {
-            table.column(0).search(kota).draw();
+            table.column(1).search(kota).draw();
             $('#filterKotaBtn').text(kota ? 'Kota: ' + kota : 'Filter Kota');
         };
 

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama_subkategori');
             $table->foreignId('kategori_id')->constrained('kategoris')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

@@ -81,8 +81,8 @@
                                         <img src="{{ URL::asset('build/images/user/avatar-2.jpg') }}" alt="user-image" class="wid-50 rounded-circle" />
                                     </div>
                                     <div class="flex-grow-1 mx-3">
-                                        <h5 class="mb-0">Pimpinan</h5>
-                                        <a class="link-primary" href="mailto:carson.darrin@company.io">pimpinan@gmail.com</a>
+                                        <h5 class="mb-0">Operator</h5>
+                                        <a class="link-primary" href="mailto:carson.darrin@company.io">operator@gmail.com</a>
                                     </div>
 
                                 </div>
