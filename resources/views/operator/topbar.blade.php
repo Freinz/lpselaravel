@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="flex-grow-1 mx-3">
                                         <h5 class="mb-0">Operator</h5>
-                                        <a class="link-primary" href="mailto:carson.darrin@company.io">operator@gmail.com</a>
+                                        <a class="link-primary" href="mailto:carson.darrin@company.io">operator                                                                                                                         @gmail.com</a>
                                     </div>
 
                                 </div>

@@ -23,19 +23,40 @@
 
               @csrf
 
-
               <div class="form-group">
-                <label class="form-label" for="exampleInputEmail1">Kategori</label>
-                <input type="text" class="form-control @error('kategori') is-invalid @enderror" name="kategori" value="{{$data->kategori}}">
-                @error('kategori')
+                <label class="form-label" for="kota">Nama Kota</label>
+                <select class="form-control @error('kota_id') is-invalid @enderror" name="kota_id">
+                  @foreach($kotas as $kota)
+                  <option value="{{ $kota->id }}" {{ $kota->id == $data->kota_id ? 'selected' : '' }}>
+                    {{ $kota->nama_kota }}
+                  </option>
+                  @endforeach
+                </select>
+                @error('kota_id')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Sub-Kategori</label>
-                <input type="text" class="form-control @error('sub_kategori') is-invalid @enderror" name="sub_kategori" value="{{$data->sub_kategori}}">
-                @error('sub_kategori')
+                <label class="form-label" for="kategori">Kategori</label>
+                <select class="form-control @error('kategori_id') is-invalid @enderror" name="kategori_id" id="kategori_id">
+                  @foreach($kategoris as $kategori)
+                  <option value="{{ $kategori->id }}" {{ $kategori->id == $data->kategori_id ? 'selected' : '' }}>
+                    {{ $kategori->nama_kategori }}
+                  </option>
+                  @endforeach
+                </select>
+                @error('kategori_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="sub_kategori">Sub-Kategori</label>
+                <select class="form-control @error('sub_kategori_id') is-invalid @enderror" name="sub_kategori_id" id="sub_kategori_id">
+                  <!-- Sub-kategori akan dimuat secara dinamis -->
+                </select>
+                @error('sub_kategori_id')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
               </div>
@@ -65,109 +86,12 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Banjarmasin</label>
-                <input type="number" class="form-control @error('banjarmasin') is-invalid @enderror" name="banjarmasin" value="{{$data->banjarmasin}}">
-                @error('banjarmasin')
+                <label class="form-label" for="harga">Harga</label>
+                <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{$data->harga}}">
+                @error('harga')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
               </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Banjarbaru</label>
-                <input type="number" class="form-control @error('banjarbaru') is-invalid @enderror" name="banjarbaru" value="{{$data->banjarbaru}}">
-                @error('banjarbaru')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Kab. Banjar</label>
-                <input type="number" class="form-control @error('banjar') is-invalid @enderror" name="banjar" value="{{$data->banjar}}">
-                @error('banjar')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Batola</label>
-                <input type="number" class="form-control @error('batola') is-invalid @enderror" name="batola" value="{{$data->batola}}">
-                @error('batola')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Tapin</label>
-                <input type="number" class="form-control @error('tapin') is-invalid @enderror" name="tapin" value="{{$data->tapin}}">
-                @error('tapin')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga HSS</label>
-                <input type="number" class="form-control @error('hss') is-invalid @enderror" name="hss" value="{{$data->hss}}">
-                @error('hss')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga HST</label>
-                <input type="number" class="form-control @error('hst') is-invalid @enderror" name="hst" value="{{$data->hst}}">
-                @error('hst')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga HSU</label>
-                <input type="number" class="form-control @error('hsu') is-invalid @enderror" name="hsu" value="{{$data->hsu}}">
-                @error('hsu')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Balangan</label>
-                <input type="number" class="form-control @error('balangan') is-invalid @enderror" name="balangan" value="{{$data->balangan}}">
-                @error('balangan')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Tabalong</label>
-                <input type="number" class="form-control @error('tabalong') is-invalid @enderror" name="tabalong" value="{{$data->tabalong}}">
-                @error('tabalong')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Tanah Laut</label>
-                <input type="number" class="form-control @error('tanah_laut') is-invalid @enderror" name="tanah_laut" value="{{$data->tanah_laut}}">
-                @error('tanah_laut')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Tanah Bumbu</label>
-                <input type="number" class="form-control @error('tanah_bumbu') is-invalid @enderror" name="tanah_bumbu" value="{{$data->tanah_bumbu}}">
-                @error('tanah_bumbu')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="exampleInputPassword1">Harga Kotabaru</label>
-                <input type="number" class="form-control @error('kotabaru') is-invalid @enderror" name="kotabaru" value="{{$data->kotabaru}}">
-                @error('kotabaru')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-
 
               <button type="submit" class="btn btn-primary mb-4">Update Data</button>
 
@@ -178,4 +102,40 @@
 
           <!-- [ form-element ] end -->
         </div>
+        @endsection
+
+
+        @section('scripts')
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          $(document).ready(function() {
+            function loadSubKategori(kategoriId, selectedSubKategoriId = null) {
+              $.ajax({
+                url: '{{ url("get_subkategori") }}/' + kategoriId,
+                type: 'GET',
+                success: function(data) {
+                  $('#sub_kategori_id').empty();
+                  $.each(data, function(key, value) {
+                    $('#sub_kategori_id').append('<option value="' + value.id + '">' + value.nama_subkategori + '</option>');
+                  });
+
+                  if (selectedSubKategoriId) {
+                    $('#sub_kategori_id').val(selectedSubKategoriId);
+                  }
+                }
+              });
+            }
+
+            var selectedKategoriId = $('#kategori_id').val();
+            var selectedSubKategoriId = '{{ $data->sub_kategori_id }}';
+            if (selectedKategoriId) {
+              loadSubKategori(selectedKategoriId, selectedSubKategoriId);
+            }
+
+            $('#kategori_id').change(function() {
+              var kategoriId = $(this).val();
+              loadSubKategori(kategoriId);
+            });
+          });
+        </script>
         @endsection

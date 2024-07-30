@@ -19,28 +19,7 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                {{-- Filter --}}
-                <div class="mb-3 d-flex justify-content-start grid gap-3">
-                    <div class="dropdown">
-                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKategoriBtn">
-                            Filter Kategori
-                        </a>
-                        <ul class="dropdown-menu" id="kategoriDropdown">
-                            <li><a class="dropdown-item" href="#" onclick="filterKategori('')">Semua Kategori</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterSubKategoriBtn">
-                            Filter Sub-Kategori
-                        </a>
-                        <ul class="dropdown-menu" id="subKategoriDropdown">
-                            <li><a class="dropdown-item" href="#" onclick="filterSubKategori('')">Semua Sub-Kategori</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn btn-info" onclick="resetFilters()">
-                        Reset Filters
-                    </div>
-                </div>
+            
 
                 <div class="table-responsive dt-responsive">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Kirim Revisi</button>
@@ -49,24 +28,13 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Pengirim</th>
+                                <th>Nama Kota</th>
                                 <th>Kategori</th>
                                 <th>Sub-Kategori</th>
                                 <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Merk</th>
-                                <th>Banjarmasin</th>
-                                <th>Banjarbaru</th>
-                                <th>Banjar</th>
-                                <th>Batola</th>
-                                <th>Tapin</th>
-                                <th>HSS</th>
-                                <th>HST</th>
-                                <th>HSU</th>
-                                <th>Balangan</th>
-                                <th>Tabalong</th>
-                                <th>Tanah Laut</th>
-                                <th>Tanah Bumbu</th>
-                                <th>Kotabaru</th>
+                                <th>Harga</th>
                                 <th>Status</th>
                                 <th>Keterangan Salah</th>
                                 <th>Update & Delete</th>
@@ -74,37 +42,26 @@
                         </thead>
                         <tbody>
                             @php $nomor = 1; @endphp
-                            @foreach ($superadmin as $spadmin)
-                            @if ($spadmin->status == 'ditolak')
+                            @foreach ($tabelproduk as $tabelproduk)
+                            @if ($tabelproduk->status == 'ditolak')
                             <tr>
                                 <td>{{ $nomor++ }}</td>
-                                <td>{{ $spadmin->form->nama }}</td>
-                                <td>{{ $spadmin->kategori }}</td>
-                                <td>{{ $spadmin->sub_kategori }}</td>
-                                <td>{{ $spadmin->nama_barang }}</td>
-                                <td>{{ $spadmin->satuan }}</td>
-                                <td>{{ $spadmin->merk }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarmasin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjarbaru, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->banjar, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->batola, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tapin, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hss, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hst, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->hsu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->balangan, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tabalong, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_laut, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->tanah_bumbu, 0, ',', '.') }}</td>
-                                <td>Rp. {{ number_format($spadmin->kotabaru, 0, ',', '.') }}</td>
-                                <td>{{ $spadmin->status }}</td>
-                                <td>{{ $spadmin->form->keterangan }}</td>
+                                <td>{{ $tabelproduk->form->nama }}</td>
+                                <td>{{ $tabelproduk->kota->nama_kota }}</td>
+                                <td>{{ $tabelproduk->kategori->nama_kategori }}</td>
+                                <td>{{ $tabelproduk->subKategori->nama_subkategori }}</td>
+                                <td>{{ $tabelproduk->nama_barang }}</td>
+                                <td>{{ $tabelproduk->satuan }}</td>
+                                <td>{{ $tabelproduk->merk }}</td>
+                                <td>Rp. {{ number_format($tabelproduk->harga, 0, ',', '.') }}</td>
+                                <td>{{ $tabelproduk->status }}</td>
+                                <td>{{ $tabelproduk->form->keterangan }}</td>
                                 <td>
                                     <div class="d-flex flex-wrap gap-2">
                                         <button type="button" class="btn btn-light-primary">
-                                            <a href="{{ url('revisi_read/'. $spadmin->id) }}">Update</a>
+                                            <a href="{{ url('revisi_read/'. $tabelproduk->id) }}">Update</a>
                                         </button>
-                                        <button type="button" class="btn btn-light-danger delete-button" data-id="{{ $spadmin->id }}">Delete</button>
+                                        <button type="button" class="btn btn-light-danger delete-button" data-id="{{ $tabelproduk->id }}">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -127,7 +84,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/revisi_update_status/{{ $spadmin->form_id }}" method="POST">
+                <form action="/revisi_update_status/{{ $tabelproduk->form_id }}" method="POST">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="status" value="ditunda">

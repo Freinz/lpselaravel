@@ -26,6 +26,16 @@
             <div class="card-body">
                 {{-- Filter --}}
                 <div class="mb-3 d-flex justify-content-start grid gap-3">
+
+                <div class="dropdown">
+                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKotaBtn">
+                            Filter Kota
+                        </a>
+                        <ul class="dropdown-menu" id="kotaDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="filterKota('')">Semua Kota</a></li>
+                        </ul>
+                    </div>
+
                     <div class="dropdown">
                         <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKategoriBtn">
                             Filter Kategori
@@ -69,9 +79,9 @@
                             @if ($tabelproduk -> status == 'diterima')
                             <tr>
                                 <td>{{ $nomor++ }}</td>
-                                <td>{{$tabelproduk->nama_kota}}</td>
-                                <td>{{$tabelproduk->kategori}}</td>
-                                <td>{{$tabelproduk->sub_kategori}}</td>
+                                <td>{{$tabelproduk->kota->nama_kota}}</td>
+                                <td>{{$tabelproduk->kategori->nama_kategori}}</td>
+                                <td>{{$tabelproduk->subKategori->nama_subkategori}}</td>
                                 <td>{{$tabelproduk->nama_barang}}</td>
                                 <td>{{$tabelproduk->satuan}}</td>
                                 <td>{{$tabelproduk->merk}}</td>
@@ -153,7 +163,7 @@
         var categories = [];
         table.rows().every(function(rowIdx, tableLoop, rowLoop) {
             var data = this.data();
-            var category = data[1]; // Kategori
+            var category = data[2]; // Kategori
             if (categories.indexOf(category) === -1) {
                 categories.push(category);
             }
@@ -163,16 +173,34 @@
             $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
         });
 
-       
-        // Handle Kategori filter
+        // Populate Kota dropdown
+        var cities = [];
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            var city = data[1]; // Nama Kota
+            if (cities.indexOf(city) === -1) {
+                cities.push(city);
+            }
+        });
+
+        cities.forEach(function(city) {
+            $('#kotaDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKota(\'' + city + '\')">' + city + '</a></li>');
+        });
+
+        // Handle Kota filter
+        window.filterKota = function(city) {
+            table.column(1).search(city).draw();
+            $('#filterKotaBtn').text(city ? 'Kota: ' + city : 'Filter Kota');
+        };
+
         window.filterKategori = function(kategori) {
             $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
             var subCategories = [];
 
             table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                 var data = this.data();
-                var category = data[1]; // Kategori
-                var subCategory = data[2]; // Sub-Kategori
+                var category = data[2];
+                var subCategory = data[3];
 
                 if (category === kategori && subCategories.indexOf(subCategory) === -1) {
                     subCategories.push(subCategory);
@@ -183,20 +211,22 @@
                 $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
             });
 
-            table.column(1).search(kategori).draw();
+            table.column(2).search(kategori).draw();
             $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
         };
 
-        // Handle Sub-Kategori filter
         window.filterSubKategori = function(subKategori) {
-            table.column(2).search(subKategori).draw();
+            table.column(3).search(subKategori).draw();
             $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
         };
 
+        window.filterKota = function(kota) {
+            table.column(1).search(kota).draw();
+            $('#filterKotaBtn').text(kota ? 'Kota: ' + kota : 'Filter Kota');
+        };
 
-
-        // Reset all filters
         window.resetFilters = function() {
+            $('#filterKotaBtn').text('Filter Kota');
             $('#filterKategoriBtn').text('Filter Kategori');
             $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
 

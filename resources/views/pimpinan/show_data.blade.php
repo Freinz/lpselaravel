@@ -81,7 +81,7 @@
                                 <td>{{$tabelproduk->satuan}}</td>
                                 <td>{{$tabelproduk->merk}}</td>
                                 <td>Rp. {{ $tabelproduk->harga }}</td>
-  
+
                                 <td>
                                     <div class="d-flex flex-wrap gap-2">
                                         <button type="button" class="btn btn-light-primary">
@@ -170,8 +170,8 @@
             $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
         });
 
-         // Populate Kota dropdown
-         var cities = [];
+        // Populate Kota dropdown
+        var cities = [];
         table.rows().every(function(rowIdx, tableLoop, rowLoop) {
             var data = this.data();
             var city = data[1]; // Nama Kota

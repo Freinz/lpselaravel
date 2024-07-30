@@ -129,7 +129,7 @@ class SuperAdminController extends Controller
 
         $form = Form::all();
 
-        return view('operator.revisi_data', compact('tabel$tabelproduk', 'form', 'detail_user'));
+        return view('operator.revisi_data', compact('tabelproduk', 'form', 'detail_user'));
     }
 
     public function detail_revisi($id)
@@ -138,7 +138,7 @@ class SuperAdminController extends Controller
         // Ambil data Superadmin berdasarkan form_id
         $form = Form::findOrFail($id); // Mengambil data formulir berdasarkan ID
 
-        $tabelproduk = $form->tabel_produk;
+        $tabelproduk = $form->tabelproduk;
 
         $detail_user = auth()->user()->detailuser;
 
@@ -212,10 +212,13 @@ class SuperAdminController extends Controller
         $detail_user = auth()->user()->detailuser;
 
         $data = TabelProduk::find($id);
+        $kotas = Kota::all();
+        $kategoris = Kategori::all();
+        $subKategoris = SubKategori::all();
 
         $form = Form::all();
 
-        return view('operator.revisi_read', compact('data', 'form', 'detail_user'));
+        return view('operator.revisi_read', compact('data', 'kotas', 'kategoris', 'subKategoris', 'form', 'detail_user'));
     }
 
 
@@ -224,44 +227,22 @@ class SuperAdminController extends Controller
         $data = TabelProduk::find($id);
 
         $request->validate([
-            'kategori' => 'required',
-            'sub_kategori' => 'required',
+            'kota_id' => 'required|exists:kotas,id',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'sub_kategori_id' => 'required|exists:sub_kategoris,id',
             'nama_barang' => 'required',
             'satuan' => 'required',
             'merk' => 'nullable',
-            'banjarmasin' => 'required',
-            'banjarbaru' => 'required',
-            'banjar' => 'required',
-            'batola' => 'required',
-            'tapin' => 'required',
-            'hss' => 'required',
-            'hst' => 'required',
-            'hsu' => 'required',
-            'balangan' => 'required',
-            'tabalong' => 'required',
-            'tanah_laut' => 'required',
-            'tanah_bumbu' => 'required',
-            'kotabaru' => 'required',
+            'harga' => 'required',
         ]);
 
-        $data->kategori = $request->kategori;
-        $data->sub_kategori = $request->sub_kategori;
+        $data->kota_id = $request->kota_id;
+        $data->kategori_id = $request->kategori_id;
+        $data->sub_kategori_id = $request->sub_kategori_id;
         $data->nama_barang = $request->nama_barang;
         $data->satuan = $request->satuan;
         $data->merk = $request->merk;
-        $data->banjarmasin = $request->banjarmasin;
-        $data->banjarbaru = $request->banjarbaru;
-        $data->banjar = $request->banjar;
-        $data->batola = $request->batola;
-        $data->tapin = $request->tapin;
-        $data->hss = $request->hss;
-        $data->hst = $request->hst;
-        $data->hsu = $request->hsu;
-        $data->balangan = $request->balangan;
-        $data->tabalong = $request->tabalong;
-        $data->tanah_laut = $request->tanah_laut;
-        $data->tanah_bumbu = $request->tanah_bumbu;
-        $data->kotabaru = $request->kotabaru;
+        $data->harga = $request->harga;
 
         $data->save();
 
