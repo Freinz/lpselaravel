@@ -27,7 +27,7 @@
                 {{-- Filter --}}
                 <div class="mb-3 d-flex justify-content-start grid gap-3">
 
-                <div class="dropdown">
+                    <div class="dropdown">
                         <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterKotaBtn">
                             Filter Kota
                         </a>

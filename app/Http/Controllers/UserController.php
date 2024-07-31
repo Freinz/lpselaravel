@@ -235,7 +235,7 @@ class UserController extends Controller
 
         $users->delete();
 
-        Alert::success('Sukses', 'Role Berhasil Dihapus');
+        Alert::success('Sukses', 'User Berhasil Dihapus');
 
         return redirect()->back();
     }

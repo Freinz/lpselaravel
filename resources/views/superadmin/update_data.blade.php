@@ -95,11 +95,6 @@
                             <button type="submit" class="btn btn-primary mb-4">Update Data</button>
                         </form>
 
-                        <form action="{{ url('data_delete', $data->id) }}" method="POST" class="mt-2">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger mb-4">Delete Data</button>
-                        </form>
                     </div>
                 </div>
             </div>

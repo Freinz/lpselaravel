@@ -10,6 +10,7 @@ use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\SuperAdminController;
+use App\Models\Kategori;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,11 +91,23 @@ Route::middleware(['auth'])->group(function () {
 
     // Rute baru untuk menginput kategori, subkategori, dan namakota
     Route::get('/input_kategori', [InputController::class, 'inputKategori'])->middleware(['auth']);
+    Route::get('/kategori_delete/{id}', [InputController::class, 'kategori_delete'])->middleware(['auth']);
+    Route::get('/kategori_read/{id}', [InputController::class, 'kategori_read'])->middleware(['auth']);
+    Route::post('/kategori_update/{id}', [InputController::class, 'kategori_update'])->middleware(['auth']);
+    
+    
     Route::get('/input_subkategori', [InputController::class, 'inputSubkategori'])->middleware(['auth']);
-    Route::get('/input_namakota', [InputController::class, 'inputNamakota'])->middleware(['auth']);
-
     Route::get('/sub-kategoris/{kategori_id}', [InputController::class, 'getSubKategoris']);
-
+    Route::get('/subKategori_delete/{id}', [InputController::class, 'subKategori_delete'])->middleware(['auth']);
+    Route::get('/subKategori_read/{id}', [InputController::class, 'subKategori_read'])->middleware(['auth']);
+    Route::post('/subkategori_update/{id}', [InputController::class, 'subkategori_update'])->middleware(['auth']);
+    
+  
+    Route::get('/input_namakota', [InputController::class, 'inputNamakota'])->middleware(['auth']);
+    Route::get('/kota_delete/{id}', [InputController::class, 'kota_delete'])->middleware(['auth']);
+    Route::get('/kota_read/{id}', [InputController::class, 'kota_read'])->middleware(['auth']);
+    Route::post('/kota_update/{id}', [InputController::class, 'kota_update'])->middleware(['auth']);
+    
 
     Route::post('/store_kategori', [InputController::class, 'storeKategori'])->middleware(['auth']);
     Route::post('/store_subkategori', [InputController::class, 'storeSubkategori'])->middleware(['auth']);

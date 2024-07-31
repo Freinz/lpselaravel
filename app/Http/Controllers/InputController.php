@@ -13,14 +13,55 @@ class InputController extends Controller
     // Menampilkan form input kategori
     public function inputKategori()
     {
-        return view('pimpinan.input.input_kategori');
+        $kategori = Kategori::all();
+        return view('pimpinan.input.input_kategori', compact('kategori'));
     }
+
+    public function kategori_read($id)
+    {
+        $kategori = Kategori::find($id);
+
+        return view('pimpinan.input.update_kategori', compact('kategori'));
+    }
+
+    public function kategori_update(Request $request, $id)
+    {
+        $kategori = Kategori::find($id);
+
+        $request->validate([
+            'kategori' => 'required|min:2|max:255',
+        ]);
+
+        $kategori->nama_kategori = $request->kategori;
+
+        $kategori->save();
+
+        Alert::success('Sukses', 'Kategori Berhasil Diperbarui');
+
+        return redirect('/input_kategori');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function kategori_delete($id)
+    {
+        $kategori = Kategori::find($id); // Kategori dari nama models
+
+        $kategori->delete();
+
+        Alert::success('Sukses', 'Kategori Berhasil Dihapus');
+
+        return redirect()->back();
+    }
+
 
     // Menampilkan form input subkategori
     public function inputSubkategori()
     {
+        $subKategori = Subkategori::all();
         $kategoris = Kategori::all();
-        return view('pimpinan.input.input_subkategori', compact('kategoris'));
+        return view('pimpinan.input.input_subkategori', compact('kategoris', 'subKategori'));
     }
 
     public function getSubKategoris($kategori_id)
@@ -32,8 +73,64 @@ class InputController extends Controller
     // Menampilkan form input nama kota
     public function inputNamakota()
     {
-        return view('pimpinan.input.input_namakota');
+        $kota = Kota::all();
+
+        return view('pimpinan.input.input_namakota', compact('kota'));
     }
+
+    public function kota_read($id)
+    {
+        $kota = Kota::find($id);
+
+        return view('pimpinan.input.update_kota', compact('kota'));
+    }
+
+
+    public function storeKota(Request $request)
+    {
+        $request->validate([
+            'nama_kota' => 'required|string|max:255',
+        ]);
+
+        Kota::create([
+            'nama_kota' => $request->nama_kota,
+        ]);
+
+        Alert::success('Sukses', 'Nama Kota berhasil ditambahkan');
+        return redirect()->back();
+    }
+
+    public function kota_update(Request $request, $id)
+    {
+        $kota = Kota::find($id);
+
+        $request->validate([
+            'kota' => 'required|min:2|max:255',
+        ]);
+
+        $kota->nama_kota = $request->kota;
+
+        $kota->save();
+
+        Alert::success('Sukses', 'Kota Berhasil Diperbarui');
+
+        return redirect('/input_namakota');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function kota_delete($id)
+    {
+        $kota = Kota::find($id); // kota dari nama models
+
+        $kota->delete();
+
+        Alert::success('Sukses', 'Kota Berhasil Dihapus');
+
+        return redirect()->back();
+    }
+
 
     // Menyimpan data kategori
     public function storeKategori(Request $request)
@@ -65,18 +162,54 @@ class InputController extends Controller
         Alert::success('Sukses', 'Sub Kategori berhasil ditambahkan');
         return redirect()->back();
     }
-
-    public function storeKota(Request $request)
+    public function subKategori_read($id)
     {
+        $subKategori = Subkategori::find($id);
+
+        if (!$subKategori) {
+            return redirect()->back()->with('error', 'Subkategori tidak ditemukan.');
+        }
+
+        $kategoris = Kategori::all(); // Ambil semua kategori untuk dropdown
+
+        return view('pimpinan.input.update_subkategori', compact('subKategori', 'kategoris'));
+    }
+
+
+    public function subkategori_update(Request $request, $id)
+    {
+        $subKategori = Subkategori::find($id);
+
+        if (!$subKategori) {
+            return redirect()->back()->with('error', 'Subkategori tidak ditemukan.');
+        }
+
         $request->validate([
-            'nama_kota' => 'required|string|max:255',
+            'subKategori' => 'required|min:2|max:255',
+            'kategori_id' => 'required|exists:kategoris,id', // Validasi kategori_id
         ]);
 
-        Kota::create([
-            'nama_kota' => $request->nama_kota,
-        ]);
+        $subKategori->nama_subkategori = $request->subKategori;
+        $subKategori->kategori_id = $request->kategori_id; // Update kategori_id
+        $subKategori->save();
 
-        Alert::success('Sukses', 'Nama Kota berhasil ditambahkan');
+        Alert::success('Sukses', 'Sub Kategori Berhasil Diperbarui');
+
+        return redirect('/input_subkategori');
+    }
+
+    public function subKategori_delete($id)
+    {
+        $subKategori = Subkategori::find($id);
+
+        if (!$subKategori) {
+            return redirect()->back()->with('error', 'Subkategori tidak ditemukan.');
+        }
+
+        $subKategori->delete();
+
+        Alert::success('Sukses', 'Sub Kategori Berhasil Dihapus');
+
         return redirect()->back();
     }
 }
