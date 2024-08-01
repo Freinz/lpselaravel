@@ -145,6 +145,15 @@
                                         <li><a class="dropdown-item" href="#" onclick="filterSubKategori('')">Semua Sub-Kategori</a></li>
                                     </ul>
                                 </div>
+                                <div class="dropdown">
+                                    <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterTahunBtn">
+                                        Filter Tahun Survei
+                                    </a>
+                                    <ul class="dropdown-menu" id="tahunDropdown">
+                                        <li><a class="dropdown-item" href="#" onclick="filterTahun('')">Semua Tahun</a></li>
+                                    </ul>
+                                </div>
+
                                 <div class="btn btn-info" onclick="resetFilters()">
                                     Reset Filters
                                 </div>
@@ -160,6 +169,8 @@
                                             <th>Nama Barang</th>
                                             <th>Satuan</th>
                                             <th>Merk</th>
+                                            <th>Tahun Survei</th>
+                                            <th>Periode</th>
                                             <th>Harga</th>
                                         </tr>
                                     </thead>
@@ -175,6 +186,8 @@
                                             <td>{{ $tbproduk->nama_barang }}</td>
                                             <td>{{ $tbproduk->satuan }}</td>
                                             <td>{{ $tbproduk->merk }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($tbproduk->form->tgl_survey)->format('Y') }}</td>
+                                            <td>{{ $tbproduk->form->periode }}</td>
                                             <td>Rp. {{ number_format($tbproduk->harga, 0, ',', '.') }}</td>
                                         </tr>
                                         @endif
@@ -229,8 +242,6 @@
                 }
             });
 
-
-
             // Populate Kategori dropdown
             var categories = [];
             table.rows().every(function(rowIdx, tableLoop, rowLoop) {
@@ -244,6 +255,26 @@
             categories.forEach(function(category) {
                 $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
             });
+
+            // Populate Tahun dropdown
+            var years = [];
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                var year = data[7]; // Tahun Survei
+                if (years.indexOf(year) === -1) {
+                    years.push(year);
+                }
+            });
+
+            years.forEach(function(year) {
+                $('#tahunDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterTahun(\'' + year + '\')">' + year + '</a></li>');
+            });
+
+            // Handle Tahun Survei filter
+            window.filterTahun = function(year) {
+                table.column(7).search(year).draw();
+                $('#filterTahunBtn').text(year ? 'Tahun: ' + year : 'Filter Tahun Survei');
+            };
 
             // Handle Kategori filter
             window.filterKategori = function(kategori) {
@@ -264,13 +295,13 @@
                     $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
                 });
 
-                table.column(1).search(kategori).draw();
+                table.column(2).search(kategori).draw();
                 $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
             };
 
             // Handle Sub-Kategori filter
             window.filterSubKategori = function(subKategori) {
-                table.column(2).search(subKategori).draw();
+                table.column(3).search(subKategori).draw();
                 $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
             };
 
@@ -330,6 +361,7 @@
                 $('#filterKotaBtn').text('Filter Kota');
                 $('#filterKategoriBtn').text('Filter Kategori');
                 $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
+                $('#filterTahunBtn').text('Filter Tahun Survei');
 
                 table.columns().search('').draw();
             };

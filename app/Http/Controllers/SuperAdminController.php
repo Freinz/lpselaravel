@@ -34,6 +34,7 @@ class SuperAdminController extends Controller
 
         $tabelproduk = $query->get();
 
+        $form = Form::all();
         $kategori = Kategori::all();
         $sub_kategori = SubKategori::all();
 
@@ -48,6 +49,7 @@ class SuperAdminController extends Controller
 
         return view('dashboard', compact(
             'tabelproduk',
+            'form',
             'kategori',
             'sub_kategori',
             'jumlah_user',
