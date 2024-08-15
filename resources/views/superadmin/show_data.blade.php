@@ -46,6 +46,14 @@
                             <li><a class="dropdown-item" href="#" onclick="filterSubKategori('')">Semua Sub-Kategori</a></li>
                         </ul>
                     </div>
+                    <div class="dropdown">
+                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterTahunBtn">
+                            Filter Tahun Survei
+                        </a>
+                        <ul class="dropdown-menu" id="tahunDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="filterTahun('')">Semua Tahun</a></li>
+                        </ul>
+                    </div>
                     <div class="btn btn-info" onclick="resetFilters()">
                         Reset Filters
                     </div>
@@ -64,6 +72,8 @@
                                 <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Merk</th>
+                                <th>Tahun Survei</th>
+                                <th>Periode</th>
                                 <th>Harga</th>
                                 <th>Edit & Hapus</th>
                             </tr>
@@ -80,6 +90,8 @@
                                 <td>{{$tbproduk->nama_barang}}</td>
                                 <td>{{$tbproduk->satuan}}</td>
                                 <td>{{$tbproduk->merk}}</td>
+                                <td>{{ \Carbon\Carbon::parse($tbproduk->form->tgl_survey)->format('Y') }}</td>
+                                <td>{{ $tbproduk->form->periode }}</td>
                                 <td>Rp. {{ number_format($tbproduk->harga, 0, ',', '.') }}</td>
                                 <td>
                                     <div class="d-flex flex-wrap gap-2">
@@ -159,8 +171,8 @@
         });
 
 
-         // Populate Kategori dropdown
-         var categories = [];
+        // Populate Kategori dropdown
+        var categories = [];
         table.rows().every(function(rowIdx, tableLoop, rowLoop) {
             var data = this.data();
             var category = data[2]; // Kategori
@@ -172,6 +184,55 @@
         categories.forEach(function(category) {
             $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
         });
+
+        // Populate Tahun dropdown
+        var years = [];
+        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+            var data = this.data();
+            var year = data[7]; // Tahun Survei
+            if (years.indexOf(year) === -1) {
+                years.push(year);
+            }
+        });
+
+        years.forEach(function(year) {
+            $('#tahunDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterTahun(\'' + year + '\')">' + year + '</a></li>');
+        });
+
+        // Handle Tahun Survei filter
+        window.filterTahun = function(year) {
+            table.column(7).search(year).draw();
+            $('#filterTahunBtn').text(year ? 'Tahun: ' + year : 'Filter Tahun Survei');
+        };
+
+        // Handle Kategori filter
+        window.filterKategori = function(kategori) {
+            $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
+            var subCategories = [];
+
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                var category = data[2]; // Kategori
+                var subCategory = data[3]; // Sub-Kategori
+
+                if (category === kategori && subCategories.indexOf(subCategory) === -1) {
+                    subCategories.push(subCategory);
+                }
+            });
+
+            subCategories.forEach(function(subCategory) {
+                $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
+            });
+
+            table.column(2).search(kategori).draw();
+            $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
+        };
+
+        // Handle Sub-Kategori filter
+        window.filterSubKategori = function(subKategori) {
+            table.column(3).search(subKategori).draw();
+            $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
+        };
 
         // Populate Kota dropdown
         var cities = [];
@@ -229,6 +290,7 @@
             $('#filterKotaBtn').text('Filter Kota');
             $('#filterKategoriBtn').text('Filter Kategori');
             $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
+            $('#filterTahunBtn').text('Filter Tahun Survei');
 
             table.columns().search('').draw();
         };

@@ -46,6 +46,14 @@
                             <li><a class="dropdown-item" href="#" onclick="filterSubKategori('')">Semua Sub-Kategori</a></li>
                         </ul>
                     </div>
+                    <div class="dropdown">
+                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterTahunBtn">
+                            Filter Tahun Survei
+                        </a>
+                        <ul class="dropdown-menu" id="tahunDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="filterTahun('')">Semua Tahun</a></li>
+                        </ul>
+                    </div>
                     <div class="btn btn-info" onclick="resetFilters()">
                         Reset Filters
                     </div>
@@ -64,8 +72,9 @@
                                 <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Merk</th>
+                                <th>Tahun Survey</th>
+                                <th>Periode</th>
                                 <th>Harga</th>
-                                <th>Edit & Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,16 +89,9 @@
                                 <td>{{$tabelproduk->nama_barang}}</td>
                                 <td>{{$tabelproduk->satuan}}</td>
                                 <td>{{$tabelproduk->merk}}</td>
+                                <td>{{ \Carbon\Carbon::parse($tabelproduk->form->tgl_survey)->format('Y') }}</td>
+                                <td>{{ $tabelproduk->form->periode }}</td>
                                 <td>Rp. {{ $tabelproduk->harga }}</td>
-
-                                <td>
-                                    <div class="d-flex flex-wrap gap-2">
-                                        <button type="button" class="btn btn-light-primary">
-                                            <a href="{{ url('data_read', $tabelproduk->id) }}">Edit</a>
-                                        </button>
-                                        <button type="button" class="btn btn-light-danger delete-button" data-id="{{ $tabelproduk->id }}">Hapus</button>
-                                    </div>
-                                </td>
                             </tr>
                             @endif
                             @endforeach
@@ -158,77 +160,127 @@
         });
 
         var categories = [];
-        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
-            var data = this.data();
-            var category = data[2]; // Kategori
-            if (categories.indexOf(category) === -1) {
-                categories.push(category);
-            }
-        });
-
-        categories.forEach(function(category) {
-            $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
-        });
-
-        // Populate Kota dropdown
-        var cities = [];
-        table.rows().every(function(rowIdx, tableLoop, rowLoop) {
-            var data = this.data();
-            var city = data[1]; // Nama Kota
-            if (cities.indexOf(city) === -1) {
-                cities.push(city);
-            }
-        });
-
-        cities.forEach(function(city) {
-            $('#kotaDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKota(\'' + city + '\')">' + city + '</a></li>');
-        });
-
-        // Handle Kota filter
-        window.filterKota = function(city) {
-            table.column(1).search(city).draw();
-            $('#filterKotaBtn').text(city ? 'Kota: ' + city : 'Filter Kota');
-        };
-
-        window.filterKategori = function(kategori) {
-            $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
-            var subCategories = [];
-
             table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                 var data = this.data();
-                var category = data[2];
-                var subCategory = data[3];
-
-                if (category === kategori && subCategories.indexOf(subCategory) === -1) {
-                    subCategories.push(subCategory);
+                var category = data[2]; // Kategori
+                if (categories.indexOf(category) === -1) {
+                    categories.push(category);
                 }
             });
 
-            subCategories.forEach(function(subCategory) {
-                $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
+            categories.forEach(function(category) {
+                $('#kategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKategori(\'' + category + '\')">' + category + '</a></li>');
             });
 
-            table.column(2).search(kategori).draw();
-            $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
-        };
+            // Populate Tahun dropdown
+            var years = [];
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                var year = data[7]; // Tahun Survei
+                if (years.indexOf(year) === -1) {
+                    years.push(year);
+                }
+            });
 
-        window.filterSubKategori = function(subKategori) {
-            table.column(3).search(subKategori).draw();
-            $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
-        };
+            years.forEach(function(year) {
+                $('#tahunDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterTahun(\'' + year + '\')">' + year + '</a></li>');
+            });
 
-        window.filterKota = function(kota) {
-            table.column(1).search(kota).draw();
-            $('#filterKotaBtn').text(kota ? 'Kota: ' + kota : 'Filter Kota');
-        };
+            // Handle Tahun Survei filter
+            window.filterTahun = function(year) {
+                table.column(7).search(year).draw();
+                $('#filterTahunBtn').text(year ? 'Tahun: ' + year : 'Filter Tahun Survei');
+            };
 
-        window.resetFilters = function() {
-            $('#filterKotaBtn').text('Filter Kota');
-            $('#filterKategoriBtn').text('Filter Kategori');
-            $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
+            // Handle Kategori filter
+            window.filterKategori = function(kategori) {
+                $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
+                var subCategories = [];
 
-            table.columns().search('').draw();
-        };
-    });
+                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                    var data = this.data();
+                    var category = data[2]; // Kategori
+                    var subCategory = data[3]; // Sub-Kategori
+
+                    if (category === kategori && subCategories.indexOf(subCategory) === -1) {
+                        subCategories.push(subCategory);
+                    }
+                });
+
+                subCategories.forEach(function(subCategory) {
+                    $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
+                });
+
+                table.column(2).search(kategori).draw();
+                $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
+            };
+
+            // Handle Sub-Kategori filter
+            window.filterSubKategori = function(subKategori) {
+                table.column(3).search(subKategori).draw();
+                $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
+            };
+
+            // Populate Kota dropdown
+            var cities = [];
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                var data = this.data();
+                var city = data[1]; // Nama Kota
+                if (cities.indexOf(city) === -1) {
+                    cities.push(city);
+                }
+            });
+
+            cities.forEach(function(city) {
+                $('#kotaDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterKota(\'' + city + '\')">' + city + '</a></li>');
+            });
+
+            // Handle Kota filter
+            window.filterKota = function(city) {
+                table.column(1).search(city).draw();
+                $('#filterKotaBtn').text(city ? 'Kota: ' + city : 'Filter Kota');
+            };
+
+            window.filterKategori = function(kategori) {
+                $('#subKategoriDropdown').empty().append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'\')">Semua Sub-Kategori</a></li>');
+                var subCategories = [];
+
+                table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                    var data = this.data();
+                    var category = data[2];
+                    var subCategory = data[3];
+
+                    if (category === kategori && subCategories.indexOf(subCategory) === -1) {
+                        subCategories.push(subCategory);
+                    }
+                });
+
+                subCategories.forEach(function(subCategory) {
+                    $('#subKategoriDropdown').append('<li><a class="dropdown-item" href="#" onclick="filterSubKategori(\'' + subCategory + '\')">' + subCategory + '</a></li>');
+                });
+
+                table.column(2).search(kategori).draw();
+                $('#filterKategoriBtn').text(kategori ? 'Kategori: ' + kategori : 'Filter Kategori');
+            };
+
+            window.filterSubKategori = function(subKategori) {
+                table.column(3).search(subKategori).draw();
+                $('#filterSubKategoriBtn').text(subKategori ? 'Sub-Kategori: ' + subKategori : 'Filter Sub-Kategori');
+            };
+
+            window.filterKota = function(kota) {
+                table.column(1).search(kota).draw();
+                $('#filterKotaBtn').text(kota ? 'Kota: ' + kota : 'Filter Kota');
+            };
+
+            window.resetFilters = function() {
+                $('#filterKotaBtn').text('Filter Kota');
+                $('#filterKategoriBtn').text('Filter Kategori');
+                $('#filterSubKategoriBtn').text('Filter Sub-Kategori');
+                $('#filterTahunBtn').text('Filter Tahun Survei');
+
+                table.columns().search('').draw();
+            };
+        });
 </script>
 @endsection

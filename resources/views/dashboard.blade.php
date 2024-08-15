@@ -158,7 +158,9 @@
                                     Reset Filters
                                 </div>
                             </div>
+
                             <div class="table-responsive dt-responsive">
+
                                 <table id="basic-btn" class="table table-striped table-bordered nowrap">
                                     <thead>
                                         <tr>
@@ -223,6 +225,7 @@
     <!-- datatable Js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ URL::asset('build/js/plugins/dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('build/js/plugins/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('build/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
     <!-- DataTables Buttons JS -->
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
@@ -231,10 +234,13 @@
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
 
+
     <script>
         $(document).ready(function() {
             var table = $('#basic-btn').DataTable({
                 dom: 'Bfrtip',
+                paging: true, // Mengaktifkan pagination
+                pageLength: 10,
                 buttons: ['excel', 'print'],
                 language: {
                     search: "_INPUT_", // Customizing the search input
@@ -366,6 +372,28 @@
                 table.columns().search('').draw();
             };
         });
+    </script>
+    <script>
+        function downloadPDF() {
+            var doc = new jsPDF('p', 'pt', 'a4');
+            var imgData = 'data:image/png;base64,...'; // Add your base64 image data for the logo
+            doc.addImage(imgData, 'PNG', 40, 40, 50, 50); // Logo di kiri atas
+            doc.addImage(imgData, 'PNG', 500, 40, 50, 50); // Logo di kanan atas
+            doc.setFontSize(18);
+            doc.text('Laporan Data Produk Pengadaan Barang dan Jasa', 150, 120, 'center');
+            html2canvas(document.getElementById('basic-btn'), {
+                onrendered: function(canvas) {
+                    var imgData = canvas.toDataURL('image/png');
+                    doc.addImage(imgData, 'PNG', 40, 150, 520, 400); // Adjust the dimensions as needed
+                    doc.setFontSize(12);
+                    doc.text('Banjarmasin, 31 Juli 2024', 40, 680);
+                    doc.text('Kasubag,', 40, 700);
+                    doc.text('Toriq', 40, 720);
+                    doc.text('2155201110028', 40, 740);
+                    doc.save('Laporan_Data_Produk.pdf');
+                }
+            });
+        }
     </script>
     <!-- [Page Specific JS] end -->
 </body>
